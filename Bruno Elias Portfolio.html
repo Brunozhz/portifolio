@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bruno Elias — Technical Freelancer</title>
+<meta name="description" content="Bruno Elias — 21, Brazilian technical freelancer building websites, CRM systems, automations, integrations and AI-driven workflows. Remote, with serious intent toward Switzerland." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<!-- Side rail -->
+<nav class="siderail" aria-label="Section progress">
+  <a href="#hero"><span class="tick"></span><span>00 / INDEX</span></a>
+  <a href="#about"><span class="tick"></span><span>02 / WHO</span></a>
+  <a href="#capabilities"><span class="tick"></span><span>03 / BUILD</span></a>
+  <a href="#work"><span class="tick"></span><span>04 / WORK</span></a>
+  <a href="#for-companies"><span class="tick"></span><span>05 / HIRE</span></a>
+  <a href="#stack"><span class="tick"></span><span>06 / STACK</span></a>
+  <a href="#bridge"><span class="tick"></span><span>07 / INTENT</span></a>
+  <a href="#contact"><span class="tick"></span><span>08 / TALK</span></a>
+</nav>
+
+<!-- Header -->
+<header class="hdr">
+  <a href="#hero" class="brand">
+    <span class="mark">B</span>
+    <span>
+      <span class="name">BRUNO ELIAS</span>
+      <span class="role">&nbsp;·&nbsp;<span data-t="hero.eyebrow">BRUNO ELIAS — TECHNICAL FREELANCER · EST. 2023 · REMOTE FROM BR</span></span>
+    </span>
+  </a>
+  <nav class="hdr-nav" aria-label="Primary">
+    <a href="#work" data-t="nav.work">Work</a>
+    <a href="#about" data-t="nav.about">About</a>
+    <a href="#stack" data-t="nav.stack">Stack</a>
+    <a href="#contact" data-t="nav.contact">Contact</a>
+  </nav>
+  <div class="hdr-right">
+    <span class="avail"><span class="dot"></span><span data-t="nav.available">Available</span></span>
+    <div class="lang">
+      <button class="lang-btn" aria-haspopup="listbox" aria-expanded="false">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>
+        <span data-lang-current>EN</span>
+        <svg class="chev" width="10" height="10" viewBox="0 0 10 10"><path d="M2 3.5 L5 6.5 L8 3.5" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+      </button>
+      <div class="lang-menu" role="listbox">
+        <div class="lang-menu-head" data-t="lang.label">Language</div>
+        <button class="lang-opt" data-lang="en"><span>English</span><span class="code">EN</span></button>
+        <button class="lang-opt" data-lang="de-CH"><span>Deutsch (Schweiz)</span><span class="code">DE-CH</span></button>
+        <button class="lang-opt" data-lang="fr"><span>Français</span><span class="code">FR</span></button>
+        <button class="lang-opt" data-lang="it"><span>Italiano</span><span class="code">IT</span></button>
+        <button class="lang-opt" data-lang="pt-BR"><span>Português (BR)</span><span class="code">PT-BR</span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Language auto-detected hint -->
+<aside class="lang-hint" role="status">
+  <p data-t="lang.hint">We loaded this page in English based on your browser. Switch anytime.</p>
+  <button data-t="lang.dismiss">Got it</button>
+</aside>
+
+<!-- Hero -->
+<section id="hero" class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-eyebrow" data-reveal><span data-t="hero.eyebrow">BRUNO ELIAS — TECHNICAL FREELANCER · EST. 2023 · REMOTE FROM BR</span></div>
+      <h1 data-reveal data-reveal-delay="1">
+        <span class="line" data-t="hero.line1">I build the</span>
+        <span class="line emph" data-t="hero.line2">technical layer</span>
+        <span class="line" data-t="hero.line3">behind modern digital businesses.</span>
+      </h1>
+      <p class="hero-sub" data-reveal data-reveal-delay="2" data-t="hero.sub">Websites, automations, CRM systems, integrations and AI-driven workflows — engineered remotely from Brazil, with serious intent toward Switzerland.</p>
+      <div class="hero-ctas" data-reveal data-reveal-delay="3">
+        <a class="btn btn-primary" href="#work"><span data-t="hero.cta1">View casework</span><span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="#contact"><span data-t="hero.cta2">Start a conversation</span></a>
+      </div>
+      <div class="hero-badges" data-reveal data-reveal-delay="4">
+        <span class="badge" data-t="hero.badge1">Remote</span>
+        <span class="badge accent" data-t="hero.badge2">Brazil → Switzerland</span>
+        <span class="badge" data-t="hero.badge3">Web · Automation · CRM · AI</span>
+        <span class="badge accent" data-t="hero.badge4">Available for projects</span>
+      </div>
+    </div>
+
+    <div class="hero-portrait" data-reveal data-reveal-delay="2">
+      <img src="assets/bruno-portrait.png" alt="Bruno Elias" />
+      <span class="portrait-corner tl"></span>
+      <span class="portrait-corner tr"></span>
+      <span class="portrait-corner bl"></span>
+      <span class="portrait-corner br"></span>
+      <div class="portrait-meta">
+        <div class="cell"><span class="k" data-t="hero.meta.age">Age</span><span class="v">21</span></div>
+        <div class="cell"><span class="k" data-t="hero.meta.based">Based in</span><span class="v" data-t="hero.meta.based.v">São Paulo, BR</span></div>
+        <div class="cell"><span class="k" data-t="hero.meta.tz">Timezone</span><span class="v" data-t="hero.meta.tz.v">BRT (UTC−3)</span></div>
+        <div class="cell"><span class="k" data-t="hero.meta.ship">Response</span><span class="v" data-t="hero.meta.ship.v">Within 24h</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="about">
+  <div class="wrap about-grid">
+    <div data-reveal>
+      <div class="section-label" data-t="about.section">S.02 — WHO</div>
+      <p class="about-kicker" data-t="about.kicker">A short, honest note.</p>
+    </div>
+    <div class="about-body" data-reveal data-reveal-delay="1">
+      <p data-t="about.p1">I'm Bruno Elias. I'm 21, Brazilian, and I work remotely as a technical freelancer. I design and build the systems behind digital businesses — the parts most visitors never see, but that decide whether a product actually works.</p>
+      <p data-t="about.p2">I'm learning German, studying Swiss business culture, and choosing my projects with Switzerland in mind. Not because I'm waiting for a chance — because I'd rather earn a connection through real work than ask for one.</p>
+      <p data-t="about.p3">Young, yes. Serious about it — absolutely.</p>
+      <div class="about-sig" data-t="about.sig">— Bruno</div>
+    </div>
+  </div>
+</section>
+
+<!-- Capabilities -->
+<section id="capabilities">
+  <div class="wrap">
+    <div data-reveal>
+      <div class="section-label" data-t="cap.section">S.03 — WHAT I BUILD</div>
+      <h2 class="section-title" data-t="cap.title">Nine things I'm genuinely good at.</h2>
+      <p class="section-sub" data-t="cap.sub">Not a services page. A map of the problems I like to solve.</p>
+    </div>
+    <div class="cap-grid">
+      <!-- 9 cards -->
+      <article class="cap-card" data-reveal>
+        <div class="num">01</div>
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="14" rx="1.5"/><path d="M3 9h18M7 13h5M7 16h3"/></svg></div>
+        <h3 data-t="cap.1.t">Sales & Landing Pages</h3>
+        <p data-t="cap.1.d">Pages designed to convert, engineered to load fast and track what matters.</p>
+        <span class="scan"></span>
+      </article>
+      <article class="cap-card" data-reveal data-reveal-delay="1">
+        <div class="num">02</div>
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h16M4 12h10M4 17h16"/><circle cx="18" cy="12" r="2"/></svg></div>
+        <h3 data-t="cap.2.t">Custom Websites</h3>
+        <p data-t="cap.2.d">Bespoke sites for businesses that won't fit inside a template.</p>
+        <span class="scan"></span>
+      </article>
+      <article class="cap-card" data-reveal data-reveal-delay="2">
+        <div class="num">03</div>
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="5" height="14" rx="1"/><rect x="10" y="5" width="5" height="10" rx="1"/><rect x="17" y="5" width="4" height="6" rx="1"/></svg></div>
+        <h3 data-t="cap.3.t">CRM & Lead Systems</h3>
+        <p data-t="cap.3.d">Pipelines, stages and automations that keep sales operations honest.</p>
+        <span class="scan"></span>
+      </article>
+      <article class="cap-card" data-reveal>
+        <div class="num">04</div>
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7 6h10M6 8l5 8M18 8l-5 8"/></svg></div>
+        <h3 data-t="cap.4.t">Automation Flows</h3>
+        <p data-t="cap.4.d">n8n workflows that connect forms, inboxes, CRMs and humans into one loop.</p>
+        <span class="scan"></span>
+      </article>
+      <article class="cap-card" data-reveal data-reveal-delay="1">
+        <div class="num">05</div>
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h10l3 3v9H4z"/><path d="M8 11h6M8 14h4"/><circle cx="18.5" cy="5.5" r="2"/></svg></div>
+        <h3 data-t="cap.5.t">AI Service Agents</h3>
+        <p data-t="cap.5.d">Multilingual agents that hold real conversations — in DE, FR, IT, EN and PT.</p>
+        <span class="scan"></span>
+      </article>
+      <article class="cap-card" data-reveal data-reveal-delay="2">
+        <div class="num">06</div>
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 8l-3 4 3 4M18 8l3 4-3 4M14 5l-4 14"/></svg></div>
+        <h3 data-t="cap.6.t">API & Webhook Integrations</h3>
+        <p data-t="cap.6.d">Gluing tools, data and events so teams stop copying between tabs.</p>
+        <span class="scan"></span>
+      </article>
+      <article class="cap-card" data-reveal>
+        <div class="num">07</div>
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+        <h3 data-t="cap.7.t">Database-Driven Systems</h3>
+        <p data-t="cap.7.d">Supabase/Postgres-backed apps where data is a first-class citizen.</p>
+        <span class="scan"></span>
+      </article>
+      <article class="cap-card" data-reveal data-reveal-delay="1">
+        <div class="num">08</div>
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M3 9h18M8 20h8M12 16v4"/></svg></div>
+        <h3 data-t="cap.8.t">Internal Tools & Dashboards</h3>
+        <p data-t="cap.8.d">Private interfaces built around how your team actually works.</p>
+        <span class="scan"></span>
+      </article>
+      <article class="cap-card" data-reveal data-reveal-delay="2">
+        <div class="num">09</div>
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l3 6 6 1-4.5 4.5L18 21l-6-3-6 3 1.5-6.5L3 10l6-1z"/></svg></div>
+        <h3 data-t="cap.9.t">Complex Digital Solutions</h3>
+        <p data-t="cap.9.d">When the brief doesn't fit any of the boxes above.</p>
+        <span class="scan"></span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Casework -->
+<section id="work">
+  <div class="wrap">
+    <div class="work-head">
+      <div data-reveal>
+        <div class="section-label" data-t="work.section">S.04 — CASEWORK</div>
+        <h2 class="section-title" data-t="work.title">Selected work & concept demos.</h2>
+      </div>
+      <p class="section-sub" data-reveal data-reveal-delay="1" data-t="work.sub">A mix of client projects and concept pieces built to show what's possible.</p>
+    </div>
+
+    <div class="work-grid">
+      <!-- A -->
+      <article class="case" data-case="a" data-reveal>
+        <div class="case-visual">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <defs>
+              <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="oklch(0.20 0.06 260)"/>
+                <stop offset="100%" stop-color="oklch(0.10 0.015 260)"/>
+              </linearGradient>
+            </defs>
+            <rect width="640" height="400" fill="url(#gA)"/>
+            <rect x="80" y="50" width="480" height="300" rx="8" fill="oklch(0.15 0.015 260)" stroke="oklch(0.40 0.02 260 / 0.5)"/>
+            <rect x="100" y="70" width="180" height="10" rx="2" fill="oklch(0.85 0.005 260)"/>
+            <rect x="100" y="90" width="260" height="6" rx="2" fill="oklch(0.50 0.015 260)"/>
+            <rect x="100" y="102" width="220" height="6" rx="2" fill="oklch(0.50 0.015 260)"/>
+            <rect x="100" y="130" width="90" height="28" rx="14" fill="oklch(0.74 0.17 250)"/>
+            <rect x="100" y="190" width="440" height="1" fill="oklch(0.40 0.02 260 / 0.4)"/>
+            <rect x="100" y="210" width="130" height="100" rx="6" fill="oklch(0.18 0.02 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+            <rect x="250" y="210" width="130" height="100" rx="6" fill="oklch(0.18 0.02 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+            <rect x="400" y="210" width="130" height="100" rx="6" fill="oklch(0.18 0.02 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+            <circle cx="130" cy="230" r="8" fill="oklch(0.74 0.17 250)"/>
+            <circle cx="280" cy="230" r="8" fill="oklch(0.85 0.14 200)"/>
+            <circle cx="430" cy="230" r="8" fill="oklch(0.68 0.19 295)"/>
+          </svg>
+        </div>
+        <div class="case-body">
+          <div class="case-meta"><span data-t="work.a.cat">Conversion · Frontend</span><span class="case-tag concept" data-t="work.a.tag">Concept</span></div>
+          <h3 class="case-title" data-t="work.a.t">Premium Sales Page</h3>
+          <p class="case-short" data-t="work.a.short">A page that reads like a pitch and loads like a static file.</p>
+          <span class="case-cta"><span data-t="work.viewcase">View case</span><span class="arrow">→</span></span>
+        </div>
+      </article>
+
+      <!-- B -->
+      <article class="case" data-case="b" data-reveal data-reveal-delay="1">
+        <div class="case-visual">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="640" height="400" fill="oklch(0.10 0.015 260)"/>
+            <rect x="40" y="40" width="560" height="320" fill="oklch(0.13 0.015 260)" stroke="oklch(0.40 0.02 260 / 0.3)"/>
+            <text x="60" y="100" font-family="Georgia" font-style="italic" font-size="44" fill="oklch(0.92 0.005 260)">Editorial.</text>
+            <rect x="60" y="130" width="280" height="4" fill="oklch(0.60 0.015 260)"/>
+            <rect x="60" y="142" width="240" height="4" fill="oklch(0.60 0.015 260)"/>
+            <rect x="60" y="170" width="260" height="140" fill="oklch(0.20 0.03 260)"/>
+            <rect x="350" y="170" width="220" height="60" fill="oklch(0.18 0.02 260)"/>
+            <rect x="350" y="240" width="220" height="60" fill="oklch(0.18 0.02 260)"/>
+            <rect x="350" y="310" width="120" height="20" rx="10" fill="oklch(0.74 0.17 250)"/>
+          </svg>
+        </div>
+        <div class="case-body">
+          <div class="case-meta"><span data-t="work.b.cat">Brand · CMS</span><span class="case-tag client" data-t="work.b.tag">Client</span></div>
+          <h3 class="case-title" data-t="work.b.t">Custom Business Website</h3>
+          <p class="case-short" data-t="work.b.short">Editorial site for a service business that needed a voice.</p>
+          <span class="case-cta"><span data-t="work.viewcase">View case</span><span class="arrow">→</span></span>
+        </div>
+      </article>
+
+      <!-- C — CRM pipeline -->
+      <article class="case" data-case="c" data-reveal>
+        <div class="case-visual">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="640" height="400" fill="oklch(0.10 0.015 260)"/>
+            <g font-family="JetBrains Mono" font-size="9" fill="oklch(0.60 0.015 260)" letter-spacing="1.5">
+              <text x="50" y="60">NEW</text><text x="200" y="60">QUALIFIED</text><text x="350" y="60">PROPOSAL</text><text x="500" y="60">WON</text>
+            </g>
+            <!-- 4 columns with lead cards -->
+            <g>
+              <rect x="40" y="80" width="130" height="50" rx="4" fill="oklch(0.16 0.02 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+              <rect x="50" y="92" width="80" height="5" fill="oklch(0.85 0.005 260)"/>
+              <rect x="50" y="104" width="60" height="4" fill="oklch(0.50 0.015 260)"/>
+              <circle cx="155" cy="95" r="4" fill="oklch(0.74 0.17 250)"/>
+
+              <rect x="40" y="140" width="130" height="50" rx="4" fill="oklch(0.16 0.02 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+              <rect x="50" y="152" width="70" height="5" fill="oklch(0.85 0.005 260)"/>
+              <rect x="50" y="164" width="50" height="4" fill="oklch(0.50 0.015 260)"/>
+            </g>
+            <g>
+              <rect x="190" y="80" width="130" height="50" rx="4" fill="oklch(0.16 0.02 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+              <rect x="200" y="92" width="80" height="5" fill="oklch(0.85 0.005 260)"/>
+              <rect x="200" y="104" width="60" height="4" fill="oklch(0.50 0.015 260)"/>
+              <circle cx="305" cy="95" r="4" fill="oklch(0.85 0.14 200)"/>
+
+              <rect x="190" y="140" width="130" height="50" rx="4" fill="oklch(0.16 0.02 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+              <rect x="200" y="152" width="80" height="5" fill="oklch(0.85 0.005 260)"/>
+              <rect x="200" y="164" width="50" height="4" fill="oklch(0.50 0.015 260)"/>
+
+              <rect x="190" y="200" width="130" height="50" rx="4" fill="oklch(0.16 0.02 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+              <rect x="200" y="212" width="60" height="5" fill="oklch(0.85 0.005 260)"/>
+              <rect x="200" y="224" width="50" height="4" fill="oklch(0.50 0.015 260)"/>
+            </g>
+            <g>
+              <rect x="340" y="80" width="130" height="50" rx="4" fill="oklch(0.18 0.04 255)" stroke="oklch(0.60 0.10 250 / 0.6)"/>
+              <rect x="350" y="92" width="80" height="5" fill="oklch(0.95 0.005 260)"/>
+              <rect x="350" y="104" width="60" height="4" fill="oklch(0.74 0.17 250)"/>
+              <circle cx="455" cy="95" r="4" fill="oklch(0.74 0.17 250)"/>
+
+              <rect x="340" y="140" width="130" height="50" rx="4" fill="oklch(0.16 0.02 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+              <rect x="350" y="152" width="80" height="5" fill="oklch(0.85 0.005 260)"/>
+              <rect x="350" y="164" width="50" height="4" fill="oklch(0.50 0.015 260)"/>
+            </g>
+            <g>
+              <rect x="490" y="80" width="120" height="50" rx="4" fill="oklch(0.20 0.06 200 / 0.5)" stroke="oklch(0.85 0.14 200 / 0.4)"/>
+              <rect x="500" y="92" width="80" height="5" fill="oklch(0.85 0.14 200)"/>
+              <rect x="500" y="104" width="50" height="4" fill="oklch(0.60 0.08 200)"/>
+            </g>
+            <line x1="40" y1="350" x2="600" y2="350" stroke="oklch(0.40 0.02 260 / 0.3)"/>
+            <text x="40" y="375" font-family="JetBrains Mono" font-size="9" fill="oklch(0.50 0.015 260)" letter-spacing="1.5">PIPELINE · 7 LEADS · UPDATED 2 MIN AGO</text>
+          </svg>
+        </div>
+        <div class="case-body">
+          <div class="case-meta"><span data-t="work.c.cat">Operations · Product</span><span class="case-tag concept" data-t="work.c.tag">Concept</span></div>
+          <h3 class="case-title" data-t="work.c.t">CRM Pipeline Interface</h3>
+          <p class="case-short" data-t="work.c.short">From spreadsheets to a pipeline the team actually opens every morning.</p>
+          <span class="case-cta"><span data-t="work.viewcase">View case</span><span class="arrow">→</span></span>
+        </div>
+      </article>
+
+      <!-- D — n8n flow -->
+      <article class="case" data-case="d" data-reveal data-reveal-delay="1">
+        <div class="case-visual">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="640" height="400" fill="oklch(0.10 0.015 260)"/>
+            <g stroke="oklch(0.60 0.10 250 / 0.6)" stroke-width="1.2" fill="none">
+              <path d="M100 200 Q 180 200 200 150"/>
+              <path d="M100 200 Q 180 200 200 250"/>
+              <path d="M260 150 Q 320 150 340 200"/>
+              <path d="M260 250 Q 320 250 340 200"/>
+              <path d="M400 200 Q 460 200 480 150"/>
+              <path d="M400 200 Q 460 200 480 250"/>
+            </g>
+            <g font-family="JetBrains Mono" font-size="9" fill="oklch(0.80 0.005 260)">
+              <rect x="60" y="180" width="80" height="40" rx="6" fill="oklch(0.20 0.06 260)" stroke="oklch(0.60 0.10 250)"/>
+              <text x="78" y="204">FORM</text>
+
+              <rect x="180" y="130" width="90" height="40" rx="6" fill="oklch(0.16 0.02 260)" stroke="oklch(0.40 0.04 260)"/>
+              <text x="198" y="154">VALIDATE</text>
+              <rect x="180" y="230" width="90" height="40" rx="6" fill="oklch(0.16 0.02 260)" stroke="oklch(0.40 0.04 260)"/>
+              <text x="198" y="254">ENRICH</text>
+
+              <rect x="300" y="180" width="90" height="40" rx="6" fill="oklch(0.20 0.06 295 / 0.6)" stroke="oklch(0.68 0.19 295)"/>
+              <text x="318" y="204">CRM</text>
+
+              <rect x="420" y="130" width="90" height="40" rx="6" fill="oklch(0.16 0.02 260)" stroke="oklch(0.40 0.04 260)"/>
+              <text x="438" y="154">SLACK</text>
+              <rect x="420" y="230" width="90" height="40" rx="6" fill="oklch(0.16 0.02 260)" stroke="oklch(0.40 0.04 260)"/>
+              <text x="438" y="254">POSTGRES</text>
+            </g>
+            <text x="40" y="375" font-family="JetBrains Mono" font-size="9" fill="oklch(0.50 0.015 260)" letter-spacing="1.5">N8N WORKFLOW · 6 NODES · 1.2K RUNS/MO</text>
+          </svg>
+        </div>
+        <div class="case-body">
+          <div class="case-meta"><span data-t="work.d.cat">Automation · Ops</span><span class="case-tag client" data-t="work.d.tag">Client</span></div>
+          <h3 class="case-title" data-t="work.d.t">n8n Automation Flow</h3>
+          <p class="case-short" data-t="work.d.short">One flow replacing four repeated daily tasks.</p>
+          <span class="case-cta"><span data-t="work.viewcase">View case</span><span class="arrow">→</span></span>
+        </div>
+      </article>
+
+      <!-- E — AI agent chat -->
+      <article class="case" data-case="e" data-reveal>
+        <div class="case-visual">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="640" height="400" fill="oklch(0.10 0.015 260)"/>
+            <rect x="80" y="30" width="480" height="340" rx="10" fill="oklch(0.13 0.015 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+            <g font-family="JetBrains Mono" font-size="9" fill="oklch(0.60 0.015 260)" letter-spacing="1.5">
+              <text x="100" y="60">AI AGENT · DE-CH / FR / IT / EN / PT</text>
+              <circle cx="540" cy="57" r="4" fill="oklch(0.85 0.14 200)"/>
+            </g>
+            <!-- chat bubbles -->
+            <rect x="100" y="85" width="220" height="42" rx="10" fill="oklch(0.18 0.02 260)"/>
+            <text x="110" y="103" font-family="Georgia" font-size="11" fill="oklch(0.90 0.005 260)">Grüezi! Wie kann ich helfen?</text>
+            <text x="110" y="120" font-family="JetBrains Mono" font-size="8" fill="oklch(0.50 0.015 260)">AGENT · DE-CH</text>
+
+            <rect x="300" y="145" width="240" height="42" rx="10" fill="oklch(0.20 0.06 250 / 0.6)"/>
+            <text x="310" y="163" font-family="Georgia" font-size="11" fill="oklch(0.95 0.005 260)">Ich hätte gerne Infos zu Preisen.</text>
+            <text x="310" y="180" font-family="JetBrains Mono" font-size="8" fill="oklch(0.75 0.10 250)">USER</text>
+
+            <rect x="100" y="205" width="300" height="58" rx="10" fill="oklch(0.18 0.02 260)"/>
+            <text x="110" y="223" font-family="Georgia" font-size="11" fill="oklch(0.90 0.005 260)">Gerne. Unser Standard-Paket</text>
+            <text x="110" y="240" font-family="Georgia" font-size="11" fill="oklch(0.90 0.005 260)">beginnt bei CHF 2'400 / Monat.</text>
+            <text x="110" y="257" font-family="JetBrains Mono" font-size="8" fill="oklch(0.50 0.015 260)">AGENT · GROUNDED</text>
+
+            <rect x="100" y="285" width="440" height="36" rx="10" fill="oklch(0.15 0.02 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+            <text x="115" y="307" font-family="Inter" font-size="11" fill="oklch(0.55 0.015 260)">Schreiben…</text>
+            <circle cx="525" cy="303" r="10" fill="oklch(0.74 0.17 250)"/>
+
+            <text x="100" y="350" font-family="JetBrains Mono" font-size="9" fill="oklch(0.50 0.015 260)" letter-spacing="1.5">RAG · 84% RESOLVED WITHOUT HUMAN</text>
+          </svg>
+        </div>
+        <div class="case-body">
+          <div class="case-meta"><span data-t="work.e.cat">AI · Customer Service</span><span class="case-tag concept" data-t="work.e.tag">Concept</span></div>
+          <h3 class="case-title" data-t="work.e.t">Multilingual AI Agent</h3>
+          <p class="case-short" data-t="work.e.short">A service agent fluent in five languages — including Swiss-aware German.</p>
+          <span class="case-cta"><span data-t="work.viewcase">View case</span><span class="arrow">→</span></span>
+        </div>
+      </article>
+
+      <!-- F — Dashboard -->
+      <article class="case" data-case="f" data-reveal data-reveal-delay="1">
+        <div class="case-visual">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="640" height="400" fill="oklch(0.10 0.015 260)"/>
+            <rect x="40" y="40" width="560" height="320" rx="10" fill="oklch(0.13 0.015 260)" stroke="oklch(0.40 0.02 260 / 0.4)"/>
+            <!-- KPIs -->
+            <g font-family="JetBrains Mono" font-size="9" fill="oklch(0.55 0.015 260)" letter-spacing="1.5">
+              <rect x="60" y="65" width="120" height="70" fill="oklch(0.16 0.02 260)"/>
+              <text x="72" y="85">MRR</text>
+              <text x="72" y="115" font-family="Georgia" font-size="22" fill="oklch(0.95 0.005 260)">€ 41.2k</text>
+              <rect x="190" y="65" width="120" height="70" fill="oklch(0.16 0.02 260)"/>
+              <text x="202" y="85">CHURN</text>
+              <text x="202" y="115" font-family="Georgia" font-size="22" fill="oklch(0.85 0.14 200)">2.1%</text>
+              <rect x="320" y="65" width="120" height="70" fill="oklch(0.16 0.02 260)"/>
+              <text x="332" y="85">LTV</text>
+              <text x="332" y="115" font-family="Georgia" font-size="22" fill="oklch(0.95 0.005 260)">€ 1.9k</text>
+              <rect x="450" y="65" width="130" height="70" fill="oklch(0.16 0.02 260)"/>
+              <text x="462" y="85">ACTIVE</text>
+              <text x="462" y="115" font-family="Georgia" font-size="22" fill="oklch(0.74 0.17 250)">3,204</text>
+            </g>
+            <!-- Line chart -->
+            <rect x="60" y="160" width="520" height="180" fill="oklch(0.12 0.015 260)" stroke="oklch(0.40 0.02 260 / 0.3)"/>
+            <polyline fill="none" stroke="oklch(0.74 0.17 250)" stroke-width="2" points="80,310 130,285 180,290 230,255 280,265 330,230 380,215 430,225 480,195 530,180 560,175"/>
+            <polyline fill="none" stroke="oklch(0.85 0.14 200 / 0.6)" stroke-width="1.5" stroke-dasharray="3 3" points="80,320 130,310 180,305 230,298 280,288 330,275 380,270 430,258 480,245 530,238 560,232"/>
+            <g font-family="JetBrains Mono" font-size="8" fill="oklch(0.50 0.015 260)">
+              <text x="80" y="335">JAN</text><text x="230" y="335">APR</text><text x="380" y="335">JUL</text><text x="530" y="335">OCT</text>
+            </g>
+          </svg>
+        </div>
+        <div class="case-body">
+          <div class="case-meta"><span data-t="work.f.cat">Data · Internal Tools</span><span class="case-tag concept" data-t="work.f.tag">Concept</span></div>
+          <h3 class="case-title" data-t="work.f.t">Operational Dashboard</h3>
+          <p class="case-short" data-t="work.f.short">Metrics that mean something, refreshing in real time.</p>
+          <span class="case-cta"><span data-t="work.viewcase">View case</span><span class="arrow">→</span></span>
+        </div>
+      </article>
+
+      <!-- G — Integration layer -->
+      <article class="case" data-case="g" data-reveal>
+        <div class="case-visual">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="640" height="400" fill="oklch(0.10 0.015 260)"/>
+            <g stroke="oklch(0.60 0.10 250 / 0.7)" stroke-width="1.2" fill="none">
+              <path d="M90 200 L 250 200"/>
+              <path d="M330 200 L 490 140"/>
+              <path d="M330 200 L 490 200"/>
+              <path d="M330 200 L 490 260"/>
+            </g>
+            <g font-family="JetBrains Mono" font-size="10" fill="oklch(0.85 0.005 260)" letter-spacing="1">
+              <rect x="40" y="180" width="100" height="44" rx="6" fill="oklch(0.18 0.04 255)" stroke="oklch(0.60 0.10 250)"/>
+              <text x="60" y="208">STRIPE</text>
+
+              <rect x="250" y="170" width="100" height="64" rx="6" fill="oklch(0.20 0.06 260 / 0.8)" stroke="oklch(0.68 0.19 295)"/>
+              <text x="268" y="196">SUPABASE</text>
+              <text x="268" y="214" font-size="8" fill="oklch(0.68 0.19 295)">EVENT HUB</text>
+
+              <rect x="480" y="120" width="110" height="40" rx="6" fill="oklch(0.15 0.02 260)" stroke="oklch(0.40 0.02 260)"/>
+              <text x="506" y="146">CRM</text>
+
+              <rect x="480" y="180" width="110" height="40" rx="6" fill="oklch(0.15 0.02 260)" stroke="oklch(0.40 0.02 260)"/>
+              <text x="498" y="206">WHATSAPP</text>
+
+              <rect x="480" y="240" width="110" height="40" rx="6" fill="oklch(0.15 0.02 260)" stroke="oklch(0.40 0.02 260)"/>
+              <text x="506" y="266">EMAIL</text>
+            </g>
+            <text x="40" y="355" font-family="JetBrains Mono" font-size="9" fill="oklch(0.50 0.015 260)" letter-spacing="1.5">IDEMPOTENT · LOGGED · RETRYABLE</text>
+          </svg>
+        </div>
+        <div class="case-body">
+          <div class="case-meta"><span data-t="work.g.cat">Backend · APIs</span><span class="case-tag client" data-t="work.g.tag">Client</span></div>
+          <h3 class="case-title" data-t="work.g.t">Integration Layer</h3>
+          <p class="case-short" data-t="work.g.short">Stripe → Supabase → CRM → WhatsApp. One contract, no copy-paste.</p>
+          <span class="case-cta"><span data-t="work.viewcase">View case</span><span class="arrow">→</span></span>
+        </div>
+      </article>
+
+      <!-- H — Architecture diagram -->
+      <article class="case" data-case="h" data-reveal data-reveal-delay="1">
+        <div class="case-visual">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="640" height="400" fill="oklch(0.10 0.015 260)"/>
+            <g stroke="oklch(0.40 0.04 260)" stroke-width="1" fill="none">
+              <path d="M100 100 L 540 100"/>
+              <path d="M100 200 L 540 200"/>
+              <path d="M100 300 L 540 300"/>
+              <path d="M100 100 L 100 300"/>
+              <path d="M260 80 L 260 320"/>
+              <path d="M400 80 L 400 320"/>
+              <path d="M540 100 L 540 300"/>
+            </g>
+            <g font-family="JetBrains Mono" font-size="9" fill="oklch(0.60 0.015 260)" letter-spacing="1.5">
+              <text x="120" y="80">USER</text>
+              <text x="280" y="80">EDGE</text>
+              <text x="420" y="80">CORE</text>
+              <text x="550" y="80">DATA</text>
+            </g>
+            <g font-family="Georgia" font-size="11" fill="oklch(0.90 0.005 260)">
+              <rect x="130" y="130" width="100" height="40" rx="4" fill="oklch(0.17 0.02 260)"/>
+              <text x="148" y="155">Landing</text>
+              <rect x="130" y="220" width="100" height="40" rx="4" fill="oklch(0.17 0.02 260)"/>
+              <text x="148" y="245">Dashboard</text>
+
+              <rect x="280" y="130" width="100" height="40" rx="4" fill="oklch(0.20 0.06 250 / 0.5)"/>
+              <text x="300" y="155">CDN</text>
+              <rect x="280" y="220" width="100" height="40" rx="4" fill="oklch(0.20 0.06 250 / 0.5)"/>
+              <text x="302" y="245">Gateway</text>
+
+              <rect x="420" y="130" width="100" height="40" rx="4" fill="oklch(0.20 0.06 295 / 0.5)"/>
+              <text x="438" y="155">Next API</text>
+              <rect x="420" y="220" width="100" height="40" rx="4" fill="oklch(0.20 0.06 295 / 0.5)"/>
+              <text x="438" y="245">Workers</text>
+
+              <rect x="540" y="175" width="80" height="50" rx="4" fill="oklch(0.20 0.08 200 / 0.5)"/>
+              <text x="552" y="205">Postgres</text>
+            </g>
+            <g stroke="oklch(0.74 0.17 250)" stroke-width="1.2" fill="none">
+              <path d="M230 150 L 280 150"/>
+              <path d="M230 240 L 280 240"/>
+              <path d="M380 150 L 420 150"/>
+              <path d="M380 240 L 420 240"/>
+              <path d="M520 150 L 540 195"/>
+              <path d="M520 240 L 540 215"/>
+            </g>
+          </svg>
+        </div>
+        <div class="case-body">
+          <div class="case-meta"><span data-t="work.h.cat">Strategy · Technical</span><span class="case-tag concept" data-t="work.h.tag">Concept</span></div>
+          <h3 class="case-title" data-t="work.h.t">System Architecture</h3>
+          <p class="case-short" data-t="work.h.short">A diagram a non-technical founder can read in thirty seconds.</p>
+          <span class="case-cta"><span data-t="work.viewcase">View case</span><span class="arrow">→</span></span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- For Companies -->
+<section id="for-companies">
+  <div class="wrap">
+    <div data-reveal>
+      <div class="section-label" data-t="fc.section">S.05 — FOR COMPANIES</div>
+      <h2 class="section-title" data-t="fc.title">What you get when you hire me for a sprint.</h2>
+      <p class="section-sub" data-t="fc.sub">Remote, structured, written down. No surprises.</p>
+    </div>
+    <div class="fc-grid">
+      <article class="fc-card" data-reveal>
+        <div class="n">01</div>
+        <h4 data-t="fc.1.t">Remote technical execution</h4>
+        <p data-t="fc.1.d">I overlap with EU mornings. Async-first, with scheduled sync windows when they matter.</p>
+      </article>
+      <article class="fc-card" data-reveal data-reveal-delay="1">
+        <div class="n">02</div>
+        <h4 data-t="fc.2.t">Fast prototyping</h4>
+        <p data-t="fc.2.d">First working version within the week — not a slide deck, an actual URL you can click.</p>
+      </article>
+      <article class="fc-card" data-reveal data-reveal-delay="2">
+        <div class="n">03</div>
+        <h4 data-t="fc.3.t">Business-first implementation</h4>
+        <p data-t="fc.3.d">Tech choices driven by your roadmap, not by my résumé.</p>
+      </article>
+      <article class="fc-card" data-reveal>
+        <div class="n">04</div>
+        <h4 data-t="fc.4.t">Cross-functional by default</h4>
+        <p data-t="fc.4.d">Design, frontend, backend, automation, copy — one person, one thread.</p>
+      </article>
+      <article class="fc-card" data-reveal data-reveal-delay="1">
+        <div class="n">05</div>
+        <h4 data-t="fc.5.t">Clear written communication</h4>
+        <p data-t="fc.5.d">Weekly written updates. Decisions documented. No ghosting, no surprises.</p>
+      </article>
+      <article class="fc-card" data-reveal data-reveal-delay="2">
+        <div class="n">06</div>
+        <h4 data-t="fc.6.t">Sprints or retainer</h4>
+        <p data-t="fc.6.d">Fixed-scope sprints for projects, monthly retainer when you want me on standby.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Stack -->
+<section id="stack">
+  <div class="wrap">
+    <div data-reveal>
+      <div class="section-label" data-t="stack.section">S.06 — STACK</div>
+      <h2 class="section-title" data-t="stack.title">A toolkit, organized.</h2>
+      <p class="section-sub" data-t="stack.sub">Grouped by what they do, not by which tab they live in.</p>
+    </div>
+    <div class="stack-matrix">
+      <div class="stack-col" data-reveal>
+        <div class="cat">01</div>
+        <h4 data-t="stack.1.t">Interface</h4>
+        <ul><li>HTML · CSS</li><li>Tailwind</li><li>React</li><li>Next.js</li><li>Framer Motion</li><li>Figma</li></ul>
+      </div>
+      <div class="stack-col" data-reveal data-reveal-delay="1">
+        <div class="cat">02</div>
+        <h4 data-t="stack.2.t">Automation</h4>
+        <ul><li>n8n</li><li>Make</li><li>Zapier</li><li>Webhooks</li><li>Cron</li><li>Queues</li></ul>
+      </div>
+      <div class="stack-col" data-reveal data-reveal-delay="2">
+        <div class="cat">03</div>
+        <h4 data-t="stack.3.t">Data</h4>
+        <ul><li>PostgreSQL</li><li>Supabase</li><li>Prisma</li><li>REST</li><li>GraphQL</li><li>Redis</li></ul>
+      </div>
+      <div class="stack-col" data-reveal data-reveal-delay="3">
+        <div class="cat">04</div>
+        <h4 data-t="stack.4.t">AI Layer</h4>
+        <ul><li>OpenAI</li><li>Claude</li><li>RAG</li><li>Embeddings</li><li>Agents</li><li>Guardrails</li></ul>
+      </div>
+      <div class="stack-col" data-reveal data-reveal-delay="4">
+        <div class="cat">05</div>
+        <h4 data-t="stack.5.t">Operations</h4>
+        <ul><li>CRM logic</li><li>Lead scoring</li><li>Pipeline design</li><li>Notion</li><li>Linear</li><li>Airtable</li></ul>
+      </div>
+      <div class="stack-col" data-reveal data-reveal-delay="4">
+        <div class="cat">06</div>
+        <h4 data-t="stack.6.t">Delivery</h4>
+        <ul><li>Vercel</li><li>Railway</li><li>Cloudflare</li><li>GitHub Actions</li><li>Sentry</li><li>Stripe</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bridge -->
+<section id="bridge" class="bridge">
+  <div class="wrap bridge-grid">
+    <div data-reveal>
+      <div class="section-label" data-t="bridge.section">S.07 — INTENT</div>
+      <h2 class="section-title" data-t="bridge.title">Building a bridge through work.</h2>
+      <div class="bridge-body">
+        <p data-t="bridge.p1">Switzerland isn't a dream I'm asking for — it's a destination I'm working toward. I'm learning the language, studying how Swiss businesses operate across the DE, FR and IT regions, and structuring my freelance practice so a company in Zürich, Geneva or Lugano can hire me today, remotely, without friction.</p>
+        <p data-t="bridge.p2">If the work is good, the rest follows. That's the plan.</p>
+      </div>
+    </div>
+    <div data-reveal data-reveal-delay="1">
+      <div class="bridge-map">
+        <svg viewBox="0 0 500 400" width="100%" height="100%">
+          <defs>
+            <radialGradient id="glowBr" cx="30%" cy="80%" r="40%">
+              <stop offset="0%" stop-color="oklch(0.85 0.14 200 / 0.8)"/>
+              <stop offset="100%" stop-color="oklch(0.85 0.14 200 / 0)"/>
+            </radialGradient>
+            <radialGradient id="glowCh" cx="70%" cy="25%" r="30%">
+              <stop offset="0%" stop-color="oklch(0.74 0.17 250 / 0.9)"/>
+              <stop offset="100%" stop-color="oklch(0.74 0.17 250 / 0)"/>
+            </radialGradient>
+          </defs>
+          <!-- subtle grid -->
+          <g stroke="oklch(0.40 0.02 260 / 0.25)" stroke-width="0.5">
+            <line x1="0" y1="100" x2="500" y2="100"/>
+            <line x1="0" y1="200" x2="500" y2="200"/>
+            <line x1="0" y1="300" x2="500" y2="300"/>
+            <line x1="100" y1="0" x2="100" y2="400"/>
+            <line x1="200" y1="0" x2="200" y2="400"/>
+            <line x1="300" y1="0" x2="300" y2="400"/>
+            <line x1="400" y1="0" x2="400" y2="400"/>
+          </g>
+          <circle cx="150" cy="320" r="80" fill="url(#glowBr)"/>
+          <circle cx="350" cy="100" r="60" fill="url(#glowCh)"/>
+          <!-- arc -->
+          <path d="M150 320 Q 250 120 350 100" stroke="oklch(0.80 0.10 250)" stroke-width="1.4" fill="none" stroke-dasharray="4 4">
+            <animate attributeName="stroke-dashoffset" values="0;-16" dur="1.4s" repeatCount="indefinite"/>
+          </path>
+          <circle cx="150" cy="320" r="6" fill="oklch(0.85 0.14 200)"/>
+          <circle cx="350" cy="100" r="6" fill="oklch(0.74 0.17 250)"/>
+          <g font-family="JetBrains Mono" font-size="10" fill="oklch(0.80 0.005 260)" letter-spacing="2">
+            <text x="120" y="350">BR · SÃO PAULO</text>
+            <text x="300" y="80">CH · ZÜRICH</text>
+          </g>
+        </svg>
+      </div>
+      <div class="bridge-stats">
+        <div class="bridge-stat"><div class="l" data-t="bridge.stat1.l">Languages in progress</div><div class="v" data-t="bridge.stat1.v">DE · FR</div></div>
+        <div class="bridge-stat"><div class="l" data-t="bridge.stat2.l">Timezone overlap with CET</div><div class="v" data-t="bridge.stat2.v">4h / day</div></div>
+        <div class="bridge-stat"><div class="l" data-t="bridge.stat3.l">Setup for EU clients</div><div class="v" data-t="bridge.stat3.v">Invoice-ready</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="contact-head" data-reveal>
+      <div class="section-label" data-t="contact.section">S.08 — CONTACT</div>
+      <h2 class="section-title" data-t="contact.title">If any of this sounds like something you need — let's talk.</h2>
+      <p class="section-sub" data-t="contact.sub">Tell me what you're working on. I'll reply within 24 hours, in the language you prefer.</p>
+    </div>
+    <div class="contact-grid">
+      <form class="form" data-reveal onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓';">
+        <div class="row">
+          <div class="field">
+            <label data-t="contact.form.name">Your name</label>
+            <input type="text" data-t-ph="contact.form.name" placeholder="Your name" />
+          </div>
+          <div class="field">
+            <label data-t="contact.form.company">Company</label>
+            <input type="text" data-t-ph="contact.form.company" placeholder="Company" />
+          </div>
+        </div>
+        <div class="field">
+          <label data-t="contact.form.msg">In one sentence, what do you need?</label>
+          <textarea rows="3" data-t-ph="contact.form.msg"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary"><span data-t="contact.form.send">Send message</span><span class="arrow">→</span></button>
+      </form>
+      <div class="channels" data-reveal data-reveal-delay="1">
+        <div class="or" data-t="contact.or">or reach me directly</div>
+        <a class="channel" href="mailto:bruno@brunoelias.dev"><span class="l" data-t="contact.email">Email</span><span class="v">bruno@brunoelias.dev</span></a>
+        <a class="channel" href="#"><span class="l" data-t="contact.wa">WhatsApp</span><span class="v">+55 · on request</span></a>
+        <a class="channel" href="#"><span class="l" data-t="contact.li">LinkedIn</span><span class="v">/in/brunoelias</span></a>
+        <a class="channel" href="#"><span class="l" data-t="contact.cv">Download CV (PDF)</span><span class="v">→</span></a>
+        <a class="channel" href="#"><span class="l" data-t="contact.pf">Download Portfolio (PDF)</span><span class="v">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="foot">
+  <div>© 2026 BRUNO ELIAS · <span data-t="foot.rights">All rights reserved.</span></div>
+  <div><span data-t="foot.built">Built by hand</span> · <span data-t="foot.served">Served from Vercel</span></div>
+  <div><span data-t="foot.reading">You're reading the</span> <span data-foot-lang>[EN]</span> <span data-t="foot.version">version</span></div>
+</footer>
+
+<!-- ============ CASE MODAL ============ -->
+<div class="modal-root" id="case-modal" role="dialog" aria-modal="true">
+  <div class="modal-backdrop"></div>
+  <div class="modal-card">
+    <button class="modal-close" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 2 L12 12 M12 2 L2 12" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+    </button>
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<!-- Case templates -->
+<template id="case-tpl-a">
+  <div class="modal-hero">
+    <div class="cat" data-t="work.a.cat">Conversion · Frontend</div>
+    <h2 data-t="work.a.t">Premium Sales Page</h2>
+    <p class="short" data-t="work.a.short">A page that reads like a pitch and loads like a static file.</p>
+  </div>
+  <div class="modal-visual"><div class="slot"></div></div>
+  <div class="modal-body">
+    <div><h4 data-t="work.problem">Problem</h4><p data-t="work.a.prob"></p></div>
+    <div><h4 data-t="work.solution">Solution</h4><p data-t="work.a.sol"></p></div>
+    <div><h4 data-t="work.stack">Stack</h4><div class="modal-stack"><span>Next.js</span><span>Tailwind</span><span>Framer Motion</span><span>Vercel</span></div></div>
+    <div><h4 data-t="work.outcome">Outcome</h4><p data-t="work.a.out"></p></div>
+  </div>
+</template>
+<template id="case-tpl-b">
+  <div class="modal-hero"><div class="cat" data-t="work.b.cat"></div><h2 data-t="work.b.t"></h2><p class="short" data-t="work.b.short"></p></div>
+  <div class="modal-visual"><div class="slot"></div></div>
+  <div class="modal-body">
+    <div><h4 data-t="work.problem"></h4><p data-t="work.b.prob"></p></div>
+    <div><h4 data-t="work.solution"></h4><p data-t="work.b.sol"></p></div>
+    <div><h4 data-t="work.stack"></h4><div class="modal-stack"><span>Next.js</span><span>Sanity</span><span>Tailwind</span><span>Vercel</span></div></div>
+    <div><h4 data-t="work.outcome"></h4><p data-t="work.b.out"></p></div>
+  </div>
+</template>
+<template id="case-tpl-c">
+  <div class="modal-hero"><div class="cat" data-t="work.c.cat"></div><h2 data-t="work.c.t"></h2><p class="short" data-t="work.c.short"></p></div>
+  <div class="modal-visual"><div class="slot"></div></div>
+  <div class="modal-body">
+    <div><h4 data-t="work.problem"></h4><p data-t="work.c.prob"></p></div>
+    <div><h4 data-t="work.solution"></h4><p data-t="work.c.sol"></p></div>
+    <div><h4 data-t="work.stack"></h4><div class="modal-stack"><span>Next.js</span><span>Supabase</span><span>Postgres</span><span>Resend</span><span>Tailwind</span></div></div>
+    <div><h4 data-t="work.outcome"></h4><p data-t="work.c.out"></p></div>
+  </div>
+</template>
+<template id="case-tpl-d">
+  <div class="modal-hero"><div class="cat" data-t="work.d.cat"></div><h2 data-t="work.d.t"></h2><p class="short" data-t="work.d.short"></p></div>
+  <div class="modal-visual"><div class="slot"></div></div>
+  <div class="modal-body">
+    <div><h4 data-t="work.problem"></h4><p data-t="work.d.prob"></p></div>
+    <div><h4 data-t="work.solution"></h4><p data-t="work.d.sol"></p></div>
+    <div><h4 data-t="work.stack"></h4><div class="modal-stack"><span>n8n</span><span>Postgres</span><span>Slack API</span><span>Webhooks</span></div></div>
+    <div><h4 data-t="work.outcome"></h4><p data-t="work.d.out"></p></div>
+  </div>
+</template>
+<template id="case-tpl-e">
+  <div class="modal-hero"><div class="cat" data-t="work.e.cat"></div><h2 data-t="work.e.t"></h2><p class="short" data-t="work.e.short"></p></div>
+  <div class="modal-visual"><div class="slot"></div></div>
+  <div class="modal-body">
+    <div><h4 data-t="work.problem"></h4><p data-t="work.e.prob"></p></div>
+    <div><h4 data-t="work.solution"></h4><p data-t="work.e.sol"></p></div>
+    <div><h4 data-t="work.stack"></h4><div class="modal-stack"><span>OpenAI</span><span>Claude</span><span>RAG</span><span>Pinecone</span><span>Next.js</span></div></div>
+    <div><h4 data-t="work.outcome"></h4><p data-t="work.e.out"></p></div>
+  </div>
+</template>
+<template id="case-tpl-f">
+  <div class="modal-hero"><div class="cat" data-t="work.f.cat"></div><h2 data-t="work.f.t"></h2><p class="short" data-t="work.f.short"></p></div>
+  <div class="modal-visual"><div class="slot"></div></div>
+  <div class="modal-body">
+    <div><h4 data-t="work.problem"></h4><p data-t="work.f.prob"></p></div>
+    <div><h4 data-t="work.solution"></h4><p data-t="work.f.sol"></p></div>
+    <div><h4 data-t="work.stack"></h4><div class="modal-stack"><span>Next.js</span><span>Postgres</span><span>Stripe API</span><span>Recharts</span></div></div>
+    <div><h4 data-t="work.outcome"></h4><p data-t="work.f.out"></p></div>
+  </div>
+</template>
+<template id="case-tpl-g">
+  <div class="modal-hero"><div class="cat" data-t="work.g.cat"></div><h2 data-t="work.g.t"></h2><p class="short" data-t="work.g.short"></p></div>
+  <div class="modal-visual"><div class="slot"></div></div>
+  <div class="modal-body">
+    <div><h4 data-t="work.problem"></h4><p data-t="work.g.prob"></p></div>
+    <div><h4 data-t="work.solution"></h4><p data-t="work.g.sol"></p></div>
+    <div><h4 data-t="work.stack"></h4><div class="modal-stack"><span>Stripe</span><span>Supabase</span><span>WhatsApp Cloud API</span><span>Node</span></div></div>
+    <div><h4 data-t="work.outcome"></h4><p data-t="work.g.out"></p></div>
+  </div>
+</template>
+<template id="case-tpl-h">
+  <div class="modal-hero"><div class="cat" data-t="work.h.cat"></div><h2 data-t="work.h.t"></h2><p class="short" data-t="work.h.short"></p></div>
+  <div class="modal-visual"><div class="slot"></div></div>
+  <div class="modal-body">
+    <div><h4 data-t="work.problem"></h4><p data-t="work.h.prob"></p></div>
+    <div><h4 data-t="work.solution"></h4><p data-t="work.h.sol"></p></div>
+    <div><h4 data-t="work.stack"></h4><div class="modal-stack"><span>Architecture</span><span>Strategy</span><span>Technical writing</span></div></div>
+    <div><h4 data-t="work.outcome"></h4><p data-t="work.h.out"></p></div>
+  </div>
+</template>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

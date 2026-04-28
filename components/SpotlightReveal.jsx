@@ -270,14 +270,21 @@ export default function SpotlightReveal() {
     };
 
     let raf = 0;
+    let pageVisible = !document.hidden;
+
+    const scheduleTick = () => {
+      if (!raf && pageVisible && mouse.active) {
+        raf = requestAnimationFrame(tick);
+      }
+    };
 
     const tick = (t) => {
+      raf = 0;
       mouse.x += (mouse.tx - mouse.x) * 0.18;
       mouse.y += (mouse.ty - mouse.y) * 0.18;
       ctx.clearRect(0, 0, width, height);
 
       if (!mouse.active) {
-        raf = requestAnimationFrame(tick);
         return;
       }
 
@@ -304,27 +311,41 @@ export default function SpotlightReveal() {
       ctx.fillStyle = halo;
       ctx.fillRect(mouse.x - radius * 1.2, mouse.y - radius * 1.2, radius * 2.4, radius * 2.4);
 
-      raf = requestAnimationFrame(tick);
+      scheduleTick();
     };
 
     const onMove = (e) => {
       mouse.tx = e.clientX;
       mouse.ty = e.clientY;
       mouse.active = true;
+      scheduleTick();
     };
     const onLeave = () => {
       mouse.active = false;
+      cancelAnimationFrame(raf);
+      raf = 0;
+      ctx.clearRect(0, 0, width, height);
     };
     const onScroll = () => {
       scrollY = window.scrollY;
+      scheduleTick();
+    };
+    const onVisibilityChange = () => {
+      pageVisible = !document.hidden;
+      if (pageVisible) {
+        scheduleTick();
+      } else {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
     };
 
     resize();
-    raf = requestAnimationFrame(tick);
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerleave", onLeave);
     window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
       cancelAnimationFrame(raf);
@@ -332,6 +353,7 @@ export default function SpotlightReveal() {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerleave", onLeave);
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 

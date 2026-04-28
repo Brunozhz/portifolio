@@ -1,11 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import GlowButton from "@/components/GlowButton";
-import HeroNebula3D from "@/components/HeroNebula3D";
 import Magnetic from "@/components/Magnetic";
 import SplitText from "@/components/SplitText";
+
+const HeroNebula3D = dynamic(() => import("@/components/HeroNebula3D"), {
+  ssr: false,
+  loading: () => <div className="hero-3d-field" aria-hidden="true" />
+});
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(8px)" },

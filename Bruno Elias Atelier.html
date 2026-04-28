@@ -1,0 +1,1699 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bruno Elias — Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#000000;
+    --panel:#08080A;
+    --panel2:#0C0C10;
+    --pearl:#F5F3EE;
+    --ink:#E8ECF3;
+    --inkSoft:#B8C0D0;
+    --inkMute:#7A8294;
+    --champagne:#D8C79A;
+    --champagne-deep:#A8966A;
+    --line:rgba(255,255,255,0.08);
+    --line-strong:rgba(255,255,255,0.16);
+    --bpm: 1.154s; /* 52 bpm */
+    --ease:cubic-bezier(0.22,1,0.36,1);
+    --spot-x:50%;
+    --spot-y:50%;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#000;color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-0.012em}
+  body{min-height:100vh;overflow-x:hidden;font-weight:500}
+  ::selection{background:rgba(216,199,154,.32);color:#fff}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer}
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-0.028em;margin:0}
+  .display{font-family:'Space Grotesk',sans-serif;font-weight:700}
+  .mono{font-family:'JetBrains Mono',monospace;font-weight:500}
+
+  /* Heartbeat pulse — every interactive element subtly throbs at 52bpm */
+  @keyframes heartbeat{
+    0%,100%{box-shadow:var(--rest-shadow,0 0 0 rgba(216,199,154,0))}
+    50%{box-shadow:var(--beat-shadow,0 0 24px rgba(216,199,154,.18))}
+  }
+
+  /* === GALAXY BACKDROP === */
+  .galaxy{position:fixed;inset:0;z-index:0;pointer-events:none;background:#000}
+  .galaxy canvas{display:block;width:100%;height:100%}
+  .planet-voyage-canvas{position:fixed;inset:0;z-index:1;width:100%;height:100%;pointer-events:none}
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 30%, rgba(216,199,154,.04), transparent 60%),
+      radial-gradient(ellipse 80% 80% at 50% 110%, rgba(0,0,0,.9), transparent 60%);
+  }
+  .noise{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.04;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+  .reveal-canvas{position:fixed;inset:0;z-index:3;pointer-events:none}
+
+  /* === SCROLL PROGRESS === */
+  .scroll-progress{position:fixed;top:0;left:0;right:0;height:1px;z-index:90;background:linear-gradient(90deg,transparent,var(--champagne),transparent);transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
+
+  /* === HEADER (floating triple-pill) === */
+  header{position:fixed;inset:0 0 auto 0;z-index:60;pointer-events:none;padding:18px 24px}
+  .nav-row{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .pill{pointer-events:auto;display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.035);backdrop-filter:blur(22px) saturate(1.2);transition:all .42s var(--ease)}
+  .pill:hover{border-color:rgba(216,199,154,.4);background:rgba(255,255,255,.06)}
+  .brand-mark{position:relative;width:32px;height:32px;border-radius:50%;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);display:inline-flex;align-items:center;justify-content:center;overflow:hidden}
+  .brand-mark::before{content:"";position:absolute;inset:3px;border-radius:50%;background:linear-gradient(135deg,rgba(216,199,154,.55),rgba(255,255,255,.08))}
+  .brand-mark::after{content:"";position:absolute;inset:5px;border-radius:50%;background:#000}
+  .brand-mark .core{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--pearl);box-shadow:0 0 12px rgba(216,199,154,.85);z-index:1;animation:heartbeat var(--bpm) ease-in-out infinite;--beat-shadow:0 0 18px rgba(216,199,154,.95)}
+  .brand-text{display:flex;flex-direction:column;line-height:1;font-family:'Space Grotesk',sans-serif}
+  .brand-text .a{font-size:13px;font-weight:600;color:var(--pearl)}
+  .brand-text .b{font-size:9px;font-weight:500;letter-spacing:.22em;color:var(--inkMute);text-transform:uppercase;margin-top:3px}
+
+  /* Constellation nav */
+  .constellation{pointer-events:auto;position:relative;display:flex;align-items:center;gap:0;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);backdrop-filter:blur(22px)}
+  .constellation svg{display:block}
+  .constellation .label{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--inkMute);text-transform:uppercase;letter-spacing:.22em;margin-left:10px;min-width:84px}
+
+  .right-pills{display:flex;gap:8px;align-items:center;pointer-events:auto}
+  .lang{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);backdrop-filter:blur(22px);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--inkSoft);letter-spacing:.16em;text-transform:uppercase}
+  .lang button{padding:2px 5px;color:var(--inkMute);font-size:10px;font-weight:600;letter-spacing:.16em;transition:color .3s}
+  .lang button.on{color:var(--champagne)}
+  .lang button:hover{color:var(--pearl)}
+  .audio-toggle{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);backdrop-filter:blur(22px);display:inline-flex;align-items:center;justify-content:center;color:var(--inkSoft);transition:all .3s}
+  .audio-toggle:hover{color:var(--champagne);border-color:rgba(216,199,154,.4)}
+  .cta-pill{padding:9px 18px;border-radius:999px;border:1px solid rgba(216,199,154,.32);background:rgba(216,199,154,.08);color:var(--champagne);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;letter-spacing:.02em;backdrop-filter:blur(22px);transition:all .42s var(--ease);animation:heartbeat var(--bpm) ease-in-out infinite;--beat-shadow:0 0 20px rgba(216,199,154,.18)}
+  .cta-pill:hover{border-color:rgba(216,199,154,.7);background:rgba(216,199,154,.18);box-shadow:0 0 30px rgba(216,199,154,.35)}
+
+  /* === HERO === */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;z-index:5}
+  .hero-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto;text-align:center}
+  .eyebrow-line{display:inline-flex;align-items:center;gap:14px;margin-bottom:28px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:var(--champagne);letter-spacing:.32em;text-transform:uppercase}
+  .eyebrow-line .div{width:40px;height:1px;background:linear-gradient(90deg,transparent,rgba(216,199,154,.65),transparent)}
+
+  /* Particle-assemble headline */
+  .headline-stage{position:relative;width:100%;max-width:1080px;margin:0 auto;height:clamp(180px, 28vw, 320px)}
+  .headline-stage canvas{position:absolute;inset:0;width:100%;height:100%}
+  .headline-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(2.2rem,5.5vw,4.5rem);line-height:1.05;letter-spacing:-.03em;color:var(--pearl);opacity:0;pointer-events:none}
+
+  .subhead{margin:28px auto 0;max-width:680px;font-size:17px;line-height:1.6;color:rgba(245,243,238,.85);font-weight:500}
+  .badges{margin-top:34px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+  .badge{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);backdrop-filter:blur(14px);font-size:11px;font-weight:700;color:var(--pearl)}
+
+  .actions{margin-top:46px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+  .btn{position:relative;padding:14px 26px;border-radius:999px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:.01em;border:1px solid;cursor:pointer;overflow:hidden;transition:transform .42s var(--ease);isolation:isolate}
+  .btn-primary{background:var(--pearl);color:#0A0A0E;border-color:var(--pearl);animation:heartbeat var(--bpm) ease-in-out infinite;--beat-shadow:0 0 22px rgba(245,243,238,.25)}
+  .btn-secondary{background:rgba(255,255,255,.03);color:var(--pearl);border-color:rgba(216,199,154,.3);backdrop-filter:blur(14px)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn .charge{position:absolute;inset:0;border-radius:999px;border:1px solid var(--champagne);transform:scale(.7);opacity:0;pointer-events:none}
+  .btn.charging .charge{animation:charge .6s var(--ease) forwards}
+  @keyframes charge{0%{transform:scale(.7);opacity:0}100%{transform:scale(1.15);opacity:0}}
+  .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);transform:translateX(-130%) skewX(-22deg);transition:transform .8s var(--ease);pointer-events:none}
+  .btn:hover::after{transform:translateX(130%) skewX(-22deg)}
+
+  /* Floating signal pills */
+  .signals{position:absolute;inset:0;pointer-events:none;z-index:1}
+  .signal{position:absolute;display:flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);backdrop-filter:blur(14px);font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;color:rgba(245,243,238,.9);text-transform:uppercase;animation:floaty 6s ease-in-out infinite}
+  .signal .dot{width:8px;height:8px;border-radius:50%;background:var(--champagne);box-shadow:0 0 10px rgba(216,199,154,.85);animation:heartbeat var(--bpm) ease-in-out infinite;--beat-shadow:0 0 14px rgba(216,199,154,.95)}
+  .signal:nth-child(1){left:3%;top:34%;animation-delay:0s}
+  .signal:nth-child(2){right:3%;top:30%;animation-delay:1s}
+  .signal:nth-child(3){left:5%;bottom:18%;animation-delay:2s}
+  .signal:nth-child(4){right:5%;bottom:16%;animation-delay:3s}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* Scroll indicator */
+  .scroll-hint{margin-top:60px;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:.36em;color:var(--inkMute);text-transform:uppercase}
+  .scroll-hint .track{width:1px;height:36px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
+  .scroll-hint .track::after{content:"";position:absolute;left:0;right:0;top:0;height:14px;background:linear-gradient(180deg,var(--champagne),transparent);animation:scrollFall 2.4s ease-in-out infinite}
+  @keyframes scrollFall{0%{top:-14px}100%{top:36px}}
+
+  /* === SECTIONS === */
+  section{position:relative;z-index:5;padding:140px 24px}
+  .container{max-width:1280px;margin:0 auto}
+  .section-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:var(--champagne);letter-spacing:.22em;text-transform:uppercase;border:1px solid rgba(216,199,154,.22);background:linear-gradient(180deg,rgba(216,199,154,.1),rgba(216,199,154,.03));margin-bottom:18px}
+  .section-eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--champagne);box-shadow:0 0 12px rgba(216,199,154,.6);animation:heartbeat var(--bpm) ease-in-out infinite}
+  .section-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(2.6rem,5.5vw,4.4rem);line-height:1.02;letter-spacing:-.03em;color:#fff}
+  .section-title .aurora{background:linear-gradient(120deg,#fff 0%,#f5f3ee 18%,#e8d8a8 38%,#d8c79a 50%,#f5f3ee 70%,#fff 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:auroraShimmer 12s ease-in-out infinite}
+  @keyframes auroraShimmer{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+  .section-sub{margin-top:24px;max-width:680px;font-size:18px;line-height:1.6;color:var(--inkSoft);font-weight:500}
+
+  /* === ABOUT === */
+  .about-grid{display:grid;gap:64px;grid-template-columns:0.9fr 1.1fr;align-items:start}
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:36px}}
+  .about-meta{margin-top:40px;display:grid;gap:20px;border-left:1px solid var(--line);padding-left:24px}
+  .about-meta .k{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--inkMute)}
+  .about-meta .v{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--pearl);margin-top:6px;letter-spacing:-.02em}
+  .about-paragraphs{font-size:17px;line-height:1.7;color:var(--inkSoft);font-weight:500}
+  .about-paragraphs p{margin:0 0 20px 0}
+  .about-paragraphs p:first-child::first-letter{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;color:var(--champagne);float:left;line-height:1;margin:6px 12px 0 0}
+  .highlights{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:700px){.highlights{grid-template-columns:1fr 1fr}}
+  .hl{position:relative;padding:18px 18px 18px 18px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01) 30%,rgba(0,0,0,.18));backdrop-filter:blur(22px);font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--pearl);font-size:14px;overflow:hidden}
+  .hl::before{content:"";display:block;width:36px;height:1px;background:linear-gradient(90deg,var(--champagne),transparent);margin-bottom:10px}
+  .hl .num{position:absolute;right:12px;top:10px;font-size:10px;color:var(--inkMute);font-weight:700;letter-spacing:.02em}
+
+  /* === SERVICES — holographic cards === */
+  .svc-grid{margin-top:64px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:1100px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.svc-grid{grid-template-columns:1fr}}
+  .holo{position:relative;border-radius:18px;padding:28px;min-height:280px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01) 30%,rgba(0,0,0,.18));backdrop-filter:blur(22px) saturate(1.2);overflow:hidden;cursor:pointer;transform-style:preserve-3d;perspective:1000px;transition:border-color .42s var(--ease)}
+  .holo:hover{border-color:rgba(216,199,154,.35)}
+  .holo .holo-shimmer{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .42s var(--ease);
+    background:radial-gradient(700px circle at var(--mx,50%) var(--my,50%), rgba(216,199,154,.18), rgba(255,255,255,.05) 25%, transparent 55%),
+               linear-gradient(115deg, transparent 35%, rgba(216,199,154,.16) 45%, rgba(245,243,238,.22) 50%, rgba(216,199,154,.16) 55%, transparent 65%);
+    mix-blend-mode:screen}
+  .holo:hover .holo-shimmer{opacity:1}
+  .holo .holo-grid{position:absolute;inset:0;pointer-events:none;opacity:.05;background-image:linear-gradient(rgba(216,199,154,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(216,199,154,.5) 1px,transparent 1px);background-size:32px 32px}
+  .holo .num-tag{position:absolute;top:18px;right:18px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:var(--inkMute)}
+  .holo .icon-orb{position:relative;width:54px;height:54px;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.02));margin-bottom:24px;color:var(--champagne);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+  .holo h3{font-size:22px;color:#fff;line-height:1.1}
+  .holo .desc{margin-top:14px;font-size:13px;line-height:1.7;color:var(--inkSoft);font-weight:500}
+  .holo .meta{position:absolute;left:28px;right:28px;bottom:24px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--inkMute);letter-spacing:.04em;opacity:0;transform:translateY(8px);transition:all .5s var(--ease)}
+  .holo:hover .meta{opacity:1;transform:translateY(0)}
+  .holo .meta .v{color:var(--champagne)}
+  .holo::after{content:"";position:absolute;left:24px;right:24px;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(216,199,154,.6),transparent);transform:scaleX(0);transform-origin:center;transition:transform .5s var(--ease)}
+  .holo:hover::after{transform:scaleX(1)}
+
+  .stat-row{margin-top:80px;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.02);gap:1px;background:var(--line)}
+  @media(max-width:700px){.stat-row{grid-template-columns:1fr}}
+  .stat{padding:42px 28px;text-align:center;background:rgba(8,8,10,.6);backdrop-filter:blur(22px)}
+  .stat .v{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;letter-spacing:-.04em;color:var(--pearl)}
+  .stat .l{margin-top:10px;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--inkMute);text-transform:uppercase}
+
+  /* === ORRERY (Process) === */
+  .orrery-wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:60px}
+  @media(max-width:1000px){.orrery-wrap{grid-template-columns:1fr;gap:36px}}
+  .orrery{position:relative;width:100%;aspect-ratio:1;max-width:560px;margin:0 auto}
+  .orrery svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .orrery .sun{position:absolute;left:50%;top:50%;width:90px;height:90px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,#fff,#e8d8a8 25%,#d8c79a 55%,#a8966a 100%);box-shadow:0 0 80px rgba(216,199,154,.4),0 0 140px rgba(216,199,154,.2);animation:heartbeat var(--bpm) ease-in-out infinite;--beat-shadow:0 0 100px rgba(216,199,154,.55), 0 0 180px rgba(216,199,154,.3)}
+  .orrery .sun::before{content:"";position:absolute;inset:-3px;border-radius:50%;border:1px dashed rgba(216,199,154,.3);animation:rotate 60s linear infinite}
+  @keyframes rotate{to{transform:rotate(360deg)}}
+  .planet{position:absolute;left:50%;top:50%;width:56px;height:56px;border-radius:50%;transform:translate(-50%,-50%) scale(var(--planet-scale,1));opacity:var(--planet-opacity,1);transition:transform .6s var(--ease), opacity .6s var(--ease), filter .6s var(--ease);cursor:pointer;z-index:5}
+  .planet-canvas{width:100%;height:100%;display:block;border-radius:50%}
+  .planet.active{filter:drop-shadow(0 0 34px rgba(216,199,154,.6))}
+  .planet .label{position:absolute;left:50%;top:120%;transform:translateX(-50%);white-space:nowrap;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--inkSoft);opacity:.65;transition:all .42s var(--ease)}
+  .planet.active .label{opacity:1;color:var(--champagne)}
+
+  .orrery-info{padding:36px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.18));backdrop-filter:blur(22px) saturate(1.2);min-height:340px;position:relative}
+  .orrery-info .step-num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:96px;line-height:1;letter-spacing:-.05em;color:rgba(255,255,255,.06);position:absolute;right:24px;top:14px}
+  .orrery-info .step-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--champagne)}
+  .orrery-info .step-title{margin-top:16px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;line-height:1.1;color:#fff;letter-spacing:-.03em}
+  .orrery-info .step-body{margin-top:20px;font-size:15px;line-height:1.7;color:var(--inkSoft);font-weight:500;max-width:420px}
+  .orrery-info .step-progress{margin-top:34px;display:flex;align-items:center;gap:14px}
+  .orrery-info .progress-bar{flex:1;height:1px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
+  .orrery-info .progress-bar::after{content:"";position:absolute;inset:0;width:var(--p,25%);background:linear-gradient(90deg,var(--champagne),transparent);transition:width .6s var(--ease)}
+  .step-pager{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--inkMute)}
+  .step-pager b{color:var(--champagne);font-weight:500}
+
+  /* === TECH === */
+  .tech-grid{margin-top:60px;display:grid;grid-template-columns:0.42fr 1.58fr;gap:36px}
+  @media(max-width:900px){.tech-grid{grid-template-columns:1fr}}
+  .tech-tabs{display:flex;flex-direction:column;gap:8px}
+  .tech-tab{position:relative;text-align:left;padding:18px 22px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.02);transition:all .42s var(--ease);cursor:pointer}
+  .tech-tab:hover{border-color:var(--line-strong);background:rgba(255,255,255,.04)}
+  .tech-tab.on{border-color:rgba(216,199,154,.4);background:rgba(255,255,255,.05)}
+  .tech-tab.on::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:2px;border-radius:99px;background:linear-gradient(180deg,var(--champagne),transparent)}
+  .tech-tab .n{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--inkMute);transition:color .3s}
+  .tech-tab.on .n{color:var(--champagne)}
+  .tech-tab .t{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-top:6px;letter-spacing:-.02em}
+  .tech-panel{position:relative;padding:36px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.18));backdrop-filter:blur(22px) saturate(1.2);min-height:300px;overflow:hidden}
+  .tech-panel .ring1{position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;border:1px solid rgba(255,255,255,.05);pointer-events:none}
+  .tech-panel .ring2{position:absolute;left:-60px;bottom:-120px;width:240px;height:240px;border-radius:50%;border:1px solid rgba(216,199,154,.1);pointer-events:none}
+  .tech-panel h3{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--pearl);letter-spacing:-.02em}
+  .tech-tools{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px}
+  .tool{padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--pearl);transition:all .3s}
+  .tool:hover{transform:translateY(-3px) scale(1.05);background:rgba(216,199,154,.12);border-color:rgba(216,199,154,.4)}
+  .tech-meta{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:10px}
+  .tech-meta .count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--inkMute);letter-spacing:.04em}
+  .marquee{margin-top:60px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .marquee-track{display:flex;gap:32px;animation:marquee 40s linear infinite;will-change:transform;flex-shrink:0;padding-right:32px}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-rev .marquee-track{animation-direction:reverse;animation-duration:48s}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .marquee-item{display:inline-flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--inkSoft);white-space:nowrap}
+  .marquee-item .pip{width:6px;height:6px;border-radius:50%;background:rgba(216,199,154,.6)}
+  .marquee-rev .marquee-item{font-size:22px;color:rgba(245,243,238,.3)}
+
+  /* === DATA SHEET (brutalist instrument panel surprise) === */
+  .datasheet{margin-top:120px;border:1px solid var(--line-strong);border-radius:6px;background:linear-gradient(180deg,rgba(8,8,10,.95),rgba(0,0,0,.95));padding:32px;font-family:'JetBrains Mono',monospace;color:var(--inkSoft);position:relative;overflow:hidden}
+  .datasheet::before{content:"BES-01 / SCHEMATIC v1.0 / NOMINAL";position:absolute;top:14px;left:32px;font-size:10px;letter-spacing:.24em;color:var(--inkMute)}
+  .datasheet::after{content:"REV 2026-04";position:absolute;top:14px;right:32px;font-size:10px;letter-spacing:.24em;color:var(--inkMute)}
+  .ds-grid{margin-top:30px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:24px;border-top:1px solid var(--line-strong);padding-top:24px}
+  @media(max-width:900px){.ds-grid{grid-template-columns:1fr}}
+  .ds-block .ds-label{font-size:9px;letter-spacing:.32em;color:var(--champagne);margin-bottom:14px;text-transform:uppercase}
+  .ds-block .ds-row{display:flex;justify-content:space-between;font-size:11px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+  .ds-block .ds-row .k{color:var(--inkMute)}
+  .ds-block .ds-row .v{color:var(--pearl)}
+  .gauges{display:flex;gap:18px;margin-top:14px}
+  .gauge{flex:1;text-align:center}
+  .gauge-arc{width:100%;height:80px;position:relative}
+  .gauge-arc svg{width:100%;height:100%}
+  .gauge-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--pearl);margin-top:-4px}
+  .gauge-cap{font-size:9px;letter-spacing:.24em;color:var(--inkMute);text-transform:uppercase;margin-top:4px}
+  .schematic{position:relative;height:140px}
+  .schematic svg{width:100%;height:100%}
+
+  /* === CONTACT (Transmission console) === */
+  .contact-stage{position:relative;margin-top:48px;border:1px solid var(--line-strong);border-radius:24px;overflow:hidden;background:linear-gradient(180deg,rgba(12,12,16,.95),rgba(0,0,0,.95));padding:54px}
+  .contact-stage::before{content:"";position:absolute;inset:0;background:radial-gradient(800px circle at 80% 0%,rgba(216,199,154,.08),transparent 60%),radial-gradient(600px circle at 0% 100%,rgba(99,102,241,.06),transparent 50%);pointer-events:none}
+  .contact-stage::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:48px 48px;opacity:.6}
+  .contact-grid{position:relative;display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:start}
+  @media(max-width:900px){.contact-grid{grid-template-columns:1fr;gap:36px}}
+  .terminal{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--inkSoft);margin-top:36px;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.6);padding:22px;backdrop-filter:blur(8px)}
+  .terminal .line{display:block;line-height:1.8}
+  .terminal .pre{color:var(--champagne);margin-right:8px}
+  .terminal .ok{color:#9CE7B5}
+  .terminal .key{color:var(--inkMute)}
+  .terminal .val{color:var(--pearl)}
+  .terminal .caret{display:inline-block;width:8px;height:14px;background:var(--champagne);vertical-align:-2px;margin-left:4px;animation:caret 1.05s steps(2) infinite}
+  @keyframes caret{50%{opacity:0}}
+  .channels{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+  .channel{position:relative;display:flex;align-items:center;gap:18px;padding:16px 22px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.025);backdrop-filter:blur(14px);transition:all .42s var(--ease);overflow:hidden}
+  .channel:hover{transform:translateX(4px);border-color:rgba(216,199,154,.4);background:rgba(255,255,255,.05)}
+  .channel .ch-icon{flex:0 0 44px;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(216,199,154,.3);background:rgba(216,199,154,.06);color:var(--champagne)}
+  .channel .ch-key{font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--inkMute)}
+  .channel .ch-val{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:var(--pearl);margin-top:4px;letter-spacing:-.01em}
+  .channel::after{content:"";position:absolute;left:22px;right:22px;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(216,199,154,.6),transparent);transform:scaleX(0);transition:transform .5s var(--ease)}
+  .channel:hover::after{transform:scaleX(1)}
+  .contact-actions{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px}
+  .signature{margin-top:54px;display:flex;align-items:center;gap:18px}
+  .signature .div{width:120px;height:1px;background:linear-gradient(90deg,var(--champagne),transparent)}
+  .signature .by{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--champagne);letter-spacing:.28em;text-transform:uppercase}
+
+  /* === OBSERVATORY HUD (corner readout) === */
+  .observatory{position:fixed;left:18px;bottom:18px;z-index:55;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--inkMute);letter-spacing:.06em;line-height:1.7;pointer-events:none;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border:1px solid var(--line);padding:10px 14px;border-radius:8px;min-width:170px}
+  .observatory .row{display:flex;justify-content:space-between;gap:14px}
+  .observatory .row .k{color:var(--inkMute)}
+  .observatory .row .v{color:var(--pearl)}
+
+  /* Compass corner */
+  .compass{position:fixed;right:18px;bottom:18px;z-index:55;width:120px;pointer-events:none;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--inkMute);text-align:right;line-height:1.6}
+  .compass .next{color:var(--champagne);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:4px;display:block}
+  .compass .ly{color:var(--pearl);font-size:14px;font-weight:600;letter-spacing:.04em}
+
+  /* === FOOTER === */
+  footer{position:relative;z-index:5;padding:60px 24px 80px;text-align:center;border-top:1px solid var(--line);margin-top:60px}
+  footer .div{display:inline-block;width:160px;height:1px;background:linear-gradient(90deg,transparent,rgba(216,199,154,.6),transparent);margin-bottom:18px}
+  footer .ft{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--inkMute)}
+
+  /* === EASTER EGG OVERLAY === */
+  .bruno-os{position:fixed;inset:24px;z-index:200;border:1px solid rgba(216,199,154,.4);border-radius:14px;background:rgba(0,0,0,.96);backdrop-filter:blur(18px);padding:28px 32px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#9CE7B5;display:none}
+  .bruno-os.on{display:block;animation:os-in .5s var(--ease)}
+  @keyframes os-in{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
+  .bruno-os .head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:14px}
+  .bruno-os .head .t{color:var(--champagne);letter-spacing:.18em;font-size:11px}
+  .bruno-os .head button{color:var(--inkMute);font-family:inherit;font-size:11px;letter-spacing:.18em}
+  .bruno-os .head button:hover{color:var(--pearl)}
+  .bruno-os pre{margin:0;color:#9CE7B5;font-size:12px;line-height:1.5;white-space:pre-wrap}
+
+  .planets-counter{position:fixed;left:50%;top:80px;transform:translateX(-50%);z-index:55;display:none;background:rgba(0,0,0,.6);backdrop-filter:blur(14px);border:1px solid rgba(216,199,154,.3);padding:8px 16px;border-radius:99px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--champagne);text-transform:uppercase;animation:floaty 2.4s ease-in-out infinite}
+  .planets-counter.on{display:block}
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- Galaxy backdrop layers -->
+<div class="galaxy"><canvas id="galaxy-canvas"></canvas></div>
+<canvas class="planet-voyage-canvas" id="planet-voyage-canvas"></canvas>
+<canvas class="reveal-canvas" id="reveal-canvas"></canvas>
+<div class="vignette"></div>
+<div class="noise"></div>
+
+<div class="scroll-progress" id="scroll-progress"></div>
+
+
+
+<!-- Header -->
+<header>
+  <div class="nav-row">
+    <a href="#home" class="pill" aria-label="Home">
+      <span class="brand-mark"><span class="core"></span></span>
+      <span class="brand-text"><span class="a">Bruno Elias</span><span class="b">Atelier</span></span>
+    </a>
+
+    <nav class="constellation" aria-label="Primary">
+      <svg width="180" height="22" viewBox="0 0 180 22" id="constellation-nav" style="overflow:visible">
+        <line x1="12" y1="11" x2="48" y2="11" stroke="rgba(216,199,154,.18)" stroke-width="1" stroke-dasharray="2 3"/>
+        <line x1="48" y1="11" x2="84" y2="11" stroke="rgba(216,199,154,.18)" stroke-width="1" stroke-dasharray="2 3"/>
+        <line x1="84" y1="11" x2="120" y2="11" stroke="rgba(216,199,154,.18)" stroke-width="1" stroke-dasharray="2 3"/>
+        <line x1="120" y1="11" x2="156" y2="11" stroke="rgba(216,199,154,.18)" stroke-width="1" stroke-dasharray="2 3"/>
+        <g class="star" data-target="about"><circle cx="12" cy="11" r="3"/></g>
+        <g class="star" data-target="services"><circle cx="48" cy="11" r="3"/></g>
+        <g class="star" data-target="process"><circle cx="84" cy="11" r="3"/></g>
+        <g class="star" data-target="technologies"><circle cx="120" cy="11" r="3"/></g>
+        <g class="star" data-target="contact"><circle cx="156" cy="11" r="3"/></g>
+      </svg>
+      <span class="label" id="constellation-label">About</span>
+    </nav>
+
+    <div class="right-pills">
+      <span class="lang" id="lang-switcher">
+        <button data-lang="en" class="on">EN</button>
+        <button data-lang="de">DE</button>
+        <button data-lang="fr">FR</button>
+        <button data-lang="it">IT</button>
+        <button data-lang="pt">PT</button>
+      </span>
+      <button class="audio-toggle" id="audio-toggle" aria-label="Toggle ambient soundscape">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 10v4h3l4 3V7L6 10H3z"/><line x1="16" y1="9" x2="16" y2="15" stroke-dasharray="2 2"/></svg>
+      </button>
+      <a href="#contact" class="cta-pill" data-i18n="cta.transmission">Establish Transmission →</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="signals">
+    <span class="signal"><span class="dot"></span><span data-i18n="sig.crm">CRM Setup</span></span>
+    <span class="signal"><span class="dot"></span><span data-i18n="sig.n8n">n8n Flow</span></span>
+    <span class="signal"><span class="dot"></span><span data-i18n="sig.api">API Layer</span></span>
+    <span class="signal"><span class="dot"></span><span data-i18n="sig.sdr">AI SDR</span></span>
+  </div>
+
+  <div class="hero-inner">
+    <div class="eyebrow-line">
+      <span class="div"></span>
+      <span data-i18n="hero.eyebrow">Bruno Elias · Freelance Technical Builder</span>
+      <span class="div"></span>
+    </div>
+
+    <div class="headline-stage">
+      <canvas id="headline-canvas"></canvas>
+      <h1 class="headline-fallback" data-i18n="hero.headline">I build websites, automations and AI systems for ambitious teams.</h1>
+    </div>
+
+    <p class="subhead" data-i18n="hero.subhead">Brazilian freelancer focused on creating modern digital experiences, implementing CRM workflows and building intelligent systems for businesses and agencies.</p>
+
+    <div class="badges">
+      <span class="badge" data-i18n="hero.b1">Remote Freelancer</span>
+      <span class="badge" data-i18n="hero.b2">Based in Brazil</span>
+      <span class="badge" data-i18n="hero.b3">Available for Projects</span>
+      <span class="badge" data-i18n="hero.b4">Websites · CRM · Automation · AI SDR</span>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" data-charge><span data-i18n="hero.cta1">View Services</span><span class="charge"></span></button>
+      <a href="#contact" class="btn btn-secondary" data-charge><span data-i18n="hero.cta2">Establish Transmission</span><span class="charge"></span></a>
+    </div>
+
+    <div class="scroll-hint"><span data-i18n="hero.scroll">scroll</span><span class="track"></span></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container about-grid">
+    <div>
+      <span class="section-eyebrow" data-i18n="about.eyebrow">Profile</span>
+      <h2 class="section-title"><span class="aurora" data-i18n="about.title">About Me</span></h2>
+      <div class="about-meta">
+        <div><div class="k" data-i18n="about.k1">Discipline</div><div class="v" data-i18n="about.v1">Technical &amp; Creative</div></div>
+        <div><div class="k" data-i18n="about.k2">Method</div><div class="v" data-i18n="about.v2">Iterative · Measurable</div></div>
+        <div><div class="k" data-i18n="about.k3">Reach</div><div class="v" data-i18n="about.v3">Remote · Worldwide</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="about-paragraphs">
+        <p data-i18n="about.p1">I'm Bruno, a 21-year-old Brazilian freelancer focused on building modern digital solutions.</p>
+        <p data-i18n="about.p2">I work with web design, custom websites, sales pages, CRM implementations, automations, API integrations, AI service and SDR agents, databases and more complex systems involving workflow and data logic.</p>
+        <p data-i18n="about.p3">I'm currently building remote connections with companies abroad, especially in Europe, while learning more about international markets, languages and business culture.</p>
+      </div>
+      <div class="highlights">
+        <div class="hl" data-i18n="about.h1">21 years old<span class="num">/01</span></div>
+        <div class="hl" data-i18n="about.h2">Brazil-based<span class="num">/02</span></div>
+        <div class="hl" data-i18n="about.h3">Remote work<span class="num">/03</span></div>
+        <div class="hl" data-i18n="about.h4">International mindset<span class="num">/04</span></div>
+        <div class="hl" data-i18n="about.h5">Technical execution<span class="num">/05</span></div>
+        <div class="hl" data-i18n="about.h6">Creative direction<span class="num">/06</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES — holographic cards -->
+<section id="services">
+  <div class="container" style="text-align:center">
+    <span class="section-eyebrow" data-i18n="svc.eyebrow">Services</span>
+    <h2 class="section-title"><span class="aurora" data-i18n="svc.title">What I Build</span></h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center" data-i18n="svc.sub">A complete technical and creative layer for modern digital businesses.</p>
+
+    <div class="svc-grid" style="text-align:left" id="svc-grid"></div>
+
+    <div class="stat-row">
+      <div class="stat"><div class="v">08</div><div class="l" data-i18n="stat.s1">Service Verticals</div></div>
+      <div class="stat"><div class="v">100%</div><div class="l" data-i18n="stat.s2">Remote Delivery</div></div>
+      <div class="stat"><div class="v">5</div><div class="l" data-i18n="stat.s3">Languages Spoken</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS — orrery -->
+<section id="process">
+  <div class="container">
+    <span class="section-eyebrow" data-i18n="proc.eyebrow">Process</span>
+    <h2 class="section-title"><span class="aurora" data-i18n="proc.title">A craft, not a service</span></h2>
+    <p class="section-sub" data-i18n="proc.sub">How a project moves from a first conversation to a system that earns its keep. Click any orbit to dock.</p>
+
+    <div class="orrery-wrap">
+      <div class="orrery" id="orrery">
+        <svg viewBox="0 0 560 560" preserveAspectRatio="xMidYMid meet">
+          <circle cx="280" cy="280" r="100" fill="none" stroke="rgba(255,255,255,.06)" stroke-dasharray="2 4"/>
+          <circle cx="280" cy="280" r="160" fill="none" stroke="rgba(255,255,255,.05)" stroke-dasharray="2 4"/>
+          <circle cx="280" cy="280" r="220" fill="none" stroke="rgba(216,199,154,.08)" stroke-dasharray="2 6"/>
+          <circle cx="280" cy="280" r="270" fill="none" stroke="rgba(255,255,255,.04)" stroke-dasharray="2 4"/>
+        </svg>
+        <div class="sun"></div>
+        <div class="planet" data-step="0" data-preset="1" data-r="100" data-speed="46">
+          <canvas class="planet-canvas"></canvas>
+          <span class="label" data-i18n="orrery.l1">Discovery</span>
+        </div>
+        <div class="planet" data-step="1" data-preset="0" data-r="160" data-speed="68">
+          <canvas class="planet-canvas"></canvas>
+          <span class="label" data-i18n="orrery.l2">Architecture</span>
+        </div>
+        <div class="planet" data-step="2" data-preset="2" data-r="220" data-speed="92">
+          <canvas class="planet-canvas"></canvas>
+          <span class="label" data-i18n="orrery.l3">Craft</span>
+        </div>
+        <div class="planet" data-step="3" data-preset="4" data-r="270" data-speed="120">
+          <canvas class="planet-canvas"></canvas>
+          <span class="label" data-i18n="orrery.l4">Launch</span>
+        </div>
+      </div>
+
+      <div class="orrery-info" id="orrery-info">
+        <div class="step-num" id="orrery-num">01</div>
+        <div class="step-label" id="orrery-label">01 — Discovery</div>
+        <div class="step-title" id="orrery-title">Listen, scope, align</div>
+        <div class="step-body" id="orrery-body">We map the goal, the audience and the operational context. Every premium build starts with sharp discovery — not assumptions.</div>
+        <div class="step-progress">
+          <span class="step-pager"><b id="orrery-current">01</b> / 04</span>
+          <div class="progress-bar" id="orrery-progress" style="--p:25%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Brutalist data sheet — the "Rolex showing its movement" surprise -->
+    <div class="datasheet">
+      <div class="ds-grid">
+        <div class="ds-block">
+          <div class="ds-label">SYSTEM SCHEMATIC · BES-01</div>
+          <div class="schematic">
+            <svg viewBox="0 0 400 140" fill="none" stroke="rgba(216,199,154,.4)" stroke-width="0.8">
+              <rect x="20" y="20" width="60" height="40" stroke-dasharray="2 2"/>
+              <text x="50" y="44" text-anchor="middle" fill="#7A8294" font-family="JetBrains Mono" font-size="8">FORMS</text>
+              <rect x="120" y="20" width="60" height="40"/>
+              <text x="150" y="44" text-anchor="middle" fill="#D8C79A" font-family="JetBrains Mono" font-size="8">ROUTER</text>
+              <rect x="220" y="20" width="60" height="40" stroke-dasharray="2 2"/>
+              <text x="250" y="44" text-anchor="middle" fill="#7A8294" font-family="JetBrains Mono" font-size="8">CRM</text>
+              <rect x="320" y="20" width="60" height="40"/>
+              <text x="350" y="44" text-anchor="middle" fill="#D8C79A" font-family="JetBrains Mono" font-size="8">AI SDR</text>
+
+              <line x1="80" y1="40" x2="120" y2="40"/>
+              <line x1="180" y1="40" x2="220" y2="40"/>
+              <line x1="280" y1="40" x2="320" y2="40"/>
+
+              <rect x="120" y="90" width="160" height="32" stroke-dasharray="2 2"/>
+              <text x="200" y="110" text-anchor="middle" fill="#7A8294" font-family="JetBrains Mono" font-size="8">DB · SUPABASE / POSTGRES</text>
+              <line x1="150" y1="60" x2="150" y2="90"/>
+              <line x1="250" y1="60" x2="250" y2="90"/>
+
+              <circle cx="80" cy="40" r="2.5" fill="#D8C79A"/>
+              <circle cx="180" cy="40" r="2.5" fill="#D8C79A"/>
+              <circle cx="280" cy="40" r="2.5" fill="#D8C79A"/>
+            </svg>
+          </div>
+        </div>
+        <div class="ds-block">
+          <div class="ds-label">OPERATING ENVELOPE</div>
+          <div class="ds-row"><span class="k">LCP target</span><span class="v">&lt; 2.5s</span></div>
+          <div class="ds-row"><span class="k">CLS</span><span class="v">&lt; 0.05</span></div>
+          <div class="ds-row"><span class="k">INP</span><span class="v">&lt; 200ms</span></div>
+          <div class="ds-row"><span class="k">JS budget</span><span class="v">&lt; 380KB</span></div>
+          <div class="ds-row"><span class="k">Languages</span><span class="v">EN · DE · FR · IT · PT</span></div>
+          <div class="ds-row"><span class="k">Stack</span><span class="v">Next.js 15 / R19 / Tailwind</span></div>
+        </div>
+        <div class="ds-block">
+          <div class="ds-label">TELEMETRY</div>
+          <div class="gauges">
+            <div class="gauge">
+              <div class="gauge-arc">
+                <svg viewBox="0 0 80 60">
+                  <path d="M10 50 A30 30 0 0 1 70 50" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M10 50 A30 30 0 0 1 60 28" fill="none" stroke="#D8C79A" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="gauge-num">98</div>
+              <div class="gauge-cap">Lighthouse</div>
+            </div>
+            <div class="gauge">
+              <div class="gauge-arc">
+                <svg viewBox="0 0 80 60">
+                  <path d="M10 50 A30 30 0 0 1 70 50" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M10 50 A30 30 0 0 1 65 33" fill="none" stroke="#D8C79A" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="gauge-num">52</div>
+              <div class="gauge-cap">Heart BPM</div>
+            </div>
+            <div class="gauge">
+              <div class="gauge-arc">
+                <svg viewBox="0 0 80 60">
+                  <path d="M10 50 A30 30 0 0 1 70 50" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M10 50 A30 30 0 0 1 70 50" fill="none" stroke="#9CE7B5" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="gauge-num">100</div>
+              <div class="gauge-cap">Uptime</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section id="technologies">
+  <div class="container" style="text-align:center">
+    <span class="section-eyebrow" data-i18n="tech.eyebrow">Technologies</span>
+    <h2 class="section-title"><span class="aurora" data-i18n="tech.title">Tools &amp; Technologies</span></h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center" data-i18n="tech.sub">A toolkit refined for craft — not for show.</p>
+
+    <div class="tech-grid" style="text-align:left">
+      <div class="tech-tabs" id="tech-tabs"></div>
+      <div class="tech-panel" id="tech-panel">
+        <div class="ring1"></div><div class="ring2"></div>
+        <div class="tech-meta">
+          <h3 id="tech-title">Frontend &amp; Design</h3>
+          <span class="count" id="tech-count">8 tools</span>
+        </div>
+        <div class="tech-tools" id="tech-tools"></div>
+      </div>
+    </div>
+
+    <div class="marquee" style="text-align:left"><div class="marquee-track" id="marquee-1"></div></div>
+    <div class="marquee marquee-rev" style="text-align:left;margin-top:14px"><div class="marquee-track" id="marquee-2"></div></div>
+  </div>
+</section>
+
+<!-- CONTACT — transmission console -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-stage">
+      <div class="contact-grid">
+        <div>
+          <span class="section-eyebrow" data-i18n="con.eyebrow">Contact</span>
+          <h2 class="section-title"><span class="aurora" data-i18n="con.title">Establish transmission</span></h2>
+
+          <div class="terminal" id="terminal">
+            <span class="line"><span class="pre">&gt;</span> initializing channel…</span>
+            <span class="line"><span class="pre">&gt;</span> handshake: <span class="ok">OK</span></span>
+            <span class="line"><span class="pre">&gt;</span> CHANNELS ONLINE — 04 / 04</span>
+            <span class="line"><span class="key">  ├─ whatsapp</span> <span class="val">·  +55 ********</span></span>
+            <span class="line"><span class="key">  ├─ email</span>    <span class="val">·  hello@brunoelias.dev</span></span>
+            <span class="line"><span class="key">  ├─ linkedin</span> <span class="val">·  /in/brunoelias</span></span>
+            <span class="line"><span class="key">  └─ cv.pdf</span>    <span class="val">·  ready to download</span></span>
+            <span class="line"><span class="pre">&gt;</span> awaiting input<span class="caret"></span></span>
+          </div>
+
+          <div class="contact-actions">
+            <button class="btn btn-primary" data-charge><span data-i18n="con.b1">Send WhatsApp Message</span><span class="charge"></span></button>
+            <button class="btn btn-secondary" data-charge><span data-i18n="con.b2">Send Email</span><span class="charge"></span></button>
+            <button class="btn btn-secondary" data-charge><span data-i18n="con.b3">Download CV</span><span class="charge"></span></button>
+            <button class="btn btn-secondary" data-charge><span data-i18n="con.b4">LinkedIn</span><span class="charge"></span></button>
+          </div>
+
+          <div class="signature">
+            <span class="div"></span>
+            <span class="by">— Bruno</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="channels">
+            <div class="channel">
+              <div class="ch-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4 19 7l-9 9-3 1 1-3 8-10z"/></svg></div>
+              <div><div class="ch-key" data-i18n="ch.k1">Name</div><div class="ch-val">Bruno Elias</div></div>
+            </div>
+            <div class="channel">
+              <div class="ch-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.5-7-12a7 7 0 0 1 14 0c0 4.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+              <div><div class="ch-key" data-i18n="ch.k2">Location</div><div class="ch-val" data-i18n="ch.v2">Brazil</div></div>
+            </div>
+            <div class="channel">
+              <div class="ch-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3v-14a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></div>
+              <div><div class="ch-key" data-i18n="ch.k3">Work</div><div class="ch-val" data-i18n="ch.v3">Remote</div></div>
+            </div>
+            <div class="channel">
+              <div class="ch-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4 4-4M5 21h14"/></svg></div>
+              <div><div class="ch-key" data-i18n="ch.k4">Availability</div><div class="ch-val" data-i18n="ch.v4">Freelance · Open</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="div"></div>
+  <div class="ft" data-i18n="ft">© 2026 Bruno Elias — Crafted by hand, end-to-end.</div>
+</footer>
+
+<!-- Observatory + compass -->
+<div class="observatory" id="observatory">
+  <div class="row"><span class="k">UTC</span><span class="v" id="obs-utc">—</span></div>
+  <div class="row"><span class="k">LAT</span><span class="v">−23.55°S</span></div>
+  <div class="row"><span class="k">SKY</span><span class="v" id="obs-sky">◐ clear</span></div>
+  <div class="row"><span class="k">SIG</span><span class="v" id="obs-sig">nominal</span></div>
+</div>
+
+<div class="compass" id="compass">
+  <span class="next" id="compass-next">↓ Services</span>
+  <span class="ly" id="compass-ly">2.4 ly</span>
+</div>
+
+
+
+<script>
+/* ==========================================================
+ * Bruno Elias Atelier — Surreal Pass (prototype)
+ * Single-file HTML demonstrating the full revision intent.
+ * ==========================================================*/
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- 0. Language engine ---------- */
+const I18N = {
+  en: {
+    title: "Bruno Elias — Atelier",
+    toolsLabel: "tools",
+    headline: "I build websites,\nautomations & AI systems\nfor ambitious teams.",
+    nav: {about:"About", services:"Services", process:"Process", technologies:"Technologies", contact:"Contact"},
+    text: {
+      "cta.transmission":"Establish Transmission →",
+      "sig.crm":"CRM Setup","sig.n8n":"n8n Flow","sig.api":"API Layer","sig.sdr":"AI SDR",
+      "hero.eyebrow":"Bruno Elias · Freelance Technical Builder",
+      "hero.headline":"I build websites, automations and AI systems for ambitious teams.",
+      "hero.subhead":"Brazilian freelancer focused on creating modern digital experiences, implementing CRM workflows and building intelligent systems for businesses and agencies.",
+      "hero.b1":"Remote Freelancer","hero.b2":"Based in Brazil","hero.b3":"Available for Projects","hero.b4":"Websites · CRM · Automation · AI SDR",
+      "hero.cta1":"View Services","hero.cta2":"Establish Transmission","hero.scroll":"scroll",
+      "about.eyebrow":"Profile","about.title":"About Me","about.k1":"Discipline","about.v1":"Technical & Creative","about.k2":"Method","about.v2":"Iterative · Measurable","about.k3":"Reach","about.v3":"Remote · Worldwide",
+      "about.p1":"I'm Bruno, a 21-year-old Brazilian freelancer focused on building modern digital solutions.",
+      "about.p2":"I work with web design, custom websites, sales pages, CRM implementations, automations, API integrations, AI service and SDR agents, databases and more complex systems involving workflow and data logic.",
+      "about.p3":"I'm currently building remote connections with companies abroad, especially in Europe, while learning more about international markets, languages and business culture.",
+      "about.h1":"21 years old","about.h2":"Brazil-based","about.h3":"Remote work","about.h4":"International mindset","about.h5":"Technical execution","about.h6":"Creative direction",
+      "svc.eyebrow":"Services","svc.title":"What I Build","svc.sub":"A complete technical and creative layer for modern digital businesses.",
+      "stat.s1":"Service Verticals","stat.s2":"Remote Delivery","stat.s3":"Languages Spoken",
+      "proc.eyebrow":"Process","proc.title":"A craft, not a service","proc.sub":"How a project moves from a first conversation to a system that earns its keep. Click any orbit to dock.",
+      "orrery.l1":"Discovery","orrery.l2":"Architecture","orrery.l3":"Craft","orrery.l4":"Launch",
+      "tech.eyebrow":"Technologies","tech.title":"Tools & Technologies","tech.sub":"A toolkit refined for craft — not for show.",
+      "con.eyebrow":"Contact","con.title":"Establish transmission","con.b1":"Send WhatsApp Message","con.b2":"Send Email","con.b3":"Download CV","con.b4":"LinkedIn",
+      "ch.k1":"Name","ch.k2":"Location","ch.v2":"Brazil","ch.k3":"Work","ch.v3":"Remote","ch.k4":"Availability","ch.v4":"Freelance · Open",
+      "ft":"© 2026 Bruno Elias — Crafted by hand, end-to-end.",
+      "sky.clear":"clear","sky.night":"night","sig.nominal":"nominal","sig.listening":"listening","sig.idle":"idle","sig.locked":"locked","compass.arrived":"Arrived","compass.docked":"docked"
+    },
+    services: [
+      {t:"Sales Pages", d:"High-converting landing pages and sales pages designed to present offers clearly and turn visitors into leads.", k:"avg. delivery", v:"7d", stack:"Next.js · Tailwind"},
+      {t:"Custom Websites", d:"Modern, responsive and personalized websites for businesses, agencies and digital projects.", k:"avg. delivery", v:"14d", stack:"Next.js · CMS"},
+      {t:"CRM Implementations", d:"CRM setup, pipeline configuration, customer stages, lead organization and internal sales process implementation.", k:"setup", v:"3d", stack:"HubSpot · Pipedrive"},
+      {t:"Automation Flows", d:"Workflows that connect forms, CRMs, notifications, APIs and business logic to reduce manual work.", k:"flows", v:"unlimited", stack:"n8n · Make"},
+      {t:"AI Service & SDR Agents", d:"AI-based agents for customer service, SDR flows, lead qualification, support and automated responses.", k:"languages", v:"5", stack:"OpenAI · n8n"},
+      {t:"API & Webhook Integrations", d:"Connecting platforms, tools and systems through APIs, webhooks and automation logic.", k:"systems", v:"any", stack:"REST · GraphQL"},
+      {t:"Databases & Internal Systems", d:"Structured data, dashboards, internal tools and custom systems for more complex business needs.", k:"db", v:"Supabase", stack:"Postgres · Next.js"},
+      {t:"Digital Operations", d:"Technical support for agencies and small businesses that need execution, organization and scalable digital processes.", k:"retainer", v:"available", stack:"end-to-end"}
+    ],
+    processSteps: [
+      {label:"01 — Discovery", title:"Listen, scope, align", body:"We map the goal, the audience and the operational context. Every premium build starts with sharp discovery — not assumptions."},
+      {label:"02 — Architecture", title:"Design the system", body:"Information design, flows, integrations, edge cases. A blueprint that holds, before a single component is shipped."},
+      {label:"03 — Craft", title:"Build with intent", body:"Hand-tuned interfaces, clean back-ends, automations that survive scale. Every layer reviewed against intent, not template."},
+      {label:"04 — Launch & evolve", title:"Ship, measure, refine", body:"Deployment is a milestone, not a finish line. We instrument what matters and iterate the moment data starts speaking."}
+    ],
+    techGroups: [
+      {t:"Frontend & Design", tools:["HTML","CSS","JavaScript","React","Next.js","Tailwind CSS","Web Design","Landing Pages"]},
+      {t:"Automation & Integrations", tools:["n8n","Webhooks","REST APIs","CRM Implementations","WhatsApp Integrations","Workflow Automation"]},
+      {t:"Data & Systems", tools:["Supabase","PostgreSQL","Databases","Dashboards","Internal Tools","Business Logic"]},
+      {t:"AI & Customer Experience", tools:["AI Agents","AI SDR Agents","Customer Support Automation","Lead Qualification","Multilingual Assistants"]},
+      {t:"Deployment & Tools", tools:["Vercel","Railway","GitHub","Google Sheets","Notion"]}
+    ]
+  },
+  pt: {
+    title: "Bruno Elias — Atelier",
+    toolsLabel: "ferramentas",
+    headline: "Eu construo sites,\nautomacoes & IA\npara times ambiciosos.",
+    nav: {about:"Sobre", services:"Serviços", process:"Processo", technologies:"Tecnologias", contact:"Contato"},
+    text: {
+      "cta.transmission":"Estabelecer transmissão →",
+      "sig.crm":"Setup CRM","sig.n8n":"Fluxo n8n","sig.api":"Camada API","sig.sdr":"SDR IA",
+      "hero.eyebrow":"Bruno Elias · Freelancer técnico",
+      "hero.headline":"Eu construo sites, automações e sistemas com IA para times ambiciosos.",
+      "hero.subhead":"Freelancer brasileiro focado em criar experiências digitais modernas, implementar fluxos em CRMs e construir sistemas inteligentes para empresas e agências.",
+      "hero.b1":"Freelancer remoto","hero.b2":"Baseado no Brasil","hero.b3":"Disponível para projetos","hero.b4":"Sites · CRM · Automação · SDR IA",
+      "hero.cta1":"Ver serviços","hero.cta2":"Estabelecer transmissão","hero.scroll":"role",
+      "about.eyebrow":"Perfil","about.title":"Sobre mim","about.k1":"Disciplina","about.v1":"Técnica & Criativa","about.k2":"Método","about.v2":"Iterativo · Mensurável","about.k3":"Alcance","about.v3":"Remoto · Mundial",
+      "about.p1":"Sou Bruno, um freelancer brasileiro de 21 anos focado em construir soluções digitais modernas.",
+      "about.p2":"Trabalho com web design, sites personalizados, páginas de vendas, implementações em CRMs, automações, integrações com API, agentes de atendimento e SDR com IA, bancos de dados e sistemas com lógica de workflow.",
+      "about.p3":"Atualmente estou construindo conexões remotas com empresas do exterior, especialmente na Europa, enquanto aprendo mais sobre mercados internacionais, idiomas e cultura de negócios.",
+      "about.h1":"21 anos","about.h2":"Baseado no Brasil","about.h3":"Trabalho remoto","about.h4":"Mentalidade internacional","about.h5":"Execução técnica","about.h6":"Direção criativa",
+      "svc.eyebrow":"Serviços","svc.title":"O que eu construo","svc.sub":"Uma camada técnica e criativa completa para negócios digitais modernos.",
+      "stat.s1":"Verticais de serviço","stat.s2":"Entrega remota","stat.s3":"Idiomas falados",
+      "proc.eyebrow":"Processo","proc.title":"Um trabalho artesanal, não um serviço comum","proc.sub":"Como um projeto sai da primeira conversa e vira um sistema que entrega valor. Clique em qualquer órbita para acoplar.",
+      "orrery.l1":"Descoberta","orrery.l2":"Arquitetura","orrery.l3":"Construção","orrery.l4":"Lançamento",
+      "tech.eyebrow":"Tecnologias","tech.title":"Ferramentas & Tecnologias","tech.sub":"Um kit refinado para execução — não para enfeite.",
+      "con.eyebrow":"Contato","con.title":"Estabelecer transmissão","con.b1":"Enviar mensagem no WhatsApp","con.b2":"Enviar e-mail","con.b3":"Baixar CV","con.b4":"LinkedIn",
+      "ch.k1":"Nome","ch.k2":"Localização","ch.v2":"Brasil","ch.k3":"Trabalho","ch.v3":"Remoto","ch.k4":"Disponibilidade","ch.v4":"Freelance · Aberto",
+      "ft":"© 2026 Bruno Elias — Criado à mão, de ponta a ponta.",
+      "sky.clear":"claro","sky.night":"noite","sig.nominal":"nominal","sig.listening":"escutando","sig.idle":"ocioso","sig.locked":"travado","compass.arrived":"Chegou","compass.docked":"acoplado"
+    },
+    services: [
+      {t:"Páginas de vendas", d:"Landing pages e páginas de vendas criadas para apresentar ofertas com clareza e transformar visitantes em leads.", k:"entrega média", v:"7d", stack:"Next.js · Tailwind"},
+      {t:"Sites personalizados", d:"Sites modernos, responsivos e personalizados para empresas, agências e projetos digitais.", k:"entrega média", v:"14d", stack:"Next.js · CMS"},
+      {t:"Implementações em CRM", d:"Configuração de CRM, pipelines, etapas de clientes, organização de leads e processos comerciais internos.", k:"setup", v:"3d", stack:"HubSpot · Pipedrive"},
+      {t:"Fluxos de automação", d:"Workflows que conectam formulários, CRMs, notificações, APIs e lógica de negócio para reduzir trabalho manual.", k:"fluxos", v:"ilimitado", stack:"n8n · Make"},
+      {t:"Agentes de atendimento & SDR", d:"Agentes com IA para atendimento, SDR, qualificação de leads, suporte e respostas automatizadas.", k:"idiomas", v:"5", stack:"OpenAI · n8n"},
+      {t:"Integrações API & Webhook", d:"Conexão entre plataformas, ferramentas e sistemas por meio de APIs, webhooks e lógica de automação.", k:"sistemas", v:"qualquer", stack:"REST · GraphQL"},
+      {t:"Bancos de dados & sistemas internos", d:"Dados estruturados, dashboards, ferramentas internas e sistemas personalizados para necessidades mais complexas.", k:"db", v:"Supabase", stack:"Postgres · Next.js"},
+      {t:"Operações digitais", d:"Suporte técnico para agências e pequenos negócios que precisam de execução e processos escaláveis.", k:"retainer", v:"disponível", stack:"end-to-end"}
+    ],
+    processSteps: [
+      {label:"01 — Descoberta", title:"Ouvir, mapear, alinhar", body:"Mapeamos o objetivo, o público e o contexto operacional. Todo projeto premium começa com descoberta clara, não com suposições."},
+      {label:"02 — Arquitetura", title:"Desenhar o sistema", body:"Design da informação, fluxos, integrações e casos de borda. Primeiro uma estrutura que sustenta, depois a construção."},
+      {label:"03 — Construção", title:"Construir com intenção", body:"Interfaces ajustadas à mão, lógica limpa e automações preparadas para escala. Cada camada é revisada contra o objetivo."},
+      {label:"04 — Lançamento & evolução", title:"Publicar, medir, refinar", body:"O deploy é um marco, não a linha de chegada. Medimos o que importa e iteramos assim que os dados aparecem."}
+    ],
+    techGroups: [
+      {t:"Frontend & Design", tools:["HTML","CSS","JavaScript","React","Next.js","Tailwind CSS","Web Design","Landing Pages"]},
+      {t:"Automação & Integrações", tools:["n8n","Webhooks","REST APIs","Implementações CRM","Integrações WhatsApp","Automação de Workflows"]},
+      {t:"Dados & Sistemas", tools:["Supabase","PostgreSQL","Bancos de dados","Dashboards","Ferramentas internas","Lógica de negócio"]},
+      {t:"IA & Experiência do cliente", tools:["Agentes de IA","Agentes SDR com IA","Automação de atendimento","Qualificação de leads","Assistentes multilíngues"]},
+      {t:"Deploy & Ferramentas", tools:["Vercel","Railway","GitHub","Google Sheets","Notion"]}
+    ]
+  }
+};
+I18N.de = {...I18N.en, nav:{about:"Über", services:"Leistungen", process:"Prozess", technologies:"Technologien", contact:"Kontakt"}, text:{...I18N.en.text, "hero.eyebrow":"Bruno Elias · Freiberuflicher technischer Entwickler", "hero.cta1":"Leistungen ansehen", "hero.cta2":"Kontakt aufnehmen", "about.title":"Über mich", "svc.title":"Was ich entwickle", "proc.eyebrow":"Prozess", "tech.eyebrow":"Technologien", "con.eyebrow":"Kontakt", "con.title":"Kontakt aufnehmen", "cta.transmission":"Kontakt aufnehmen →"}};
+I18N.fr = {...I18N.en, nav:{about:"À propos", services:"Services", process:"Processus", technologies:"Technologies", contact:"Contact"}, text:{...I18N.en.text, "hero.eyebrow":"Bruno Elias · Freelance technique", "hero.cta1":"Voir les services", "hero.cta2":"Établir la transmission", "about.title":"À propos", "svc.title":"Ce que je construis", "proc.eyebrow":"Processus", "tech.eyebrow":"Technologies", "con.eyebrow":"Contact", "con.title":"Établir la transmission", "cta.transmission":"Établir la transmission →"}};
+I18N.it = {...I18N.en, nav:{about:"Chi sono", services:"Servizi", process:"Processo", technologies:"Tecnologie", contact:"Contatto"}, text:{...I18N.en.text, "hero.eyebrow":"Bruno Elias · Sviluppatore tecnico freelance", "hero.cta1":"Vedi i servizi", "hero.cta2":"Stabilisci trasmissione", "about.title":"Chi sono", "svc.title":"Cosa costruisco", "proc.eyebrow":"Processo", "tech.eyebrow":"Tecnologie", "con.eyebrow":"Contatto", "con.title":"Stabilisci trasmissione", "cta.transmission":"Stabilisci trasmissione →"}};
+
+function applyLanguage(locale){
+  const lang = I18N[locale] ? locale : 'en';
+  const copy = I18N[lang];
+  const text = {...I18N.en.text, ...copy.text};
+  window.__t = text;
+  window.__headline = copy.headline || I18N.en.headline;
+  window.__svcItems = copy.services || I18N.en.services;
+  window.__orrerySteps = copy.processSteps || I18N.en.processSteps;
+  window.__techGroups = copy.techGroups || I18N.en.techGroups;
+  window.__toolsLabel = copy.toolsLabel || I18N.en.toolsLabel;
+  window.__navLabels = copy.nav || I18N.en.nav;
+  document.documentElement.lang = lang;
+  document.title = copy.title || I18N.en.title;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const value = text[el.dataset.i18n];
+    if(!value) return;
+    const num = el.querySelector(':scope > .num');
+    if(num){
+      el.textContent = value;
+      el.appendChild(num);
+    } else {
+      el.textContent = value;
+    }
+  });
+  document.querySelectorAll('#lang-switcher [data-lang]').forEach(btn => btn.classList.toggle('on', btn.dataset.lang === lang));
+  try{ localStorage.setItem('portfolio-language', lang); }catch{}
+  window.__setNavLabels?.(window.__navLabels);
+  window.__rebuildHeadline?.();
+  window.__renderSvc?.();
+  window.__setOrrerySteps?.(window.__orrerySteps);
+  window.__renderTech?.();
+}
+const savedLang = (() => { try { return localStorage.getItem('portfolio-language'); } catch { return null; } })();
+const browserLang = (navigator.language || 'en').slice(0,2).toLowerCase();
+applyLanguage(I18N[savedLang] ? savedLang : (I18N[browserLang] ? browserLang : 'en'));
+document.getElementById('lang-switcher')?.addEventListener('click', e => {
+  const btn = e.target.closest('[data-lang]');
+  if(btn) applyLanguage(btn.dataset.lang);
+});
+
+/* ---------- 1. Galaxy backdrop (drifting starfield + orbs) ---------- */
+(function galaxy(){
+  const c = document.getElementById('galaxy-canvas');
+  const ctx = c.getContext('2d');
+  let w, h, dpr, stars=[], rogues=[];
+  function resize(){
+    dpr = Math.min(devicePixelRatio||1, 2);
+    w = c.width = innerWidth*dpr; h = c.height = innerHeight*dpr;
+    c.style.width = innerWidth+'px'; c.style.height = innerHeight+'px';
+    stars = Array.from({length: 320}, () => ({
+      x: Math.random()*w, y: Math.random()*h,
+      r: (Math.random()*1.2+0.2)*dpr,
+      a: Math.random()*0.7+0.2,
+      tw: Math.random()*Math.PI*2,
+      sp: 0.005 + Math.random()*0.02
+    }));
+  }
+  function spawnRogue(){
+    rogues.push({
+      x: -40*dpr, y: (Math.random()*0.7+0.15)*h,
+      vx: 0.15+Math.random()*0.25, vy: (Math.random()-0.5)*0.05,
+      r: (Math.random()*8+6)*dpr, a:0, life:0
+    });
+  }
+  resize(); addEventListener('resize', resize);
+  if(!reduce) setInterval(spawnRogue, 30000);
+  let t=0;
+  (function frame(){
+    t++;
+    ctx.fillStyle = '#000'; ctx.fillRect(0,0,w,h);
+    // soft galaxy orbs
+    const g1 = ctx.createRadialGradient(w*0.2, h*0.3, 0, w*0.2, h*0.3, w*0.4);
+    g1.addColorStop(0, 'rgba(216,199,154,0.06)'); g1.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g1; ctx.fillRect(0,0,w,h);
+    const g2 = ctx.createRadialGradient(w*0.85, h*0.7, 0, w*0.85, h*0.7, w*0.45);
+    g2.addColorStop(0, 'rgba(99,102,241,0.045)'); g2.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g2; ctx.fillRect(0,0,w,h);
+
+    // stars twinkle
+    for(const s of stars){
+      s.tw += s.sp;
+      const a = s.a * (0.6 + Math.sin(s.tw)*0.4);
+      ctx.fillStyle = `rgba(245,243,238,${a})`;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+    }
+
+    // drifting rogue planets
+    rogues = rogues.filter(r => {
+      r.life++; r.x += r.vx*dpr; r.y += r.vy*dpr;
+      r.a = Math.min(1, r.life/120) * Math.max(0, 1 - (r.x-w-200*dpr)/(200*dpr));
+      if(r.x > w+200*dpr) return false;
+      const grad = ctx.createRadialGradient(r.x-r.r*0.3, r.y-r.r*0.3, 0, r.x, r.y, r.r);
+      grad.addColorStop(0, `rgba(245,243,238,${0.4*r.a})`);
+      grad.addColorStop(0.5, `rgba(216,199,154,${0.18*r.a})`);
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath(); ctx.arc(r.x, r.y, r.r*1.5, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = `rgba(168,150,106,${0.25*r.a})`;
+      ctx.beginPath(); ctx.arc(r.x, r.y, r.r*0.6, 0, Math.PI*2); ctx.fill();
+      return true;
+    });
+
+    requestAnimationFrame(frame);
+  })();
+})();
+
+/* ---------- 2. Mouse trail + decorative 3D planets in galaxy ---------- */
+const PLANET_PRESETS = [
+  {base:[216,199,154],band:[232,216,168],shadow:[56,48,28],atmo:[216,199,154],rings:{count:3,tilt:0.32,c:[216,199,154]}},
+  {base:[60,110,180],band:[80,150,200],shadow:[10,28,52],atmo:[120,180,240]},
+  {base:[180,90,60],band:[210,130,90],shadow:[56,28,18],atmo:[220,130,80]},
+  {base:[120,90,200],band:[160,130,230],shadow:[40,24,80],atmo:[180,150,240],rings:{count:2,tilt:-0.22,c:[180,160,230]}},
+  {base:[60,160,170],band:[110,200,200],shadow:[16,50,56],atmo:[140,220,220]}
+];
+const rgba = (c,a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+function drawRealisticPlanet(ctx, cx, cy, r, preset, light, rot, t, alpha=1){
+  ctx.save(); ctx.translate(cx,cy);
+  // atmosphere glow
+  const aR = r*1.6;
+  const ag = ctx.createRadialGradient(0,0,r*0.85,0,0,aR);
+  ag.addColorStop(0, rgba(preset.atmo, alpha*0.35));
+  ag.addColorStop(1, rgba(preset.atmo, 0));
+  ctx.fillStyle=ag; ctx.beginPath(); ctx.arc(0,0,aR,0,Math.PI*2); ctx.fill();
+  // back rings
+  if(preset.rings) drawPlanetRings(ctx, r, preset, alpha, true);
+  // sphere with day/night terminator
+  const lx=light*r*0.6, ly=-r*0.25;
+  const sg = ctx.createRadialGradient(lx,ly,r*0.05, 0,0,r);
+  sg.addColorStop(0, rgba(preset.band, alpha));
+  sg.addColorStop(0.45, rgba(preset.base, alpha));
+  sg.addColorStop(1, rgba(preset.shadow, alpha*0.95));
+  ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.fillStyle=sg; ctx.fill();
+  // bands (rotating texture)
+  ctx.save(); ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.clip();
+  ctx.rotate(rot+Math.sin(t*0.0004)*0.04);
+  for(let i=0;i<5;i++){
+    const yo = -r + ((i+0.5)*r*2)/5 + Math.sin(t*0.0008+i)*2;
+    ctx.fillStyle = rgba(preset.band, alpha*(0.10+(i%2)*0.10));
+    ctx.fillRect(-r, yo-r*0.10, r*2, r*0.20);
+  }
+  ctx.restore();
+  // terminator shadow
+  ctx.save(); ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.clip();
+  const tg = ctx.createRadialGradient(-light*r*1.4,0,r*0.2, -light*r*1.4,0,r*1.6);
+  tg.addColorStop(0, rgba(preset.shadow, alpha*0.6)); tg.addColorStop(1, rgba(preset.shadow, 0));
+  ctx.fillStyle=tg; ctx.fillRect(-r,-r,r*2,r*2); ctx.restore();
+  // specular highlight
+  ctx.beginPath(); ctx.arc(lx,ly,r*0.22,0,Math.PI*2);
+  const spec = ctx.createRadialGradient(lx,ly,0, lx,ly,r*0.22);
+  spec.addColorStop(0, `rgba(255,255,255,${alpha*0.4})`); spec.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle=spec; ctx.fill();
+  // front rings
+  if(preset.rings) drawPlanetRings(ctx, r, preset, alpha, false);
+  ctx.restore();
+}
+function drawPlanetRings(ctx, r, preset, alpha, behind){
+  ctx.save(); ctx.rotate(preset.rings.tilt); ctx.scale(1, 0.28);
+  const rR = r*1.7;
+  ctx.beginPath();
+  if(behind) ctx.rect(-rR*1.5, -rR*1.5, rR*3, rR*1.5);
+  else ctx.rect(-rR*1.5, 0, rR*3, rR*1.5);
+  ctx.clip();
+  for(let i=0;i<preset.rings.count;i++){
+    const rad = rR*(1+i*0.1);
+    ctx.strokeStyle = rgba(preset.rings.c, alpha*(0.55-i*0.08));
+    ctx.lineWidth = rR*0.12;
+    ctx.beginPath(); ctx.arc(0,0,rad,0,Math.PI*2); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+(function mouseTrail(){
+  const c = document.getElementById('reveal-canvas');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  let dpr, w, h;
+  const m={x:innerWidth/2, y:innerHeight/2, tx:innerWidth/2, ty:innerHeight/2, on:false};
+  const trail = [];
+
+  function resize(){
+    dpr = Math.min(devicePixelRatio||1, 2);
+    w = innerWidth; h = innerHeight;
+    c.width = w*dpr; c.height = h*dpr;
+    c.style.width = w+'px'; c.style.height = h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  resize(); addEventListener('resize', resize);
+  addEventListener('pointermove', e => {
+    m.tx=e.clientX; m.ty=e.clientY; m.on=true;
+    if(trail.length<60) trail.push({x:e.clientX,y:e.clientY,life:1,r:2+Math.random()*2.5});
+  });
+  addEventListener('pointerleave', () => m.on=false);
+
+  (function tick(){
+    m.x += (m.tx-m.x)*0.16; m.y += (m.ty-m.y)*0.16;
+    ctx.clearRect(0,0,w,h);
+    if(m.on){
+      // soft champagne glow following cursor
+      const halo = ctx.createRadialGradient(m.x,m.y,0, m.x,m.y, 220);
+      halo.addColorStop(0, 'rgba(216,199,154,0.10)');
+      halo.addColorStop(0.4, 'rgba(216,199,154,0.04)');
+      halo.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle=halo; ctx.fillRect(m.x-240, m.y-240, 480, 480);
+    }
+    // particles
+    for(let i=trail.length-1;i>=0;i--){
+      const p = trail[i]; p.life -= 0.022;
+      if(p.life<=0){ trail.splice(i,1); continue; }
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(245,243,238,${p.life*0.7})`;
+      ctx.shadowColor = 'rgba(216,199,154,0.7)';
+      ctx.shadowBlur = 8*p.life;
+      ctx.arc(p.x, p.y, p.r*p.life, 0, Math.PI*2); ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
+
+/* Scroll voyage: planets live on a virtual Z axis and grow as you approach. */
+(function planetVoyage(){
+  const c = document.getElementById('planet-voyage-canvas');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  let dpr = 1, w = innerWidth, h = innerHeight, sy = scrollY, lastSy = scrollY, velocity = 0;
+  const worlds = [
+    {station:0.02, x:-0.40, y:-0.28, r:62, p:0, light:0.55, drift:0.1},
+    {station:0.16, x:0.38, y:-0.20, r:76, p:3, light:-0.35, drift:1.7},
+    {station:0.32, x:-0.28, y:0.20, r:46, p:2, light:0.25, drift:2.5},
+    {station:0.49, x:0.34, y:0.22, r:68, p:1, light:-0.50, drift:3.4},
+    {station:0.66, x:-0.18, y:-0.08, r:52, p:4, light:0.10, drift:4.2},
+    {station:0.82, x:0.44, y:-0.30, r:88, p:0, light:-0.20, drift:5.5},
+    {station:0.96, x:-0.44, y:0.18, r:58, p:3, light:0.42, drift:6.2}
+  ].map((W,i) => ({...W, preset:PLANET_PRESETS[W.p], rot:i*0.9}));
+
+  function resize(){
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    w = innerWidth; h = innerHeight;
+    c.width = Math.round(w*dpr); c.height = Math.round(h*dpr);
+    c.style.width = w+'px'; c.style.height = h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  resize(); addEventListener('resize', resize);
+  addEventListener('scroll', () => {
+    sy = scrollY;
+    velocity = Math.max(-1, Math.min(1, (sy - lastSy) / Math.max(innerHeight, 1)));
+    lastSy = sy;
+  }, {passive:true});
+
+  function drawWarpLines(speed){
+    const a = Math.min(0.18, Math.abs(speed) * 0.42);
+    if(a < 0.01) return;
+    ctx.save();
+    ctx.translate(w/2, h/2);
+    for(let i=0;i<42;i++){
+      const ang = (i/42) * Math.PI*2;
+      const inner = 80 + (i%7)*18;
+      const outer = inner + 120 + Math.abs(speed)*420;
+      ctx.strokeStyle = `rgba(216,199,154,${a*(0.35 + (i%5)/8)})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(ang)*inner, Math.sin(ang)*inner);
+      ctx.lineTo(Math.cos(ang)*outer, Math.sin(ang)*outer);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  let t = 0;
+  (function frame(now=0){
+    t = now;
+    ctx.clearRect(0,0,w,h);
+    const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    const journey = Math.max(0, Math.min(1, sy / max));
+    velocity *= 0.90;
+    drawWarpLines(velocity);
+
+    const visible = worlds.map(W => {
+      const dz = W.station - journey;
+      const ad = Math.abs(dz);
+      const range = 0.36;
+      const approach = Math.max(0, 1 - ad / range);
+      const ease = approach * approach * (3 - 2 * approach);
+      const farScale = Math.max(0.10, 0.22 - ad * 0.12);
+      const nearScale = 0.26 + ease * 2.55;
+      const scale = ad < range ? nearScale : farScale;
+      const direction = dz >= 0 ? 1 : -1;
+      const perspectiveSpread = 0.28 + ad * 1.7;
+      const x = w/2 + W.x*w*perspectiveSpread - dz*w*0.62 + Math.sin(t*0.00025 + W.drift)*18*(1+ease);
+      const y = h/2 + W.y*h*perspectiveSpread + dz*h*0.16 + Math.cos(t*0.00022 + W.drift)*12*(1+ease);
+      const radius = W.r * scale * (w < 700 ? 0.74 : 1);
+      const alpha = Math.max(0, Math.min(1, 0.12 + ease*0.98 - Math.max(0, ad-range)*1.2));
+      return {...W, dz, direction, radius, alpha, sx:x, sy:y, z:scale};
+    }).filter(W => W.alpha > 0.02 && W.radius > 3);
+
+    visible.sort((a,b) => a.z - b.z).forEach(W => {
+      W.rot += 0.002 + W.z*0.002;
+      const glow = ctx.createRadialGradient(W.sx, W.sy, W.radius*0.4, W.sx, W.sy, W.radius*3.2);
+      glow.addColorStop(0, rgba(W.preset.atmo, W.alpha*0.12));
+      glow.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(W.sx-W.radius*3.4, W.sy-W.radius*3.4, W.radius*6.8, W.radius*6.8);
+      drawRealisticPlanet(ctx, W.sx, W.sy, W.radius, W.preset, W.light, W.rot, t, W.alpha);
+    });
+
+    requestAnimationFrame(frame);
+  })();
+})();
+
+(function _legacyHidden(){return;
+  const PRESETS=[];
+  let dpr, w, h, sy=0, dh=0, planets=[];
+  const m={x:0,y:0,tx:0,ty:0,on:false};
+  let revealed = new Set();
+  let easterEggFired = false;
+
+  function build(){
+    planets.length=0;
+    dh = Math.max(document.documentElement.scrollHeight, innerHeight*2);
+    const cnt = Math.max(20, Math.floor(dh/240));
+    const md = 280;
+    let tries=0;
+    while(planets.length<cnt && tries<cnt*20){
+      tries++;
+      const x = 60+Math.random()*(innerWidth-120);
+      const y = 60+Math.random()*(dh-120);
+      if(planets.some(p => Math.hypot(p.x-x,p.y-y)<md)) continue;
+      planets.push({x,y,r:22+Math.random()*36,p:PRESETS[Math.floor(Math.random()*PRESETS.length)],rot:Math.random()*Math.PI*2,light:-0.7+Math.random()*1.4,phase:Math.random()*Math.PI*2,id:planets.length});
+    }
+  }
+  function resize(){
+    dpr = Math.min(devicePixelRatio||1, 2);
+    w = innerWidth; h = innerHeight;
+    c.width = w*dpr; c.height = h*dpr;
+    c.style.width = w+'px'; c.style.height = h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    build();
+  }
+  resize(); addEventListener('resize', resize);
+  addEventListener('pointermove', e => { m.tx=e.clientX; m.ty=e.clientY; m.on=true; });
+  addEventListener('pointerleave', () => m.on=false);
+  addEventListener('scroll', () => sy = scrollY, {passive:true});
+
+  const RAD = 240;
+  const rgba = (c,a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+
+  function drawPlanet(p, vx, vy, alpha, t){
+    const {p:pr, r, light, rot, phase} = p;
+    ctx.save(); ctx.translate(vx,vy);
+    // atmo
+    const aR = r*1.5;
+    const ag = ctx.createRadialGradient(0,0,r*0.85,0,0,aR);
+    ag.addColorStop(0, rgba(pr.atmo, alpha*0.32));
+    ag.addColorStop(1, rgba(pr.atmo, 0));
+    ctx.fillStyle=ag; ctx.beginPath(); ctx.arc(0,0,aR,0,Math.PI*2); ctx.fill();
+    // back rings
+    if(pr.rings) drawRings(p, alpha, true);
+    // sphere
+    const lx=light*r*0.6, ly=-r*0.25;
+    const sg = ctx.createRadialGradient(lx,ly,r*0.05, 0,0,r);
+    sg.addColorStop(0, rgba(pr.band, alpha));
+    sg.addColorStop(0.45, rgba(pr.base, alpha));
+    sg.addColorStop(1, rgba(pr.shadow, alpha*0.95));
+    ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.fillStyle=sg; ctx.fill();
+    // bands
+    ctx.save(); ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.clip();
+    ctx.rotate(rot+Math.sin(t*0.0004+phase)*0.04);
+    for(let i=0;i<4;i++){
+      const yo = -r + ((i+0.5)*r*2)/4 + Math.sin(t*0.0008+i+phase)*2;
+      ctx.fillStyle = rgba(pr.band, alpha*(0.10+(i%2)*0.08));
+      ctx.fillRect(-r, yo-r*0.09, r*2, r*0.18);
+    }
+    ctx.restore();
+    // terminator
+    ctx.save(); ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.clip();
+    const tg = ctx.createRadialGradient(-light*r*1.4,0,r*0.2, -light*r*1.4,0,r*1.6);
+    tg.addColorStop(0, rgba(pr.shadow, alpha*0.55)); tg.addColorStop(1, rgba(pr.shadow, 0));
+    ctx.fillStyle=tg; ctx.fillRect(-r,-r,r*2,r*2); ctx.restore();
+    // specular
+    ctx.beginPath(); ctx.arc(lx,ly,r*0.18,0,Math.PI*2);
+    const spec = ctx.createRadialGradient(lx,ly,0, lx,ly,r*0.18);
+    spec.addColorStop(0, `rgba(255,255,255,${alpha*0.35})`); spec.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle=spec; ctx.fill();
+    // front rings
+    if(pr.rings) drawRings(p, alpha, false);
+    ctx.restore();
+  }
+
+  function drawRings(p, alpha, behind){
+    const {p:pr, r} = p;
+    ctx.save(); ctx.rotate(pr.rings.tilt); ctx.scale(1, 0.28);
+    const rR = r*1.65;
+    ctx.beginPath();
+    if(behind) ctx.rect(-rR*1.4, -rR*1.4, rR*2.8, rR*1.4);
+    else ctx.rect(-rR*1.4, 0, rR*2.8, rR*1.4);
+    ctx.clip();
+    for(let i=0;i<pr.rings.count;i++){
+      const rad = rR*(1+i*0.08);
+      const g = ctx.createRadialGradient(0,0,rad*0.86, 0,0,rad*1.05);
+      g.addColorStop(0, rgba(pr.rings.c, 0));
+      g.addColorStop(0.5, rgba(pr.rings.c, alpha*(0.45-i*0.05)));
+      g.addColorStop(1, rgba(pr.rings.c, 0));
+      ctx.strokeStyle=g; ctx.lineWidth=rR*0.13;
+      ctx.beginPath(); ctx.arc(0,0,rad,0,Math.PI*2); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  let t0=0;
+  (function tick(t){
+    m.x += (m.tx-m.x)*0.18; m.y += (m.ty-m.y)*0.18;
+    ctx.clearRect(0,0,w,h);
+    if(m.on){
+      planets.forEach(p => {
+        const vx=p.x, vy=p.y-sy;
+        const reach = RAD + p.r*1.4;
+        if(vy < -reach || vy > h+reach) return;
+        const d = Math.hypot(vx-m.x, vy-m.y);
+        if(d > RAD+p.r) return;
+        const reveal = 1 - Math.max(0, d-p.r*0.4)/RAD;
+        const alpha = Math.pow(Math.max(0,Math.min(1,reveal)), 1.5)*0.95;
+        if(alpha < 0.02) return;
+        drawPlanet(p, vx, vy, alpha, t);
+        if(alpha > 0.4 && !revealed.has(p.id)){
+          revealed.add(p.id);
+          updateCounter();
+        }
+      });
+      // halo
+      const halo = ctx.createRadialGradient(m.x,m.y,0, m.x,m.y, RAD*1.05);
+      halo.addColorStop(0, 'rgba(216,199,154,0.04)'); halo.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle=halo; ctx.fillRect(m.x-RAD*1.2, m.y-RAD*1.2, RAD*2.4, RAD*2.4);
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  function updateCounter(){
+    const el = document.getElementById('planets-counter');
+    const n = revealed.size;
+    if(n >= 1 && n < 5){
+      el.classList.add('on'); el.textContent = `PLANETS · ${n} / 5`;
+    } else if(n >= 5){
+      el.classList.remove('on');
+      if(!easterEggFired) fireEasterEgg();
+    }
+  }
+
+  function fireEasterEgg(){
+    easterEggFired = true;
+    const os = document.getElementById('bruno-os');
+    const pre = document.getElementById('bruno-os-pre');
+    os.classList.add('on');
+    const lines = [
+"> CONSTELLATION COMPLETE",
+"> 5 worlds revealed.",
+"",
+"BRUNO_OS v1.0 — kernel acquired",
+"signal-to-noise:  ████████████░░  82%",
+"discipline:        █████████████░  94%",
+"surrealism:        ███████████████ 100%",
+"",
+"> Welcome, traveler.",
+"> Project intake:  hello@brunoelias.dev",
+"> Press ESC to dismiss"
+      ].join('\n');
+    let i=0;
+    pre.textContent='';
+    const iv = setInterval(()=>{
+      pre.textContent = lines.slice(0, i++);
+      if(i > lines.length) clearInterval(iv);
+    }, 18);
+  }
+  document.getElementById('bruno-os')?.querySelector('button')?.addEventListener?.('click', ()=>{});
+})();
+
+/* ---------- 3. Particle-assemble headline ---------- */
+(function headline(){
+  const c = document.getElementById('headline-canvas');
+  const ctx = c.getContext('2d');
+  let dpr, w, h, particles=[], targets=[];
+
+  function buildTargets(){
+    const HEADLINE = window.__headline || "I build websites,\nautomations & AI systems\nfor ambitious teams.";
+    dpr = Math.min(devicePixelRatio||1, 2);
+    w = c.clientWidth; h = c.clientHeight;
+    c.width = w*dpr; c.height = h*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    const lines = HEADLINE.split('\n');
+    const fontSize = Math.max(28, Math.min(72, w*0.062));
+    ctx.fillStyle = '#fff';
+    ctx.font = `700 ${fontSize}px "Space Grotesk", sans-serif`;
+    ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
+    ctx.fillStyle = '#fff';
+
+    // Render text to offscreen, sample
+    const off = document.createElement('canvas');
+    off.width = w*dpr; off.height = h*dpr;
+    const octx = off.getContext('2d');
+    octx.setTransform(dpr,0,0,dpr,0,0);
+    octx.fillStyle='#fff';
+    octx.font = `700 ${fontSize}px "Space Grotesk", sans-serif`;
+    octx.textBaseline='middle'; octx.textAlign='center';
+    const lh = fontSize*1.05;
+    const top = (h - lines.length*lh)/2 + lh/2;
+    lines.forEach((L,i) => octx.fillText(L, w/2, top + i*lh));
+
+    const img = octx.getImageData(0,0, w*dpr, h*dpr).data;
+    targets = [];
+    const step = Math.max(3, Math.round(fontSize*0.085));
+    for(let y=0; y<h; y+=step){
+      for(let x=0; x<w; x+=step){
+        const idx = ((y*dpr|0) * (w*dpr|0) + (x*dpr|0)) * 4 + 3;
+        if(img[idx] > 128){
+          targets.push({x:x+0.5, y:y+0.5});
+        }
+      }
+    }
+    // build particles
+    particles = targets.map((t,i) => {
+      const angle = Math.random()*Math.PI*2;
+      const dist = 600 + Math.random()*900;
+      return {
+        tx: t.x, ty: t.y,
+        x: w/2 + Math.cos(angle)*dist,
+        y: h/2 + Math.sin(angle)*dist,
+        s: 0.02 + Math.random()*0.025,
+        delay: Math.random()*40,
+        size: 1.2 + Math.random()*1
+      };
+    });
+  }
+  function frame(){
+    ctx.clearRect(0,0,w,h);
+    let settled = 0;
+    for(const p of particles){
+      if(p.delay>0){ p.delay--; continue; }
+      p.x += (p.tx-p.x)*p.s;
+      p.y += (p.ty-p.y)*p.s;
+      const dx = p.tx-p.x, dy = p.ty-p.y;
+      const settle = Math.hypot(dx,dy) < 0.6;
+      if(settle){ settled++; p.x=p.tx; p.y=p.ty; }
+      ctx.fillStyle = settle ? 'rgba(245,243,238,1)' : 'rgba(216,199,154,0.95)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  // Wait for fonts to load so sampling matches actual glyphs
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(()=>{ buildTargets(); frame(); });
+  } else {
+    buildTargets(); frame();
+  }
+  addEventListener('resize', () => {
+    buildTargets();
+  });
+  window.__rebuildHeadline = buildTargets;
+})();
+
+/* ---------- 4. Services — render holographic cards ---------- */
+window.__svcItems = window.__svcItems || [
+    {t:"Sales Pages", d:"High-converting landing pages and sales pages designed to present offers clearly and turn visitors into leads.", k:"avg. delivery", v:"7d", stack:"Next.js · Tailwind"},
+    {t:"Custom Websites", d:"Modern, responsive and personalized websites for businesses, agencies and digital projects.", k:"avg. delivery", v:"14d", stack:"Next.js · CMS"},
+    {t:"CRM Implementations", d:"CRM setup, pipeline configuration, customer stages, lead organization and internal sales process implementation.", k:"setup", v:"3d", stack:"HubSpot · Pipedrive"},
+    {t:"Automation Flows", d:"Workflows that connect forms, CRMs, notifications, APIs and business logic to reduce manual work.", k:"flows", v:"unlimited", stack:"n8n · Make"},
+    {t:"AI Service & SDR Agents", d:"AI-based agents for customer service, SDR flows, lead qualification, support and automated responses.", k:"languages", v:"5", stack:"OpenAI · n8n"},
+    {t:"API & Webhook Integrations", d:"Connecting platforms, tools and systems through APIs, webhooks and automation logic.", k:"systems", v:"any", stack:"REST · GraphQL"},
+    {t:"Databases & Internal Systems", d:"Structured data, dashboards, internal tools and custom systems for more complex business needs.", k:"db", v:"Supabase", stack:"Postgres · Next.js"},
+    {t:"Digital Operations", d:"Technical support for agencies and small businesses that need execution, organization and scalable digital processes.", k:"retainer", v:"available", stack:"end-to-end"}
+];
+(function services(){
+  const items = window.__svcItems;
+  const ICONS = {
+    0:'<path d="M3 11h7M3 7h13M3 15h10M3 19h7M21 3l-9 18"/>',
+    1:'<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>',
+    2:'<path d="M3 12h6l3-9 3 18 3-9h3"/>',
+    3:'<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8 6h8M6 8v8M18 8v8M8 18h8"/>',
+    4:'<rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><path d="M12 3v3"/>',
+    5:'<path d="M5 12h4l3-7 3 14 3-7h2"/><circle cx="5" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>',
+    6:'<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+    7:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'
+  };
+  const grid = document.getElementById('svc-grid');
+  function renderSvc(){
+    const its = window.__svcItems;
+    grid.innerHTML = its.map((it,i) => `
+    <article class="holo" data-mx="50%" data-my="50%">
+      <div class="holo-grid"></div>
+      <div class="holo-shimmer"></div>
+      <span class="num-tag">/${String(i+1).padStart(2,'0')}</span>
+      <div class="icon-orb"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONS[i]}</svg></div>
+      <h3>${it.t}</h3>
+      <p class="desc">${it.d}</p>
+      <div class="meta"><span>${it.k}: <span class="v">${it.v}</span></span><span>${it.stack}</span></div>
+    </article>
+  `).join('');
+    bindCardTilt();
+  }
+  function bindCardTilt(){
+  grid.querySelectorAll('.holo').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      const mx = ((e.clientX-r.left)/r.width)*100;
+      const my = ((e.clientY-r.top)/r.height)*100;
+      card.style.setProperty('--mx', mx+'%');
+      card.style.setProperty('--my', my+'%');
+      const tx = ((e.clientX-r.left)/r.width-0.5)*-6;
+      const ty = ((e.clientY-r.top)/r.height-0.5)*6;
+      card.style.transform = `perspective(900px) rotateX(${ty}deg) rotateY(${tx}deg) translateZ(0)`;
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.transform = '';
+    });
+  });
+  }
+  renderSvc();
+  window.__renderSvc = renderSvc;
+})();
+
+/* ---------- 5. Orrery — orbiting process steps ---------- */
+window.__orrerySteps = window.__orrerySteps || [
+    {label:"01 — Discovery", title:"Listen, scope, align", body:"We map the goal, the audience and the operational context. Every premium build starts with sharp discovery — not assumptions."},
+    {label:"02 — Architecture", title:"Design the system", body:"Information design, flows, integrations, edge cases. A blueprint that holds, before a single component is shipped."},
+    {label:"03 — Craft", title:"Build with intent", body:"Hand-tuned interfaces, clean back-ends, automations that survive scale. Every layer reviewed against intent, not template."},
+    {label:"04 — Launch & evolve", title:"Ship, measure, refine", body:"Deployment is a milestone, not a finish line. We instrument what matters and iterate the moment data starts speaking."}
+];
+(function orrery(){
+  let STEPS = window.__orrerySteps;
+  const planets = document.querySelectorAll('#orrery .planet');
+  let active = 0;
+
+  // Initialize per-planet 3D canvas
+  const planetStates = [];
+  planets.forEach((p, i) => {
+    const cv = p.querySelector('.planet-canvas');
+    const presetIdx = +p.dataset.preset || 0;
+    const size = 56;
+    const dpr = Math.min(devicePixelRatio||1, 2);
+    cv.width = size*dpr; cv.height = size*dpr;
+    cv.style.width = size+'px'; cv.style.height = size+'px';
+    const ctx = cv.getContext('2d');
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    planetStates.push({cv, ctx, preset: PLANET_PRESETS[presetIdx], rot: i*0.8, light: 0.5 - i*0.25, size});
+  });
+
+  function setActive(i){
+    active = i;
+    const ST = STEPS;
+    planets.forEach((p,j) => p.classList.toggle('active', i===j));
+    document.getElementById('orrery-num').textContent = String(i+1).padStart(2,'0');
+    document.getElementById('orrery-label').textContent = ST[i].label;
+    document.getElementById('orrery-title').textContent = ST[i].title;
+    document.getElementById('orrery-body').textContent = ST[i].body;
+    document.getElementById('orrery-current').textContent = String(i+1).padStart(2,'0');
+    document.getElementById('orrery-progress').style.setProperty('--p', ((i+1)/4*100)+'%');
+  }
+  window.__orreryReRender = () => setActive(active);
+  window.__setOrrerySteps = (steps) => {
+    STEPS = steps;
+    window.__orrerySteps = steps;
+    setActive(Math.min(active, STEPS.length - 1));
+  };
+  setActive(0);
+  planets.forEach((p,i) => p.addEventListener('click', ()=>setActive(i)));
+
+  // animate orbits + render 3D planets
+  let t=0;
+  (function frame(){
+    t += reduce ? 0 : 1;
+    planets.forEach((p, i) => {
+      const r = +p.dataset.r;
+      const speed = +p.dataset.speed;
+      const angle = (t/speed) + (+p.dataset.step)*0.7;
+      const x = Math.cos(angle) * r;
+      const y = Math.sin(angle) * r;
+      const depth = Math.max(0, 1 - Math.abs(i - active) * 0.32);
+      const scale = 0.72 + depth * 1.08;
+      p.style.left = `calc(50% + ${x}px)`;
+      p.style.top = `calc(50% + ${y}px)`;
+      p.style.setProperty('--planet-scale', scale.toFixed(2));
+      p.style.setProperty('--planet-opacity', (0.42 + depth * 0.58).toFixed(2));
+      p.style.zIndex = String(5 + Math.round(depth * 10));
+      // render 3D planet
+      const st = planetStates[i];
+      st.rot += 0.012;
+      // light points toward sun (center) — angle from planet to center
+      st.light = -Math.cos(angle)*0.6;
+      st.ctx.clearRect(0,0,st.size,st.size);
+      drawRealisticPlanet(st.ctx, st.size/2, st.size/2, st.size*0.42, st.preset, st.light, st.rot, t, 1);
+    });
+    requestAnimationFrame(frame);
+  })();
+
+  // scroll-advance (camera roll)
+  const sec = document.getElementById('process');
+  let lastIdx=0;
+  addEventListener('scroll', () => {
+    const r = sec.getBoundingClientRect();
+    if(r.top > innerHeight || r.bottom < 0) return;
+    const prog = Math.max(0, Math.min(1, (innerHeight*0.6 - r.top)/(r.height*0.6)));
+    const idx = Math.min(3, Math.floor(prog*4));
+    if(idx !== lastIdx){ lastIdx=idx; setActive(idx); }
+  }, {passive:true});
+})();
+
+/* ---------- 6. Tech tabs + marquees ---------- */
+window.__techGroups = window.__techGroups || [
+    {t:"Frontend & Design", tools:["HTML","CSS","JavaScript","React","Next.js","Tailwind CSS","Web Design","Landing Pages"]},
+    {t:"Automation & Integrations", tools:["n8n","Webhooks","REST APIs","CRM Implementations","WhatsApp Integrations","Workflow Automation"]},
+    {t:"Data & Systems", tools:["Supabase","PostgreSQL","Databases","Dashboards","Internal Tools","Business Logic"]},
+    {t:"AI & Customer Experience", tools:["AI Agents","AI SDR Agents","Customer Support Automation","Lead Qualification","Multilingual Assistants"]},
+    {t:"Deployment & Tools", tools:["Vercel","Railway","GitHub","Google Sheets","Notion"]}
+];
+(function tech(){
+  let groups = window.__techGroups;
+  const tabs = document.getElementById('tech-tabs');
+  let activeIdx = 0;
+  function renderTabs(){
+    tabs.innerHTML = groups.map((g,i)=>`<button class="tech-tab ${i===activeIdx?'on':''}" data-i="${i}"><div class="n">/${String(i+1).padStart(2,'0')}</div><div class="t">${g.t}</div></button>`).join('');
+  }
+  renderTabs();
+  function render(i){
+    activeIdx = i;
+    document.getElementById('tech-title').textContent = groups[i].t;
+    document.getElementById('tech-count').textContent = groups[i].tools.length+' '+(window.__toolsLabel || 'tools');
+    document.getElementById('tech-tools').innerHTML = groups[i].tools.map((tool,j)=>`<span class="tool" style="animation: fadeIn .5s var(--ease) ${j*0.04}s both">${tool}</span>`).join('');
+    tabs.querySelectorAll('.tech-tab').forEach((t,j)=>t.classList.toggle('on', j===i));
+  }
+  render(0);
+  tabs.addEventListener('click', e => {
+    const b = e.target.closest('.tech-tab'); if(!b) return;
+    render(+b.dataset.i);
+  });
+  function renderMarquees(){
+    const all = groups.flatMap(g=>g.tools);
+    const m1 = all.map(t=>`<span class="marquee-item"><span class="pip"></span>${t}</span>`).join('');
+    const m2 = all.slice().reverse().map(t=>`<span class="marquee-item">${t}</span>`).join('');
+    document.getElementById('marquee-1').innerHTML = m1+m1;
+    document.getElementById('marquee-2').innerHTML = m2+m2;
+  }
+  window.__renderTech = () => {
+    groups = window.__techGroups;
+    activeIdx = Math.min(activeIdx, groups.length - 1);
+    renderTabs();
+    render(activeIdx);
+    renderMarquees();
+  };
+  renderMarquees();
+})();
+
+/* ---------- 7. Constellation nav — current section + click warp ---------- */
+(function constellation(){
+  const sections = ['about','services','process','technologies','contact'];
+  let labels = window.__navLabels = window.__navLabels || {about:'About', services:'Services', process:'Process', technologies:'Technologies', contact:'Contact'};
+  window.__navUpdate = ()=>{}; // assigned below
+  const stars = document.querySelectorAll('#constellation-nav .star');
+  stars.forEach(s => {
+    const c = s.querySelector('circle');
+    c.setAttribute('fill','rgba(255,255,255,.25)');
+    c.setAttribute('stroke','rgba(216,199,154,0)');
+    c.setAttribute('stroke-width','1.5');
+    s.style.cursor='pointer';
+    s.addEventListener('click', () => {
+      const id = s.dataset.target;
+      document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+  function update(){
+    let activeIdx = 0;
+    sections.forEach((id,i) => {
+      const r = document.getElementById(id).getBoundingClientRect();
+      if(r.top < innerHeight*0.5) activeIdx = i;
+    });
+    stars.forEach((s,i) => {
+      const c = s.querySelector('circle');
+      const isActive = i===activeIdx;
+      c.setAttribute('fill', isActive ? '#D8C79A' : 'rgba(245,243,238,.35)');
+      c.setAttribute('stroke', isActive ? 'rgba(216,199,154,.4)' : 'rgba(216,199,154,0)');
+      c.setAttribute('r', isActive ? 4 : 3);
+    });
+    document.getElementById('constellation-label').textContent = labels[sections[activeIdx]];
+    // Compass — distance to next section
+    const nextId = sections[Math.min(activeIdx+1, sections.length-1)];
+    const nextEl = document.getElementById(nextId);
+    const nr = nextEl.getBoundingClientRect();
+    const px = Math.max(0, nr.top);
+    const ly = (px / 400).toFixed(2);
+    const T = window.__t || {};
+    document.getElementById('compass-next').textContent = activeIdx === sections.length-1 ? '◉ '+(T['compass.arrived']||'Arrived') : '↓ '+labels[nextId];
+    document.getElementById('compass-ly').textContent = activeIdx === sections.length-1 ? (T['compass.docked']||'docked') : ly+' ly';
+  }
+  addEventListener('scroll', update, {passive:true});
+  update();
+  window.__navUpdate = update;
+  window.__setNavLabels = (next) => {
+    labels = window.__navLabels = next;
+    update();
+  };
+})();
+
+/* ---------- 8. Scroll progress ---------- */
+(function progress(){
+  const bar = document.getElementById('scroll-progress');
+  addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const p = Math.max(0, Math.min(1, scrollY/max));
+    bar.style.transform = `scaleX(${p})`;
+  }, {passive:true});
+})();
+
+/* ---------- 9. Pressure-sensitive buttons (charge ring) ---------- */
+document.querySelectorAll('[data-charge]').forEach(b => {
+  b.addEventListener('pointerdown', () => b.classList.add('charging'));
+  b.addEventListener('pointerup', () => setTimeout(()=>b.classList.remove('charging'), 600));
+  b.addEventListener('pointerleave', () => b.classList.remove('charging'));
+});
+
+/* ---------- 10. Observatory readout (UTC + sky glyph + signal) ---------- */
+(function observatory(){
+  const utc = document.getElementById('obs-utc');
+  const sky = document.getElementById('obs-sky');
+  const sig = document.getElementById('obs-sig');
+  function tick(){
+    const d = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    utc.textContent = `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
+    const hr = d.getUTCHours();
+    const T = window.__t || {};
+    sky.textContent = (hr>5 && hr<18) ? '☀ '+(T['sky.clear']||'clear') : '☾ '+(T['sky.night']||'night');
+  }
+  tick(); setInterval(tick, 1000);
+  // signal flicker
+  const opts = ['nominal','listening','idle','locked'];
+  setInterval(() => {
+    const k = opts[Math.floor(Math.random()*opts.length)];
+    const T = window.__t || {};
+    sig.textContent = T['sig.'+k] || k;
+  }, 5200);
+})();
+
+/* ---------- 11. Idle = life — meteor every ~6s of stillness ---------- */
+(function idle(){
+  let last = Date.now();
+  ['pointermove','scroll','keydown','click'].forEach(ev => addEventListener(ev, ()=>last=Date.now(), {passive:true}));
+  setInterval(() => {
+    if(Date.now()-last > 6000){
+      meteor();
+      last = Date.now() - 4000;
+    }
+  }, 1000);
+  function meteor(){
+    if(reduce) return;
+    const m = document.createElement('div');
+    const x = Math.random()*innerWidth*0.6;
+    const y = Math.random()*innerHeight*0.4;
+    Object.assign(m.style, {
+      position:'fixed', left:x+'px', top:y+'px', zIndex:4, pointerEvents:'none',
+      width:'2px', height:'2px', borderRadius:'50%', background:'#fff',
+      boxShadow:'0 0 6px #fff, 0 0 18px rgba(216,199,154,.7)',
+      transition:'transform 1.4s cubic-bezier(.22,1,.36,1), opacity 1.4s ease',
+      transform:'translate(0,0)'
+    });
+    document.body.appendChild(m);
+    requestAnimationFrame(()=>{
+      m.style.transform = `translate(${260+Math.random()*240}px, ${260+Math.random()*240}px)`;
+      m.style.opacity = '0';
+    });
+    // trail
+    const trail = document.createElement('div');
+    Object.assign(trail.style, {
+      position:'fixed', left:x+'px', top:y+'px', zIndex:4, pointerEvents:'none',
+      width:'120px', height:'1px', transformOrigin:'left center',
+      background:'linear-gradient(90deg, rgba(255,255,255,.8), transparent)',
+      transform:'rotate(45deg) scaleX(0)', transition:'transform .9s var(--ease), opacity 1.2s ease'
+    });
+    document.body.appendChild(trail);
+    requestAnimationFrame(()=>{ trail.style.transform = 'rotate(45deg) scaleX(1)'; });
+    setTimeout(()=>{ trail.style.opacity='0'; }, 600);
+    setTimeout(()=>{ m.remove(); trail.remove(); }, 1800);
+  }
+})();
+
+/* ---------- 12. Audio toggle (visual state only — placeholder) ---------- */
+document.getElementById('audio-toggle').addEventListener('click', e => {
+  const b = e.currentTarget;
+  const on = b.classList.toggle('on');
+  b.style.color = on ? 'var(--champagne)' : '';
+  b.style.borderColor = on ? 'rgba(216,199,154,.5)' : '';
+});
+
+/* ---------- 13. Tool tag fade-in keyframes via injection ---------- */
+const styleInj = document.createElement('style');
+styleInj.textContent = `@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}`;
+document.head.appendChild(styleInj);
+</script>
+
+</body>
+</html>

@@ -30,6 +30,7 @@ export default function GalaxyBackground() {
     let meteors = [];
     let scrollY = 0;
     let raf = 0;
+    let pageVisible = !document.hidden;
     const mouse = { x: 0, y: 0, tx: 0, ty: 0, active: false };
 
     const setup = () => {
@@ -125,13 +126,20 @@ export default function GalaxyBackground() {
       });
     };
 
+    const scheduleDraw = () => {
+      if (!raf && !prefersReducedMotion && pageVisible) {
+        raf = requestAnimationFrame(draw);
+      }
+    };
+
     const draw = (t = 0) => {
+      raf = 0;
       ctx.clearRect(0, 0, width, height);
       mouse.x += (mouse.tx - mouse.x) * 0.06;
       mouse.y += (mouse.ty - mouse.y) * 0.06;
       drawStars(t);
       if (!prefersReducedMotion) drawMeteors();
-      raf = requestAnimationFrame(draw);
+      scheduleDraw();
     };
 
     const onMove = (e) => {
@@ -147,6 +155,10 @@ export default function GalaxyBackground() {
     const onScroll = () => {
       scrollY = window.scrollY;
     };
+    const onVisibilityChange = () => {
+      pageVisible = !document.hidden;
+      if (pageVisible) scheduleDraw();
+    };
 
     resize();
     draw();
@@ -154,6 +166,7 @@ export default function GalaxyBackground() {
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerleave", onLeave);
     window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
       cancelAnimationFrame(raf);
@@ -161,6 +174,7 @@ export default function GalaxyBackground() {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerleave", onLeave);
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 

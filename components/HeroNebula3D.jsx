@@ -70,24 +70,24 @@ export default function HeroNebula3D() {
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    const width = () => container.clientWidth || window.innerWidth;
+    const height = () => container.clientHeight || window.innerHeight;
+    let mobileLayout = width() < 768;
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 100);
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true,
+      antialias: !mobileLayout,
       powerPreference: "high-performance"
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobileLayout ? 1.25 : 1.5));
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
     renderer.domElement.className = "hero-3d-canvas";
 
     const root = new THREE.Group();
     scene.add(root);
-
-    const width = () => container.clientWidth || window.innerWidth;
-    const height = () => container.clientHeight || window.innerHeight;
-    const isMobile = () => width() < 768;
 
     // ---------- Center: displaced "aurora" sphere ----------
     const sphereUniforms = {
@@ -100,7 +100,7 @@ export default function HeroNebula3D() {
       uIntensity: { value: 0.42 }
     };
 
-    const sphereGeo = new THREE.IcosahedronGeometry(1.05, isMobile() ? 60 : 110);
+    const sphereGeo = new THREE.IcosahedronGeometry(1.05, mobileLayout ? 4 : 5);
     const sphereMat = new THREE.ShaderMaterial({
       uniforms: sphereUniforms,
       transparent: true,
@@ -166,7 +166,7 @@ export default function HeroNebula3D() {
     root.add(core);
 
     // ---------- Particle field (depth-aware) ----------
-    const particleCount = isMobile() ? 500 : 1000;
+    const particleCount = mobileLayout ? 420 : 850;
     const positions = new Float32Array(particleCount * 3);
     const speeds = new Float32Array(particleCount);
     const sizes = new Float32Array(particleCount);
@@ -275,15 +275,23 @@ export default function HeroNebula3D() {
     root.add(ring2);
 
     // ---------- Camera ----------
-    camera.position.set(0, 0.4, isMobile() ? 9.4 : 8.6);
-    root.position.set(0, isMobile() ? -1.4 : -1.6, 0);
-    root.scale.setScalar(isMobile() ? 0.7 : 0.85);
+    const applyLayout = () => {
+      mobileLayout = width() < 768;
+      camera.position.set(0, 0.4, mobileLayout ? 9.4 : 8.6);
+      root.position.set(0, mobileLayout ? -1.4 : -1.6, 0);
+      root.scale.setScalar(mobileLayout ? 0.7 : 0.85);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobileLayout ? 1.25 : 1.5));
+      particleUniforms.uPixelRatio.value = renderer.getPixelRatio();
+    };
+
+    applyLayout();
 
     // ---------- Pointer & scroll state ----------
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
     const scrollState = { y: 0, ty: 0 };
 
     const resize = () => {
+      applyLayout();
       const w = width();
       const h = height();
       camera.aspect = w / Math.max(h, 1);
@@ -303,8 +311,19 @@ export default function HeroNebula3D() {
 
     const startedAt = performance.now();
     let frame = 0;
+    let inView = true;
+    let pageVisible = !document.hidden;
+
+    const shouldAnimate = () => !prefersReducedMotion && inView && pageVisible;
+
+    const startLoop = () => {
+      if (!frame && shouldAnimate()) {
+        frame = requestAnimationFrame(animate);
+      }
+    };
 
     const animate = () => {
+      frame = 0;
       const t = (performance.now() - startedAt) / 1000;
 
       pointer.x += (pointer.tx - pointer.x) * 0.045;
@@ -319,7 +338,7 @@ export default function HeroNebula3D() {
       // root: continuous ambient motion + scroll/pointer parallax
       root.rotation.y = t * 0.18 + pointer.x * 0.5;
       root.rotation.x = -pointer.y * 0.22 + scrollState.y * 0.22 + Math.sin(t * 0.4) * 0.05;
-      root.position.y = (isMobile() ? -1.4 : -1.6) - scrollState.y * 0.6 + Math.sin(t * 0.5) * 0.08;
+      root.position.y = (mobileLayout ? -1.4 : -1.6) - scrollState.y * 0.6 + Math.sin(t * 0.5) * 0.08;
       root.position.x = Math.sin(t * 0.3) * 0.12;
 
       sphere.rotation.y = -t * 0.28;
@@ -338,24 +357,40 @@ export default function HeroNebula3D() {
 
       renderer.render(scene, camera);
 
-      if (!prefersReducedMotion) {
-        frame = requestAnimationFrame(animate);
-      }
+      startLoop();
     };
 
     resize();
     onScroll();
     animate();
 
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView) startLoop();
+      },
+      { rootMargin: "200px 0px" }
+    );
+
+    const onVisibilityChange = () => {
+      pageVisible = !document.hidden;
+      if (pageVisible) startLoop();
+    };
+
+    observer.observe(container);
+
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
       cancelAnimationFrame(frame);
+      observer.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       sphereGeo.dispose();
       sphereMat.dispose();
       core.geometry.dispose();

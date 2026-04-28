@@ -6,32 +6,7 @@ import { Compass, Layers3, Rocket, Wrench } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
 import SplitText from "@/components/SplitText";
 
-const STEPS = [
-  {
-    icon: Compass,
-    label: "01 — Discovery",
-    title: "Listen, scope, align",
-    body: "We map the goal, the audience and the operational context. Every premium build starts with sharp discovery — not assumptions."
-  },
-  {
-    icon: Layers3,
-    label: "02 — Architecture",
-    title: "Design the system",
-    body: "Information design, flows, integrations, edge cases. A blueprint that holds, before a single component is shipped."
-  },
-  {
-    icon: Wrench,
-    label: "03 — Craft",
-    title: "Build with intent",
-    body: "Hand-tuned interfaces, clean back-ends, automations that survive scale. Every layer reviewed against intent, not template."
-  },
-  {
-    icon: Rocket,
-    label: "04 — Launch & evolve",
-    title: "Ship, measure, refine",
-    body: "Deployment is a milestone, not a finish line. We instrument what matters and iterate the moment data starts speaking."
-  }
-];
+const STEP_ICONS = [Compass, Layers3, Wrench, Rocket];
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(true);
@@ -45,12 +20,12 @@ function useIsDesktop() {
   return isDesktop;
 }
 
-export default function ProcessSection() {
+export default function ProcessSection({ content }) {
   const isDesktop = useIsDesktop();
-  return isDesktop ? <DesktopProcess /> : <MobileProcess />;
+  return isDesktop ? <DesktopProcess content={content} /> : <MobileProcess content={content} />;
 }
 
-function DesktopProcess() {
+function DesktopProcess({ content }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const x = useTransform(scrollYProgress, [0, 1], ["6%", "-72%"]);
@@ -62,24 +37,24 @@ function DesktopProcess() {
         <div className="px-5 pt-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <SectionReveal className="max-w-3xl">
-              <span className="section-eyebrow">Process</span>
+              <span className="section-eyebrow">{content.eyebrow}</span>
               <h2 className="mt-2 font-display text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-white sm:text-6xl md:text-[4.5rem]">
-                <SplitText text="A craft, not a service" className="text-aurora-cool" staggerWords={0.06} startY={28} />
+                <SplitText text={content.title} className="text-aurora-cool" staggerWords={0.06} startY={28} />
               </h2>
               <p className="mt-5 max-w-xl text-lg font-medium text-inkSoft">
-                How a project moves from a first conversation to a system that earns its keep.
+                {content.subtitle}
               </p>
             </SectionReveal>
 
             <div className="mt-8 flex items-center gap-4">
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-inkMute">step</span>
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-inkMute">{content.progressLabel}</span>
               <span className="relative h-px flex-1 overflow-hidden bg-white/10">
                 <motion.span
                   style={{ width: progress }}
                   className="absolute inset-y-0 left-0 bg-gradient-to-r from-champagne via-violet to-cyan"
                 />
               </span>
-              <span className="font-display text-xs font-bold uppercase tracking-[0.32em] text-inkMute">scroll →</span>
+              <span className="font-display text-xs font-bold uppercase tracking-[0.32em] text-inkMute">{content.scrollHint}</span>
             </div>
           </div>
         </div>
@@ -89,8 +64,8 @@ function DesktopProcess() {
             style={{ x }}
             className="absolute left-0 top-1/2 flex -translate-y-1/2 items-stretch gap-8 px-[6vw] will-change-transform"
           >
-            {STEPS.map((step, idx) => (
-              <ProcessCard key={step.label} step={step} index={idx} />
+            {content.steps.map((step, idx) => (
+              <ProcessCard key={step.label} content={content} step={step} index={idx} />
             ))}
           </motion.div>
           <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-night to-transparent" />
@@ -101,22 +76,22 @@ function DesktopProcess() {
   );
 }
 
-function MobileProcess() {
+function MobileProcess({ content }) {
   return (
     <section id="process" className="relative px-5 py-24 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <SectionReveal>
-          <span className="section-eyebrow">Process</span>
+          <span className="section-eyebrow">{content.eyebrow}</span>
           <h2 className="mt-2 font-display text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl">
-            <SplitText text="A craft, not a service" className="text-aurora-cool" staggerWords={0.06} startY={28} />
+            <SplitText text={content.title} className="text-aurora-cool" staggerWords={0.06} startY={28} />
           </h2>
           <p className="mt-5 text-lg font-medium text-inkSoft">
-            How a project moves from a first conversation to a system that earns its keep.
+            {content.subtitle}
           </p>
         </SectionReveal>
 
         <div className="mt-12 space-y-5">
-          {STEPS.map((step, idx) => (
+          {content.steps.map((step, idx) => (
             <motion.div
               key={step.label}
               initial={{ opacity: 0, y: 30 }}
@@ -124,7 +99,7 @@ function MobileProcess() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.65, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
             >
-              <ProcessCard step={step} index={idx} compact />
+              <ProcessCard content={content} step={step} index={idx} compact />
             </motion.div>
           ))}
         </div>
@@ -133,8 +108,8 @@ function MobileProcess() {
   );
 }
 
-function ProcessCard({ step, index, compact = false }) {
-  const Icon = step.icon;
+function ProcessCard({ content, step, index, compact = false }) {
+  const Icon = STEP_ICONS[index] ?? Compass;
   return (
     <article
       className={`relative flex shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.05] to-white/[0.01] backdrop-blur-xl shadow-card ${
@@ -169,7 +144,7 @@ function ProcessCard({ step, index, compact = false }) {
       <div className="relative mt-6 flex items-center gap-3">
         <span className="aurora-divider h-px w-12" />
         <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-inkMute">
-          phase {index + 1} of {STEPS.length}
+          {content.phasePrefix} {index + 1} {content.phaseConnector} {content.steps.length}
         </span>
       </div>
     </article>

@@ -36,9 +36,9 @@ export default function HeroSection({ content }) {
       className="hero-editorial relative flex min-h-[100svh] items-center px-5 pb-16 pt-32 sm:px-6 lg:px-8"
     >
       <div className="hero-blueprint" aria-hidden="true">
-        <span className="blueprint-label blueprint-label-a">01 / BUSINESS</span>
-        <span className="blueprint-label blueprint-label-b">02 / SYSTEM</span>
-        <span className="blueprint-label blueprint-label-c">03 / SHIP</span>
+        <span className="blueprint-label blueprint-label-a">01 / {content.blueprintLabels[0]}</span>
+        <span className="blueprint-label blueprint-label-b">02 / {content.blueprintLabels[1]}</span>
+        <span className="blueprint-label blueprint-label-c">03 / {content.blueprintLabels[2]}</span>
         <span className="blueprint-path blueprint-path-a" />
         <span className="blueprint-path blueprint-path-b" />
         <span className="blueprint-block blueprint-block-a">API</span>
@@ -96,7 +96,7 @@ export default function HeroSection({ content }) {
               whileHover={{ y: -2, scale: 1.04 }}
               className="glass-pill rounded-full px-4 py-2 text-xs font-bold tracking-tight text-pearl"
             >
-              {i === 0 ? <LiveAge /> : badge}
+              {i === 0 ? <LiveAge suffix={content.ageSuffix} /> : badge}
             </motion.span>
           ))}
         </motion.div>
@@ -117,7 +117,7 @@ export default function HeroSection({ content }) {
           transition={{ delay: 1.8, duration: 0.6 }}
           className="mt-14 flex flex-row items-center gap-4 text-[10px] font-bold uppercase tracking-[0.36em] text-inkMute"
         >
-          <span>scroll</span>
+          <span>{content.scroll ?? "scroll"}</span>
           <span className="relative block h-px w-16 overflow-hidden bg-white/10">
             <span className="absolute inset-y-0 left-0 w-5 animate-[floatY_2.4s_ease-in-out_infinite] bg-gradient-to-r from-champagne to-transparent" />
           </span>

@@ -38,11 +38,7 @@ export default function ServicesSection({ content }) {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="mt-20 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] sm:grid-cols-3"
         >
-          {[
-            { v: "06", l: "Technical Layers" },
-            { v: "01", l: "Product Mindset" },
-            { v: "∞", l: "Room to Learn" }
-          ].map((s) => (
+          {["06", "01", "∞"].map((value, index) => ({ v: value, l: content.stats[index] })).map((s) => (
             <div
               key={s.l}
               className="relative bg-night/40 px-8 py-10 text-center backdrop-blur-xl"

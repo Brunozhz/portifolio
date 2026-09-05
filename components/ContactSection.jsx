@@ -88,7 +88,7 @@ export default function ContactSection({ content }) {
               {/* Signature ornament */}
               <div className="mt-12 flex items-center gap-4">
                 <span className="aurora-divider h-px w-32" />
-                <span className="text-sm font-bold uppercase tracking-[0.28em] text-champagne">— Bruno</span>
+                <span className="text-sm font-bold uppercase tracking-[0.28em] text-champagne">{content.signature}</span>
               </div>
             </SectionReveal>
 
@@ -132,7 +132,7 @@ export default function ContactSection({ content }) {
         <div className="mt-12 flex flex-col items-center gap-4 text-center">
           <span className="aurora-divider h-px w-40" />
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-inkMute">
-            © {new Date().getFullYear()} Bruno Steiger — Built with curiosity, end-to-end.
+            © {new Date().getFullYear()} Bruno Steiger — {content.footer}
           </p>
         </div>
       </div>

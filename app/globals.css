@@ -716,6 +716,35 @@ button {
   box-shadow: none !important;
 }
 
+.portfolio-editorial header [role="listbox"] {
+  border-color: rgba(20, 36, 43, 0.14) !important;
+  background: rgba(250, 249, 245, 0.98) !important;
+  box-shadow: 0 18px 48px rgba(24, 34, 38, 0.13) !important;
+}
+
+.portfolio-editorial header [role="listbox"] button {
+  border: 0 !important;
+  border-radius: 0.65rem;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.portfolio-editorial header [role="listbox"] button:hover {
+  background: rgba(35, 77, 255, 0.07) !important;
+}
+
+.portfolio-editorial #mobile-menu {
+  border-color: rgba(20, 36, 43, 0.14) !important;
+  background: rgba(247, 245, 239, 0.98) !important;
+  box-shadow: 0 24px 70px rgba(24, 34, 38, 0.16) !important;
+}
+
+.portfolio-editorial #mobile-menu nav {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 .portfolio-editorial .brand-mark {
   border-color: rgba(20, 36, 43, 0.16);
   background: #fff;
@@ -755,6 +784,8 @@ button {
 
 .hero-editorial h1 {
   text-wrap: balance;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .hero-blueprint {
@@ -947,5 +978,10 @@ button {
 
   .hero-editorial h1 {
     max-width: 22rem;
+  }
+
+  html[lang="de-CH"] .hero-editorial h1 {
+    font-size: 2.3rem;
+    line-height: 1.02;
   }
 }

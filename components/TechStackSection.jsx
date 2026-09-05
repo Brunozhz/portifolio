@@ -20,7 +20,7 @@ export default function TechStackSection({ content }) {
             <SplitText text={content.title} className="text-aurora" staggerWords={0.06} startY={28} />
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-8 text-inkSoft">
-            A toolkit refined for craft — not for show.
+            {content.subtitle}
           </p>
         </SectionReveal>
 
@@ -87,7 +87,7 @@ export default function TechStackSection({ content }) {
                     {content.groups[active].title}
                   </h3>
                   <span className="text-xs font-bold uppercase tracking-[0.24em] text-inkMute">
-                    {content.groups[active].tools.length} tools
+                    {content.groups[active].tools.length} {content.toolsLabel}
                   </span>
                 </div>
                 <span className="mt-4 block h-px w-full bg-gradient-to-r from-champagne/50 via-white/10 to-transparent" />
@@ -124,7 +124,7 @@ export default function TechStackSection({ content }) {
         {/* Infinite marquee — full toolkit at a glance */}
         <div className="mt-16 space-y-4">
           <p className="text-center text-[10px] font-bold uppercase tracking-[0.36em] text-inkMute">
-            — Full toolkit —
+            — {content.full} —
           </p>
           <Marquee>
             {allTools.map((tool, i) => (

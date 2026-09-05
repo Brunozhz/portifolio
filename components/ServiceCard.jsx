@@ -79,7 +79,7 @@ export default function ServiceCard({ service, index }) {
 
           <div className="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-inkMute opacity-0 transition group-hover:opacity-100">
             <span className="h-px w-8 bg-champagne" />
-            <span className="text-champagne">Discover</span>
+            <span className="text-champagne">{service.discovery}</span>
           </div>
         </div>
 

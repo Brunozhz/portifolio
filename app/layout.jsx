@@ -16,15 +16,15 @@ const body = Manrope({
 });
 
 export const metadata = {
-  title: "Bruno Steiger — AI, Software & Digital Systems",
+  metadataBase: new URL("https://portifolio-bruno-36.vercel.app"),
+  title: "Bruno Steiger — AI, Automation & Software",
   description:
-    "Bruno Steiger builds technology around real business problems: AI systems, automation, APIs, payment infrastructure and digital products.",
+    "Portfolio of Bruno Steiger, a Brazilian technology professional working with AI, automation, CRM, APIs, software systems and digital products.",
   keywords: [
     "Bruno Steiger",
     "software builder",
-    "premium portfolio",
-    "web design",
-    "landing pages",
+    "business systems",
+    "software engineering",
     "CRM",
     "n8n",
     "automation",
@@ -34,12 +34,15 @@ export const metadata = {
   authors: [{ name: "Bruno Steiger" }],
   creator: "Bruno Steiger",
   openGraph: {
-    title: "Bruno Steiger — AI, Software & Digital Systems",
+    title: "Bruno Steiger — AI, Automation & Software",
     description:
-      "Technology built around real business problems: products, payments, AI, APIs and automation.",
+      "AI systems, automation, CRM, APIs, payment infrastructure and software built around real business problems.",
     type: "website",
-    locale: "en_US"
-  }
+    locale: "en_US",
+    url: "/"
+  },
+  twitter: { card: "summary", title: "Bruno Steiger — AI, Automation & Software", description: "Systems built around real business problems." },
+  alternates: { canonical: "/" }
 };
 
 export const viewport = {
@@ -49,9 +52,10 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }) {
+  const structuredData = { "@context": "https://schema.org", "@type": "Person", name: "Bruno Steiger", url: "https://portifolio-bruno-36.vercel.app", homeLocation: { "@type": "Place", name: "Navegantes, Santa Catarina, Brazil" }, knowsAbout: ["Artificial intelligence", "Automation", "CRM", "APIs", "Payment infrastructure", "Software development"] };
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
-      <body>{children}</body>
+      <body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />{children}</body>
     </html>
   );
 }

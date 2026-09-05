@@ -83,6 +83,11 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+:focus-visible {
+  outline: 2px solid var(--champagne);
+  outline-offset: 4px;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -984,4 +989,204 @@ button {
     font-size: 2.3rem;
     line-height: 1.02;
   }
+}
+
+/* Product engineering identity — deliberately quiet, technical and dark. */
+.portfolio-engineering {
+  --background: #071014;
+  --background-deep: #050a0d;
+  --panel: #0b1519;
+  --panel-soft: #0d1a1f;
+  --panel-glass: rgba(8, 17, 21, 0.86);
+  --ink: #edf4f1;
+  --ink-soft: #9eada9;
+  --ink-mute: #61716f;
+  --champagne: #72d7b7;
+  --pearl: #edf4f1;
+  --line: rgba(209, 236, 228, 0.1);
+  --line-strong: rgba(209, 236, 228, 0.18);
+  isolation: isolate;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 640px), rgba(114, 215, 183, 0.06) calc(50% - 640px), rgba(114, 215, 183, 0.06) calc(50% - 639px), transparent calc(50% - 639px)),
+    linear-gradient(90deg, transparent calc(50% + 639px), rgba(114, 215, 183, 0.06) calc(50% + 639px), rgba(114, 215, 183, 0.06) calc(50% + 640px), transparent calc(50% + 640px)),
+    #071014;
+  color: var(--ink);
+}
+
+.portfolio-engineering::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(159, 190, 181, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(159, 190, 181, 0.035) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: linear-gradient(to bottom, #000, transparent 72%);
+}
+
+.portfolio-engineering section:not(#home) {
+  border-top: 1px solid var(--line);
+}
+
+.portfolio-engineering .text-white,
+.portfolio-engineering .text-pearl,
+.portfolio-engineering [class*="text-pearl/"] { color: var(--pearl) !important; }
+.portfolio-engineering .text-inkSoft { color: var(--ink-soft) !important; }
+.portfolio-engineering .text-inkMute { color: var(--ink-mute) !important; }
+.portfolio-engineering .text-champagne,
+.portfolio-engineering [class*="text-champagne/"] { color: var(--champagne) !important; }
+
+.portfolio-engineering .text-aurora,
+.portfolio-engineering .text-aurora-cool {
+  background: none;
+  color: var(--pearl);
+  filter: none;
+  animation: none;
+}
+
+.portfolio-engineering .section-eyebrow {
+  border-radius: 5px;
+  border-color: rgba(114, 215, 183, 0.22);
+  background: rgba(114, 215, 183, 0.055);
+  box-shadow: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.portfolio-engineering .section-eyebrow::before {
+  border-radius: 1px;
+  box-shadow: none;
+  animation: none;
+}
+
+.portfolio-engineering .glass-surface,
+.portfolio-engineering .engineering-card {
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, rgba(15, 29, 34, 0.92), rgba(8, 18, 22, 0.94));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.025), 0 24px 60px rgba(0,0,0,0.16);
+}
+
+.portfolio-engineering .glass-pill {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.025);
+  box-shadow: none;
+}
+
+.portfolio-engineering .glass-pill:hover,
+.portfolio-engineering .glass-pill.is-selected {
+  border-color: rgba(114, 215, 183, 0.42);
+  background: rgba(114, 215, 183, 0.075);
+}
+
+.portfolio-engineering .premium-border::before { display: none; }
+.portfolio-engineering .tech-context { background: rgba(114, 215, 183, 0.04); }
+
+.portfolio-engineering header a,
+.portfolio-engineering header button,
+.portfolio-engineering header nav {
+  border-color: rgba(205, 234, 225, 0.13) !important;
+  background-color: rgba(5, 13, 16, 0.82) !important;
+  box-shadow: none !important;
+}
+
+.portfolio-engineering header nav a {
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.portfolio-engineering .brand-mark {
+  border-color: rgba(114, 215, 183, 0.25);
+  background: #0b171b;
+  box-shadow: none;
+}
+.portfolio-engineering .brand-mark::before { background: #72d7b7; }
+.portfolio-engineering .brand-mark::after { background: #071014; }
+.portfolio-engineering .brand-mark-core { background: #72d7b7; box-shadow: 0 0 0 3px rgba(114,215,183,.12); }
+
+.portfolio-engineering .hero-editorial {
+  min-height: 100svh;
+  border-bottom: 0;
+  background: radial-gradient(circle at 78% 26%, rgba(114,215,183,0.055), transparent 25%);
+}
+
+.portfolio-engineering .hero-editorial::before {
+  opacity: .3;
+  background-image:
+    linear-gradient(rgba(133, 177, 164, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(133, 177, 164, 0.12) 1px, transparent 1px);
+}
+
+.portfolio-engineering .blueprint-label { color: rgba(158, 190, 181, .54); }
+.portfolio-engineering .blueprint-path { border-color: rgba(114, 215, 183, .22); }
+.portfolio-engineering .blueprint-path-b { border-left-color: rgba(114, 215, 183, .22); }
+.portfolio-engineering .blueprint-block {
+  border-color: rgba(114, 215, 183, .28);
+  background: rgba(7, 16, 20, .88);
+  color: #72d7b7;
+  box-shadow: 8px 8px 0 rgba(114, 215, 183, .035);
+}
+
+.portfolio-engineering .hero-editorial .button-shine[href="#work"] {
+  background: #dcebe6 !important;
+  color: #071014 !important;
+  box-shadow: none !important;
+}
+.portfolio-engineering .hero-editorial .button-shine[href="#about"] {
+  border-color: var(--line-strong) !important;
+  background: rgba(255,255,255,.025) !important;
+  color: var(--ink) !important;
+}
+
+.portfolio-engineering .portrait-stage {
+  background:
+    linear-gradient(rgba(114,215,183,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(114,215,183,.06) 1px, transparent 1px),
+    #091317;
+  background-size: 38px 38px;
+}
+.portfolio-engineering .portrait-placeholder { background: radial-gradient(circle, rgba(114,215,183,.07), transparent 60%); }
+.portrait-node {
+  position: absolute;
+  z-index: 2;
+  padding: .4rem .6rem;
+  border: 1px solid rgba(114,215,183,.25);
+  background: rgba(6,14,17,.9);
+  color: #72d7b7;
+  font: 700 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .14em;
+}
+.portrait-node::after { content: ""; position: absolute; width: 2.4rem; height: 1px; background: rgba(114,215,183,.2); }
+.portrait-node-1 { top: 12%; left: 8%; } .portrait-node-1::after { left: 100%; top: 50%; }
+.portrait-node-2 { top: 9%; right: 8%; } .portrait-node-2::after { right: 100%; top: 50%; }
+.portrait-node-3 { top: 42%; left: 3%; } .portrait-node-3::after { left: 100%; top: 50%; }
+.portrait-node-4 { top: 47%; right: 5%; } .portrait-node-4::after { right: 100%; top: 50%; }
+.portrait-node-5 { bottom: 12%; left: 12%; } .portrait-node-5::after { left: 100%; top: 50%; }
+.portrait-node-6 { bottom: 8%; right: 12%; } .portrait-node-6::after { right: 100%; top: 50%; }
+.portrait-node-7 { bottom: 29%; right: 30%; } .portrait-node-7::after { display: none; }
+
+.portfolio-engineering .flagship-card {
+  border-color: rgba(114,215,183,.22) !important;
+  background: linear-gradient(145deg, #0a1d22, #081216) !important;
+  box-shadow: 0 32px 90px -55px rgba(114,215,183,.35);
+}
+.portfolio-engineering .flagship-card::after { background: radial-gradient(circle, rgba(114,215,183,.09), transparent 68%); }
+.portfolio-engineering .flagship-grid { opacity: .04; }
+
+.portfolio-engineering #work article,
+.portfolio-engineering #contact > div > div:first-child {
+  border-color: var(--line) !important;
+  background-color: rgba(10,21,25,.78) !important;
+  box-shadow: none !important;
+}
+
+.portfolio-engineering > button.fixed,
+.portfolio-engineering .debug-mode button {
+  border-color: var(--line) !important;
+  background: rgba(5,13,16,.86) !important;
+}
+
+@media (max-width: 640px) {
+  .portfolio-engineering { background: #071014; }
+  .portrait-node { font-size: 8px; }
 }

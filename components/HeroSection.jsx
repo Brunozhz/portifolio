@@ -8,18 +8,18 @@ import SplitText from "@/components/SplitText";
 import LiveAge from "@/components/LiveAge";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: 14, filter: "blur(3px)" },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.48, ease: [0.22, 1, 0.36, 1] }
   }
 };
 
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } }
+  visible: { transition: { staggerChildren: 0.045, delayChildren: 0.06 } }
 };
 
 export default function HeroSection({ content }) {
@@ -66,10 +66,10 @@ export default function HeroSection({ content }) {
           <SplitText
             text={content.headline}
             className="text-aurora"
-            staggerWords={0.05}
-            delay={0.25}
-            startY={42}
-            startBlur={12}
+            staggerWords={0.025}
+            delay={0.08}
+            startY={24}
+            startBlur={3}
           />
         </motion.h1>
 
@@ -92,7 +92,7 @@ export default function HeroSection({ content }) {
               key={badge}
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 + i * 0.06, duration: 0.45 }}
+              transition={{ delay: 0.62 + i * 0.045, duration: 0.35 }}
               whileHover={{ y: -2, scale: 1.04 }}
               className="glass-pill rounded-full px-4 py-2 text-xs font-bold tracking-tight text-pearl"
             >
@@ -114,7 +114,7 @@ export default function HeroSection({ content }) {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 0.6 }}
+          transition={{ delay: 0.85, duration: 0.4 }}
           className="mt-14 flex flex-row items-center gap-4 text-[10px] font-bold uppercase tracking-[0.36em] text-inkMute"
         >
           <span>{content.scroll ?? "scroll"}</span>

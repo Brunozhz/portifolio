@@ -1,15 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import Marquee from "@/components/Marquee";
 import SectionReveal from "@/components/SectionReveal";
 import SplitText from "@/components/SplitText";
 import TiltCard from "@/components/TiltCard";
+import { stackUsage } from "@/data/projects";
 
 export default function TechStackSection({ content }) {
   const [active, setActive] = useState(0);
-  const allTools = content.groups.flatMap((g) => g.tools);
+  const [selectedTool, setSelectedTool] = useState(null);
 
   return (
     <section id="technologies" className="relative px-5 py-32 sm:px-6 lg:px-8">
@@ -31,7 +31,7 @@ export default function TechStackSection({ content }) {
               <button
                 key={group.title}
                 type="button"
-                onClick={() => setActive(idx)}
+                onClick={() => { setActive(idx); setSelectedTool(null); }}
                 className={`group relative w-full overflow-hidden rounded-xl border px-5 py-4 text-left transition ${
                   active === idx
                     ? "border-champagne/40 bg-white/[0.05]"
@@ -94,60 +94,32 @@ export default function TechStackSection({ content }) {
 
                 <div className="mt-7 flex flex-wrap gap-2.5">
                   {content.groups[active].tools.map((tool, i) => (
-                    <motion.span
+                    <motion.button
                       key={tool}
+                      type="button"
+                      onClick={() => setSelectedTool(tool)}
                       initial={{ opacity: 0, y: 12, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{ delay: i * 0.04, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                       whileHover={{ y: -3, scale: 1.05 }}
-                      className="glass-pill rounded-full px-4 py-2 text-sm font-bold tracking-tight text-pearl"
+                      className={`glass-pill rounded-full px-4 py-2 text-sm font-bold tracking-tight text-pearl ${selectedTool === tool ? "is-selected" : ""}`}
                     >
                       {tool}
-                    </motion.span>
+                    </motion.button>
                   ))}
                 </div>
+                <AnimatePresence mode="wait">
+                  {selectedTool ? (
+                    <motion.div key={selectedTool} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="tech-context mt-8 rounded-xl border border-white/10 p-5">
+                      <p className="font-mono text-[9px] font-bold uppercase tracking-[0.22em] text-champagne">{content.usedIn}</p>
+                      <p className="mt-2 font-display text-xl font-bold text-white">{selectedTool}</p>
+                      <p className="mt-2 text-sm leading-6 text-inkSoft">{(stackUsage[selectedTool] ?? [content.contextFallback]).join(" · ")}</p>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
               </motion.div>
-
-              {/* Floating orbital ornament */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full border border-white/5"
-              />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -bottom-32 -left-16 h-64 w-64 rounded-full border border-champagne/10"
-              />
             </TiltCard>
           </div>
-        </div>
-
-        {/* Infinite marquee — full toolkit at a glance */}
-        <div className="mt-16 space-y-4">
-          <p className="text-center text-[10px] font-bold uppercase tracking-[0.36em] text-inkMute">
-            — {content.full} —
-          </p>
-          <Marquee>
-            {allTools.map((tool, i) => (
-              <span
-                key={`${tool}-${i}`}
-                className="flex shrink-0 items-center gap-3 font-display text-lg font-bold tracking-tight text-inkSoft"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-champagne/60" />
-                {tool}
-              </span>
-            ))}
-          </Marquee>
-          <Marquee reverse>
-            {allTools.slice().reverse().map((tool, i) => (
-              <span
-                key={`r-${tool}-${i}`}
-                className="flex shrink-0 items-center gap-3 font-display text-xl font-extrabold tracking-tight text-pearl/30"
-              >
-                <span className="h-1 w-6 bg-gradient-to-r from-transparent to-champagne/50" />
-                {tool}
-              </span>
-            ))}
-          </Marquee>
         </div>
       </div>
     </section>

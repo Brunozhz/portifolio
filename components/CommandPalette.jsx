@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Command, Mail, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const commandHrefs = ["#about", "#work", "#work", "#technologies", "#about", "#contact"];
+const commandHrefs = ["#work", "#work", "#work", "#work", "#work", "#about", "#about", "#contact"];
 
 export default function CommandPalette({ content }) {
   const [open, setOpen] = useState(false);

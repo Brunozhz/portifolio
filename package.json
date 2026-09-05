@@ -1,5 +1,5 @@
 {
-  "name": "bruno-elias-portfolio",
+  "name": "bruno-steiger-portfolio",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -13,8 +13,7 @@
     "lucide-react": "latest",
     "next": "^15.3.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "three": "^0.184.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",

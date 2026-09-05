@@ -25,7 +25,7 @@ export default function CommandPalette({ content }) {
 
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className="fixed bottom-5 right-5 z-40 hidden items-center gap-2 rounded-full border border-white/10 bg-black/70 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.16em] text-inkMute backdrop-blur-xl transition hover:border-champagne/35 hover:text-pearl md:flex"><span>{content.curious}</span><kbd className="rounded border border-white/10 bg-white/[0.05] px-2 py-1 text-champagne">Ctrl K</kbd></button>
+      <button type="button" aria-label={`${content.curious} Ctrl K`} onClick={() => setOpen(true)} className="fixed bottom-5 right-5 z-40 hidden h-11 w-14 items-center justify-center border border-white/10 bg-black/70 text-[10px] font-bold uppercase tracking-[0.16em] text-inkMute backdrop-blur-xl transition hover:border-champagne/35 hover:text-pearl md:flex"><kbd className="text-champagne">⌘ K</kbd></button>
       <AnimatePresence>
         {open ? (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-start justify-center bg-black/75 px-4 pt-[14vh] backdrop-blur-md" onMouseDown={() => setOpen(false)}>

@@ -35,17 +35,6 @@ export default function HeroSection({ content }) {
       id="home"
       className="hero-editorial relative flex min-h-[100svh] items-center px-5 pb-16 pt-32 sm:px-6 lg:px-8"
     >
-      <div className="hero-blueprint" aria-hidden="true">
-        <span className="blueprint-label blueprint-label-a">01 / {content.blueprintLabels[0]}</span>
-        <span className="blueprint-label blueprint-label-b">02 / {content.blueprintLabels[1]}</span>
-        <span className="blueprint-label blueprint-label-c">03 / {content.blueprintLabels[2]}</span>
-        <span className="blueprint-path blueprint-path-a" />
-        <span className="blueprint-path blueprint-path-b" />
-        <span className="blueprint-block blueprint-block-a">API</span>
-        <span className="blueprint-block blueprint-block-b">DATA</span>
-        <span className="blueprint-block blueprint-block-c">AI</span>
-      </div>
-
       <motion.div
         style={{ y, opacity, scale }}
         variants={container}

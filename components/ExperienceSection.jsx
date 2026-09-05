@@ -16,9 +16,9 @@ export default function ExperienceSection({ content }) {
           <div><span className="section-eyebrow">{content.eyebrow}</span><h2 className="mt-3 font-display text-5xl font-bold leading-[0.98] text-white sm:text-7xl">{content.title}</h2></div>
           <p className="max-w-xl text-lg leading-8 text-inkSoft">{content.intro}</p>
         </SectionReveal>
-        <div className="mt-14 grid gap-5 lg:grid-cols-2">
+        <div className="mt-14 grid border-t border-white/10 lg:grid-cols-2">
           {items.map(({ label, title, text, Icon }, index) => (
-            <motion.article key={label} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="engineering-card rounded-2xl p-7 sm:p-9">
+            <motion.article key={label} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="experience-entry border-b border-white/10 py-9 lg:px-10 lg:first:border-r lg:first:pl-0">
               <div className="flex items-center justify-between"><Icon className="h-5 w-5 text-champagne" /><span className="font-mono text-[9px] tracking-[0.2em] text-inkMute">0{index + 1}</span></div>
               <p className="mt-8 font-mono text-[9px] font-bold tracking-[0.22em] text-champagne">{label}</p>
               <h3 className="mt-3 font-display text-2xl font-bold text-white sm:text-3xl">{title}</h3>
@@ -26,7 +26,7 @@ export default function ExperienceSection({ content }) {
             </motion.article>
           ))}
         </div>
-        <div className="mt-5 flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.025] p-5 text-sm leading-6 text-inkSoft"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-champagne" />{content.contribution}</div>
+        <div className="mt-6 flex max-w-3xl items-start gap-3 text-sm leading-6 text-inkMute"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-champagne" />{content.contribution}</div>
       </div>
     </section>
   );

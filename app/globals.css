@@ -1218,3 +1218,94 @@ button {
   .portfolio-engineering { background: #071014; }
   .portrait-node { font-size: 8px; }
 }
+
+/* Quiet technical editorial pass: hierarchy comes from type and spacing, not UI chrome. */
+.portfolio-engineering {
+  background: #071014;
+}
+
+.portfolio-engineering::before {
+  background: radial-gradient(ellipse at 76% 8%, rgba(114, 215, 183, .045), transparent 32%);
+  mask-image: none;
+}
+
+.portfolio-engineering .hero-editorial {
+  background: transparent;
+}
+
+.portfolio-engineering .hero-editorial::before,
+.portfolio-engineering .hero-blueprint {
+  display: none;
+}
+
+.portfolio-engineering .section-eyebrow {
+  padding: 0 0 0 .9rem;
+  border: 0;
+  border-left: 2px solid var(--champagne);
+  border-radius: 0;
+  background: transparent;
+}
+
+.portfolio-engineering .section-eyebrow::before {
+  display: none;
+}
+
+.portfolio-engineering header nav,
+.portfolio-engineering header > div > a,
+.portfolio-engineering header a[href="#contact"],
+.portfolio-engineering header button {
+  border-radius: 4px !important;
+}
+
+.portfolio-engineering header nav {
+  border-width: 0 0 1px !important;
+  background: rgba(5, 13, 16, .9) !important;
+}
+
+.portfolio-engineering #mobile-menu {
+  border-radius: 4px !important;
+}
+
+.portfolio-engineering .flagship-card,
+.portfolio-engineering .klumify-sealed {
+  border-radius: 4px !important;
+}
+
+.portfolio-engineering .project-entry {
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.portfolio-engineering .experience-entry {
+  background: transparent;
+  box-shadow: none;
+}
+
+.portfolio-engineering .portrait-stage {
+  background: linear-gradient(145deg, rgba(16, 30, 34, .82), rgba(7, 16, 20, .94));
+  background-size: auto;
+}
+
+.portfolio-engineering #technologies button,
+.portfolio-engineering #technologies .glass-pill,
+.portfolio-engineering #technologies .tech-context {
+  border-radius: 0 !important;
+}
+
+.portfolio-engineering #technologies .glass-pill {
+  background: transparent;
+}
+
+.portfolio-engineering #contact > div > div:first-child {
+  border-color: var(--line) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.portfolio-engineering .contact-link {
+  background: transparent !important;
+}
+
+.portfolio-engineering .flagship-grid,
+.klumify-sealed::before { display: none; }

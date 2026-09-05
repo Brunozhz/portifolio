@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import SectionReveal from "@/components/SectionReveal";
 import SplitText from "@/components/SplitText";
-import TiltCard from "@/components/TiltCard";
 import { stackUsage } from "@/data/projects";
 
 export default function TechStackSection({ content }) {
@@ -34,8 +33,8 @@ export default function TechStackSection({ content }) {
                 onClick={() => { setActive(idx); setSelectedTool(null); }}
                 className={`group relative w-full overflow-hidden rounded-xl border px-5 py-4 text-left transition ${
                   active === idx
-                    ? "border-champagne/40 bg-white/[0.05]"
-                    : "border-white/8 bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.035]"
+                    ? "border-champagne/50 bg-transparent"
+                    : "border-white/10 bg-transparent hover:border-white/25"
                 }`}
               >
                 <div className="flex items-center justify-between gap-3">
@@ -70,11 +69,7 @@ export default function TechStackSection({ content }) {
             ))}
           </div>
 
-          <div className="relative">
-            <TiltCard
-              intensity={4}
-              className="glass-surface premium-border relative min-h-[20rem] overflow-hidden rounded-3xl p-8"
-            >
+          <div className="tech-sheet relative min-h-[20rem] border-y border-white/10 py-8 lg:px-8">
               <motion.div
                 key={active}
                 initial={{ opacity: 0, y: 16 }}
@@ -118,10 +113,9 @@ export default function TechStackSection({ content }) {
                   ) : null}
                 </AnimatePresence>
               </motion.div>
-            </TiltCard>
+          </div>
           </div>
         </div>
-      </div>
     </section>
   );
 }

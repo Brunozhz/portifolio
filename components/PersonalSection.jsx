@@ -10,7 +10,7 @@ export default function PersonalSection({ content, ageSuffix }) {
   return (
     <section id="about" className="relative px-5 py-28 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-        <SectionReveal className="portrait-stage group relative min-h-[32rem] overflow-hidden rounded-3xl border border-white/10">
+        <SectionReveal className="portrait-stage group relative min-h-[32rem] overflow-hidden border border-white/10">
           <div className="portrait-placeholder absolute inset-8 grid place-items-center border border-dashed border-white/15">
             <div className="text-center"><span className="font-display text-7xl font-bold text-white/10">BS</span><p className="mt-3 font-mono text-[9px] tracking-[0.24em] text-inkMute">{content.photo}</p></div>
           </div>

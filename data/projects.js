@@ -1,4 +1,4 @@
-export const vfxResponsibilities = [
+export const crmResponsibilities = [
   "CRM evolution", "n8n", "Make", "APIs", "Webhooks", "AI agents", "Inbound", "Outbound",
   "AI qualification", "Meta API", "WhatsApp", "Client integrations", "Lead routing", "Technical support",
   "New features", "Flow architecture", "Landing pages", "Team training"

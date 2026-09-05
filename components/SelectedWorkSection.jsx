@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Bot, ChevronRight, LockKeyhole } from "lucide-react";
 import { useEffect, useState } from "react";
 import SectionReveal from "@/components/SectionReveal";
-import { automationFlow, commercialFlows, prospectingFlow, vfxResponsibilities } from "@/data/projects";
+import { automationFlow, commercialFlows, crmResponsibilities, prospectingFlow } from "@/data/projects";
 
 function Flow({ nodes, compact = false, interactive = true }) {
   const [activeNode, setActiveNode] = useState(null);
@@ -96,11 +96,11 @@ export default function SelectedWorkSection({ content }) {
           <div className="relative mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 font-mono text-[10px] leading-5 text-inkMute sm:flex-row sm:items-center sm:justify-between"><p>🔒 {content.privateNote}</p><p>{content.launchNote}</p></div>
         </motion.article>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-2">
+        <div className="mt-10">
           {localizedProjects.map((project, index) => {
             const isOpen = openProject === index;
             return (
-              <motion.article key={project.number} layout className="group overflow-hidden rounded-3xl border border-white/10 bg-white/[0.025] transition hover:border-white/20 hover:bg-white/[0.04]">
+              <motion.article key={project.number} layout className="project-entry group overflow-hidden border-t border-white/10 transition last:border-b hover:border-champagne/30">
                 <button type="button" onClick={() => setOpenProject(isOpen ? null : index)} className="w-full p-6 text-left sm:p-8" aria-expanded={isOpen}>
                   <div className="flex items-start justify-between gap-6">
                     <div>
@@ -119,7 +119,7 @@ export default function SelectedWorkSection({ content }) {
                         {index === 0 ? (
                           <div className="space-y-5">
                             <div className="rounded-xl border border-amber-400/20 bg-amber-400/[0.04] p-4 font-mono text-[10px] leading-6 text-inkSoft">🔒 {content.proprietary}</div>
-                            <div><p className="mb-3 font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-champagne">{content.contribution}</p><div className="flex flex-wrap gap-2">{vfxResponsibilities.map((item) => <span key={item} className="rounded-full border border-white/10 px-3 py-1.5 text-[9px] uppercase tracking-[0.1em] text-inkSoft">{item}</span>)}</div></div>
+                            <div><p className="mb-3 font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-champagne">{content.contribution}</p><div className="flex flex-wrap gap-2">{crmResponsibilities.map((item) => <span key={item} className="rounded-full border border-white/10 px-3 py-1.5 text-[9px] uppercase tracking-[0.1em] text-inkSoft">{item}</span>)}</div></div>
                           </div>
                         ) : index === 1 ? (
                           <div className="space-y-5">

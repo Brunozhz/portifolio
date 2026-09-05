@@ -1,12 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Bot, ChevronRight, Database, Gauge, Layers3, Radio } from "lucide-react";
+import { ArrowUpRight, Bot, ChevronRight, LockKeyhole } from "lucide-react";
 import { useEffect, useState } from "react";
 import SectionReveal from "@/components/SectionReveal";
-import { automationFlow, commercialFlows, klumifyConceptFlows, klumifyModules, prospectingFlow, vfxResponsibilities } from "@/data/projects";
-
-const TOUR_ICONS = [Layers3, Gauge, Bot, Radio, Database];
+import { automationFlow, commercialFlows, prospectingFlow, vfxResponsibilities } from "@/data/projects";
 
 function Flow({ nodes, compact = false, interactive = true }) {
   const [activeNode, setActiveNode] = useState(null);
@@ -27,14 +25,10 @@ function Flow({ nodes, compact = false, interactive = true }) {
 }
 
 export default function SelectedWorkSection({ content }) {
-  const [activeTour, setActiveTour] = useState(0);
   const [openProject, setOpenProject] = useState(null);
   const [agentReply, setAgentReply] = useState(content.agentHello);
-  const [systemOpen, setSystemOpen] = useState(false);
   const [commercialMode, setCommercialMode] = useState("inbound");
-  const localizedTours = content.tours.map(([label, title, text, nodes], index) => ({ label, title, text, nodes, icon: TOUR_ICONS[index] }));
   const localizedProjects = content.projects.map(([title, kicker, description, flow], index) => ({ title, kicker, description, flow, number: String(index + 2).padStart(2, "0") }));
-  const ActiveIcon = localizedTours[activeTour].icon;
 
   useEffect(() => setAgentReply(content.agentHello), [content.agentHello]);
 
@@ -61,8 +55,9 @@ export default function SelectedWorkSection({ content }) {
           className="flagship-card relative overflow-hidden rounded-[2rem] border border-champagne/25 bg-[#070706] p-5 sm:p-8 lg:p-12"
         >
           <div className="flagship-grid" aria-hidden="true" />
-          <div className="relative grid min-w-0 gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-            <div className="min-w-0">
+          <div className="relative grid min-w-0 gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
+            <div className="flex min-w-0 flex-col justify-between">
+              <div>
               <div className="flex flex-wrap items-center gap-3 text-[10px] font-bold uppercase tracking-[0.26em] text-champagne">
                 <span className="rounded-full border border-champagne/30 bg-champagne/10 px-3 py-2">{content.flagship}</span>
                 <span>{content.status}</span>
@@ -73,68 +68,32 @@ export default function SelectedWorkSection({ content }) {
                 {content.klumify}
               </p>
               <p className="mt-6 max-w-xl leading-7 text-inkSoft">
-                {content.klumifyText}
+                {content.suspense}
               </p>
-
-              <div className="mt-9 flex flex-wrap gap-2">
-                {content.tags.map((tag) => (
+              </div>
+              <div className="mt-10 flex flex-wrap gap-2">
+                {content.teaserTags.map((tag) => (
                   <span key={tag} className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-inkSoft">{tag}</span>
                 ))}
               </div>
             </div>
 
-            <div className="min-w-0 rounded-3xl border border-white/10 bg-black/60 p-4 shadow-2xl sm:p-6">
-              <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
-                <div className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-[#ff6b5f]" /><span className="h-2.5 w-2.5 rounded-full bg-[#f0c254]" /><span className="h-2.5 w-2.5 rounded-full bg-[#58c974]" /></div>
-                <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-inkMute">{content.explorer}</span>
+            <div className="klumify-sealed relative flex min-h-[29rem] min-w-0 flex-col overflow-hidden rounded-3xl border border-white/10 bg-black/55 p-6 sm:p-8">
+              <div className="klumify-scan" aria-hidden="true" />
+              <div className="relative flex items-center justify-between border-b border-white/10 pb-5 font-mono text-[9px] uppercase tracking-[0.22em] text-inkMute">
+                <span>KLUMIFY / PRIVATE BUILD</span><LockKeyhole className="h-4 w-4 text-champagne" aria-hidden="true" />
               </div>
-              <button type="button" onClick={() => setSystemOpen(true)} className="mb-5 flex w-full items-center justify-between rounded-xl border border-champagne/25 bg-champagne/10 px-4 py-3 text-left font-mono text-[10px] font-bold tracking-[0.16em] text-champagne">
-                <span>{systemOpen ? content.initializing : content.initialize}</span><span>{systemOpen ? "●" : "→"}</span>
-              </button>
-              <AnimatePresence>
-                {systemOpen ? <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mb-5 grid overflow-hidden sm:grid-cols-2"><div className="col-span-full grid grid-cols-2 gap-2 pb-5 sm:grid-cols-4">{klumifyModules.map((module, index) => <motion.div key={module.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }} className="rounded-lg border border-white/10 bg-white/[0.03] p-2.5"><span className="text-[10px] text-champagne">{module.marker}</span><p className="mt-2 font-mono text-[8px] leading-4 tracking-[0.1em] text-inkSoft">{module.label}</p></motion.div>)}</div></motion.div> : null}
-              </AnimatePresence>
-              <div className="mb-5 grid grid-cols-2 gap-2 sm:grid-cols-5">
-                {localizedTours.map((tour, index) => {
-                  const Icon = tour.icon;
-                  return (
-                    <button key={tour.label} type="button" onClick={() => setActiveTour(index)} className={`rounded-xl border p-3 text-left transition ${activeTour === index ? "border-champagne/45 bg-champagne/10 text-champagne" : "border-white/8 bg-white/[0.02] text-inkMute hover:border-white/20 hover:text-pearl"}`}>
-                      <Icon className="mb-3 h-4 w-4" />
-                      <span className="block text-[9px] font-bold uppercase leading-4 tracking-[0.12em]">{tour.label}</span>
-                    </button>
-                  );
-                })}
+              <div className="relative my-auto py-12 text-center">
+                <div className="mx-auto grid h-20 w-20 place-items-center rounded-full border border-champagne/30 bg-champagne/[0.06]"><LockKeyhole className="h-7 w-7 text-champagne" aria-hidden="true" /></div>
+                <p className="mt-8 font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-champagne">{content.accessRestricted}</p>
+                <h4 className="mt-4 font-display text-5xl font-bold tracking-[-0.055em] text-white sm:text-6xl">{content.comingSoon}</h4>
+                <p className="mx-auto mt-5 max-w-sm text-sm leading-6 text-inkSoft">{content.sealedText}</p>
               </div>
-
-              <AnimatePresence mode="wait">
-                <motion.div key={activeTour} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }} className="min-h-[16rem] rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] to-transparent p-5 sm:p-7">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-champagne/30 bg-champagne/10 text-champagne"><ActiveIcon className="h-4 w-4" /></div>
-                  <h4 className="mt-5 max-w-lg font-display text-2xl font-bold leading-tight text-white">{localizedTours[activeTour].title}</h4>
-                  <p className="mt-3 max-w-xl text-sm leading-6 text-inkSoft">{localizedTours[activeTour].text}</p>
-                  <div className="mt-7"><Flow nodes={localizedTours[activeTour].nodes} /></div>
-                </motion.div>
-              </AnimatePresence>
+              <div className="relative flex items-center justify-between border-t border-white/10 pt-5 font-mono text-[9px] uppercase tracking-[0.2em] text-inkMute"><span>{content.activeBuild}</span><span className="flex items-center gap-2"><i className="h-1.5 w-1.5 animate-pulse rounded-full bg-champagne" />2026</span></div>
             </div>
           </div>
 
-          <div className="relative mt-12 grid gap-4 border-t border-white/10 pt-8 lg:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-black/35 p-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-champagne">{content.problem}</p>
-              <p className="mt-3 text-sm leading-6 text-inkSoft">{content.problemText}</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-black/35 p-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-champagne">{content.system}</p>
-              <div className="mt-4 space-y-3">{klumifyConceptFlows.map((flow) => <Flow key={flow.join("-")} nodes={flow} compact />)}</div>
-              <p className="mt-4 font-mono text-[9px] leading-5 text-inkMute">{content.conceptual}</p>
-            </div>
-          </div>
-
-          <div className="relative mt-5 grid gap-2 font-mono text-[10px] leading-5 text-inkMute sm:grid-cols-2"><p className="rounded-lg border border-white/10 p-3">🔒 {content.privateNote}</p><p className="rounded-lg border border-white/10 p-3">↗ {content.launchNote}</p></div>
-
-          <div className="relative mt-8 border-t border-white/10 pt-8">
-            <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-inkMute">{content.worked}</p>
-            <p className="mt-4 max-w-5xl text-sm leading-7 text-inkSoft">{content.workedText}</p>
-          </div>
+          <div className="relative mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 font-mono text-[10px] leading-5 text-inkMute sm:flex-row sm:items-center sm:justify-between"><p>🔒 {content.privateNote}</p><p>{content.launchNote}</p></div>
         </motion.article>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-2">

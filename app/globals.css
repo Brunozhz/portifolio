@@ -1173,6 +1173,34 @@ button {
 .portfolio-engineering .flagship-card::after { background: radial-gradient(circle, rgba(114,215,183,.09), transparent 68%); }
 .portfolio-engineering .flagship-grid { opacity: .04; }
 
+.klumify-sealed::before {
+  content: "";
+  position: absolute;
+  inset: 12% 8%;
+  border: 1px solid rgba(114, 215, 183, .08);
+  background:
+    linear-gradient(rgba(114, 215, 183, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(114, 215, 183, .035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+}
+
+.klumify-scan {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(114, 215, 183, .045) 48%, rgba(114, 215, 183, .13) 50%, rgba(114, 215, 183, .045) 52%, transparent 100%);
+  background-size: 100% 220%;
+  animation: klumifyScan 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes klumifyScan {
+  0%, 18% { background-position: 0 -120%; opacity: 0; }
+  35% { opacity: 1; }
+  72% { background-position: 0 120%; opacity: .75; }
+  100% { background-position: 0 120%; opacity: 0; }
+}
+
 .portfolio-engineering #work article,
 .portfolio-engineering #contact > div > div:first-child {
   border-color: var(--line) !important;

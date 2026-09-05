@@ -1,20 +1,3 @@
-export const klumifyModules = [
-  { id: "payment", label: "PAYMENT ENGINE", marker: "◉" },
-  { id: "checkout", label: "CHECKOUT", marker: "◉" },
-  { id: "members", label: "MEMBERS AREA", marker: "◉" },
-  { id: "api", label: "API INFRASTRUCTURE", marker: "◉" },
-  { id: "webhook", label: "WEBHOOK SYSTEM", marker: "◉" },
-  { id: "seller", label: "SELLER OPERATIONS", marker: "◉" },
-  { id: "financial", label: "FINANCIAL ENGINE", marker: "🔒" },
-  { id: "enterprise", label: "ENTERPRISE MODULE", marker: "🔒" }
-];
-
-export const klumifyConceptFlows = [
-  ["CUSTOMER", "CHECKOUT", "PAYMENT PROCESSING", "TRANSACTION", "SELLER DASHBOARD", "FINANCIAL OPERATION"],
-  ["PURCHASE APPROVED", "WEBHOOK", "AUTOMATION", "CUSTOMER ACCESS", "MEMBERS AREA", "DIGITAL PRODUCT"],
-  ["COMPANY", "API", "KLUMIFY", "PAYMENT OPERATION", "WEBHOOK", "STATUS / RECONCILIATION"]
-];
-
 export const vfxResponsibilities = [
   "CRM evolution", "n8n", "Make", "APIs", "Webhooks", "AI agents", "Inbound", "Outbound",
   "AI qualification", "Meta API", "WhatsApp", "Client integrations", "Lead routing", "Technical support",

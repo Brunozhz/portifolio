@@ -39,9 +39,9 @@ export default function ServicesSection({ content }) {
           className="mt-20 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] sm:grid-cols-3"
         >
           {[
-            { v: "08", l: "Service Verticals" },
-            { v: "100%", l: "Remote Delivery" },
-            { v: "5", l: "Languages Spoken" }
+            { v: "06", l: "Technical Layers" },
+            { v: "01", l: "Product Mindset" },
+            { v: "∞", l: "Room to Learn" }
           ].map((s) => (
             <div
               key={s.l}

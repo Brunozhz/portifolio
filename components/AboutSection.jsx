@@ -5,6 +5,7 @@ import { useRef } from "react";
 import SectionReveal from "@/components/SectionReveal";
 import TiltCard from "@/components/TiltCard";
 import SplitText from "@/components/SplitText";
+import LiveAge from "@/components/LiveAge";
 
 export default function AboutSection({ content }) {
   const ref = useRef(null);
@@ -25,15 +26,15 @@ export default function AboutSection({ content }) {
             </h2>
             <div className="mt-8 flex items-center gap-4">
               <span className="aurora-divider h-px w-24" />
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-champagne">Brazilian craftsman, global mind</span>
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-champagne">Built through practice, not a perfect roadmap</span>
             </div>
 
             <div className="mt-10 hidden lg:block">
               <div className="space-y-5 border-l border-white/10 pl-6">
                 {[
-                  { label: "Discipline", value: "Technical & Creative" },
-                  { label: "Method", value: "Iterative · Measurable" },
-                  { label: "Reach", value: "Remote · Worldwide" }
+                  { label: "Perspective", value: "Business + Technology" },
+                  { label: "Method", value: "Build · Break · Learn" },
+                  { label: "Direction", value: "Products & Systems" }
                 ].map((item) => (
                   <div key={item.label} className="text-sm">
                     <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-inkMute">
@@ -77,7 +78,7 @@ export default function AboutSection({ content }) {
                   className="glass-surface premium-border relative overflow-hidden rounded-2xl px-5 py-5 text-sm font-bold text-inkSoft"
                 >
                   <span className="mb-3 block h-px w-10 bg-gradient-to-r from-champagne to-transparent" />
-                  <span className="text-pearl">{highlight}</span>
+                  <span className="text-pearl">{index === 0 ? <LiveAge /> : highlight}</span>
                   <span
                     aria-hidden="true"
                     className="absolute right-3 top-3 font-display text-xs font-bold tracking-tight text-inkMute"
@@ -88,6 +89,11 @@ export default function AboutSection({ content }) {
               </motion.div>
             ))}
           </div>
+
+          <SectionReveal className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 text-sm leading-7 text-inkSoft">
+            <span className="mr-2 text-champagne">↗</span>
+            Currently based in Brazil. Open to international opportunities and particularly interested in building my next professional chapter in Québec. Currently studying French.
+          </SectionReveal>
         </div>
       </div>
     </section>

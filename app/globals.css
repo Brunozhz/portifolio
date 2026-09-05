@@ -45,6 +45,34 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.flagship-card {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 42px 140px -48px rgba(216, 199, 154, 0.28);
+}
+
+.flagship-card::after {
+  content: "";
+  position: absolute;
+  width: 34rem;
+  height: 34rem;
+  right: -14rem;
+  top: -18rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(216, 199, 154, 0.15), transparent 68%);
+  pointer-events: none;
+}
+
+.flagship-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.055;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, #000, transparent 86%);
+  pointer-events: none;
+}
+
 ::selection {
   background: rgba(216, 199, 154, 0.32);
   color: #ffffff;

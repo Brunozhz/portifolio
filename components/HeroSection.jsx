@@ -6,6 +6,7 @@ import { useRef } from "react";
 import GlowButton from "@/components/GlowButton";
 import Magnetic from "@/components/Magnetic";
 import SplitText from "@/components/SplitText";
+import LiveAge from "@/components/LiveAge";
 
 const HeroNebula3D = dynamic(() => import("@/components/HeroNebula3D"), {
   ssr: false,
@@ -104,6 +105,12 @@ export default function HeroSection({ content }) {
           />
         </motion.h1>
 
+        {content.manifesto ? (
+          <motion.p variants={fadeUp} className="mx-auto mt-5 font-display text-sm font-bold uppercase tracking-[0.22em] text-champagne/80 sm:text-base">
+            {content.manifesto}
+          </motion.p>
+        ) : null}
+
         <motion.p
           variants={fadeUp}
           className="mx-auto mt-7 max-w-2xl text-base font-medium leading-7 text-pearl/85 sm:text-lg sm:leading-8"
@@ -111,7 +118,7 @@ export default function HeroSection({ content }) {
           {content.subheadline}
         </motion.p>
 
-        <motion.div variants={fadeUp} className="mt-9 flex flex-wrap justify-center gap-2.5">
+        <motion.div variants={fadeUp} className="mt-8 flex flex-wrap justify-center gap-2.5">
           {content.badges.map((badge, i) => (
             <motion.span
               key={badge}
@@ -121,7 +128,7 @@ export default function HeroSection({ content }) {
               whileHover={{ y: -2, scale: 1.04 }}
               className="glass-pill rounded-full px-4 py-2 text-xs font-bold tracking-tight text-pearl"
             >
-              {badge}
+              {i === 0 ? <LiveAge /> : badge}
             </motion.span>
           ))}
         </motion.div>

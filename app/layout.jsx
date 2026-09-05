@@ -1,14 +1,14 @@
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Manrope, Syne } from "next/font/google";
 import "./globals.css";
 
-const display = Space_Grotesk({
+const display = Syne({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-display",
   display: "swap"
 });
 
-const body = Inter({
+const body = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-body",
@@ -16,12 +16,12 @@ const body = Inter({
 });
 
 export const metadata = {
-  title: "Bruno Elias — Atelier of Digital Systems",
+  title: "Bruno Steiger — AI, Software & Digital Systems",
   description:
-    "Bruno Elias is a Brazilian freelance technical builder crafting premium websites, sales pages, CRM implementations, automations and AI-powered service & SDR agents.",
+    "Bruno Steiger builds technology around real business problems: AI systems, automation, APIs, payment infrastructure and digital products.",
   keywords: [
-    "Bruno Elias",
-    "freelance technical builder",
+    "Bruno Steiger",
+    "software builder",
     "premium portfolio",
     "web design",
     "landing pages",
@@ -31,12 +31,12 @@ export const metadata = {
     "AI agents",
     "API integrations"
   ],
-  authors: [{ name: "Bruno Elias" }],
-  creator: "Bruno Elias",
+  authors: [{ name: "Bruno Steiger" }],
+  creator: "Bruno Steiger",
   openGraph: {
-    title: "Bruno Elias — Atelier of Digital Systems",
+    title: "Bruno Steiger — AI, Software & Digital Systems",
     description:
-      "Premium digital craftsmanship: websites, sales pages, CRM systems, automations and AI-powered agents.",
+      "Technology built around real business problems: products, payments, AI, APIs and automation.",
     type: "website",
     locale: "en_US"
   }

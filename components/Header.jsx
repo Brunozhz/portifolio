@@ -3,9 +3,8 @@
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, Send, X } from "lucide-react";
 import { useState } from "react";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 
-export default function Header({ content, language, onLanguageChange }) {
+export default function Header({ content }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
@@ -31,8 +30,8 @@ export default function Header({ content, language, onLanguageChange }) {
             <span className="brand-mark-core" />
           </span>
           <span className="hidden flex-col leading-tight sm:flex">
-            <span className="font-display text-sm font-semibold tracking-tight text-pearl">Bruno Elias</span>
-            <span className="font-display text-[10px] font-medium uppercase tracking-[0.22em] text-inkMute">Atelier</span>
+            <span className="font-display text-sm font-semibold tracking-tight text-pearl">Bruno Steiger</span>
+            <span className="font-display text-[10px] font-medium uppercase tracking-[0.22em] text-inkMute">Systems</span>
           </span>
         </motion.a>
 
@@ -67,10 +66,6 @@ export default function Header({ content, language, onLanguageChange }) {
           transition={{ delay: 0.18, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="pointer-events-auto flex items-center gap-2"
         >
-          <div className="hidden lg:block">
-            <LanguageSwitcher language={language} onChange={onLanguageChange} ariaLabel={content.aria.language} />
-          </div>
-
           <a
             href="#contact"
             className="group hidden items-center gap-2 rounded-full border border-champagne/30 bg-champagne/10 px-5 py-2.5 text-[13px] font-bold tracking-tight text-champagne backdrop-blur-2xl transition hover:border-champagne/60 hover:bg-champagne/20 hover:shadow-[0_0_30px_rgba(216,199,154,0.35)] lg:inline-flex"
@@ -115,12 +110,6 @@ export default function Header({ content, language, onLanguageChange }) {
                 </a>
               ))}
               <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <LanguageSwitcher
-                  language={language}
-                  onChange={onLanguageChange}
-                  align="left"
-                  ariaLabel={content.aria.language}
-                />
                 <a
                   href="#contact"
                   onClick={closeMenu}

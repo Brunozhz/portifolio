@@ -1,17 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import GlowButton from "@/components/GlowButton";
 import Magnetic from "@/components/Magnetic";
 import SplitText from "@/components/SplitText";
 import LiveAge from "@/components/LiveAge";
-
-const HeroNebula3D = dynamic(() => import("@/components/HeroNebula3D"), {
-  ssr: false,
-  loading: () => <div className="hero-3d-field" aria-hidden="true" />
-});
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
@@ -39,61 +33,35 @@ export default function HeroSection({ content }) {
     <section
       ref={ref}
       id="home"
-      className="relative flex min-h-[100svh] items-center justify-center px-5 pb-16 pt-32 sm:px-6 lg:px-8"
+      className="hero-editorial relative flex min-h-[100svh] items-center px-5 pb-16 pt-32 sm:px-6 lg:px-8"
     >
-      <HeroNebula3D />
-
-      {/* Floating signals */}
-      {content.floatingSignals.map((signal, index) => {
-        const positions = [
-          "left-[3%] top-[36%]",
-          "right-[3%] top-[32%]",
-          "left-[5%] bottom-[18%]",
-          "right-[5%] bottom-[16%]"
-        ];
-        return (
-          <motion.div
-            key={signal}
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 1.0 + index * 0.18, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className={`pointer-events-none absolute z-[3] hidden lg:block ${positions[index]}`}
-          >
-            <motion.div
-              animate={{ y: [0, -10, 0], rotate: [0, 0.6, 0] }}
-              transition={{
-                duration: 6 + index,
-                ease: "easeInOut",
-                repeat: Infinity,
-                delay: index * 0.4
-              }}
-              className="glass-pill premium-border flex items-center gap-3 rounded-full px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] text-pearl/90"
-            >
-              <span className="signal-dot" />
-              {signal}
-            </motion.div>
-          </motion.div>
-        );
-      })}
+      <div className="hero-blueprint" aria-hidden="true">
+        <span className="blueprint-label blueprint-label-a">01 / BUSINESS</span>
+        <span className="blueprint-label blueprint-label-b">02 / SYSTEM</span>
+        <span className="blueprint-label blueprint-label-c">03 / SHIP</span>
+        <span className="blueprint-path blueprint-path-a" />
+        <span className="blueprint-path blueprint-path-b" />
+        <span className="blueprint-block blueprint-block-a">API</span>
+        <span className="blueprint-block blueprint-block-b">DATA</span>
+        <span className="blueprint-block blueprint-block-c">AI</span>
+      </div>
 
       <motion.div
         style={{ y, opacity, scale }}
         variants={container}
         initial="hidden"
         animate="visible"
-        className="relative z-10 mx-auto max-w-6xl text-center"
+        className="relative z-10 mx-auto w-full max-w-7xl text-left"
       >
-        <motion.div variants={fadeUp} className="mb-7 inline-flex items-center gap-3">
-          <span className="aurora-divider h-px w-10" />
+        <motion.div variants={fadeUp} className="mb-8 inline-flex items-center gap-3">
           <span className="text-[11px] font-bold uppercase tracking-[0.32em] text-champagne">
             {content.name} · {content.role}
           </span>
-          <span className="aurora-divider h-px w-10" />
         </motion.div>
 
         <motion.h1
           variants={fadeUp}
-          className="mx-auto max-w-5xl break-words font-display text-[2.2rem] font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl md:text-6xl lg:text-[4.2rem]"
+          className="max-w-5xl break-words font-display text-[2.65rem] font-bold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl md:text-7xl lg:text-[5.4rem]"
         >
           <SplitText
             text={content.headline}
@@ -106,19 +74,19 @@ export default function HeroSection({ content }) {
         </motion.h1>
 
         {content.manifesto ? (
-          <motion.p variants={fadeUp} className="mx-auto mt-5 font-display text-sm font-bold uppercase tracking-[0.22em] text-champagne/80 sm:text-base">
+          <motion.p variants={fadeUp} className="mt-7 max-w-2xl font-display text-sm font-bold uppercase tracking-[0.18em] text-champagne/80 sm:text-base">
             {content.manifesto}
           </motion.p>
         ) : null}
 
         <motion.p
           variants={fadeUp}
-          className="mx-auto mt-7 max-w-2xl text-base font-medium leading-7 text-pearl/85 sm:text-lg sm:leading-8"
+          className="mt-7 max-w-2xl text-base font-medium leading-7 text-pearl/85 sm:text-lg sm:leading-8"
         >
           {content.subheadline}
         </motion.p>
 
-        <motion.div variants={fadeUp} className="mt-8 flex flex-wrap justify-center gap-2.5">
+        <motion.div variants={fadeUp} className="mt-8 flex max-w-3xl flex-wrap justify-start gap-2.5">
           {content.badges.map((badge, i) => (
             <motion.span
               key={badge}
@@ -133,7 +101,7 @@ export default function HeroSection({ content }) {
           ))}
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <motion.div variants={fadeUp} className="mt-12 flex flex-col items-start justify-start gap-4 sm:flex-row">
           {content.actions.map((action) => (
             <Magnetic key={action.label} strength={0.22}>
               <GlowButton href={action.href} variant={action.variant} className="w-full sm:w-auto">
@@ -147,11 +115,11 @@ export default function HeroSection({ content }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8, duration: 0.6 }}
-          className="mt-12 flex flex-col items-center gap-2 text-[10px] font-bold uppercase tracking-[0.36em] text-inkMute"
+          className="mt-14 flex flex-row items-center gap-4 text-[10px] font-bold uppercase tracking-[0.36em] text-inkMute"
         >
           <span>scroll</span>
-          <span className="relative block h-10 w-px overflow-hidden bg-white/10">
-            <span className="absolute inset-x-0 top-0 h-3 animate-[floatY_2.4s_ease-in-out_infinite] bg-gradient-to-b from-champagne to-transparent" />
+          <span className="relative block h-px w-16 overflow-hidden bg-white/10">
+            <span className="absolute inset-y-0 left-0 w-5 animate-[floatY_2.4s_ease-in-out_infinite] bg-gradient-to-r from-champagne to-transparent" />
           </span>
         </motion.div>
       </motion.div>

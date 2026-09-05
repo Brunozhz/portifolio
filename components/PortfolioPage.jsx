@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { getPortfolioContent } from "@/lib/content";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
@@ -13,16 +12,12 @@ import ScrollProgress from "@/components/ScrollProgress";
 import ServicesSection from "@/components/ServicesSection";
 import TechStackSection from "@/components/TechStackSection";
 
-const GalaxyBackground = dynamic(() => import("@/components/GalaxyBackground"), { ssr: false });
-const SpotlightReveal = dynamic(() => import("@/components/SpotlightReveal"), { ssr: false });
 export default function PortfolioPage() {
   const content = getPortfolioContent("en");
 
   return (
-    <main className="relative min-h-screen bg-night text-pearl">
+    <main className="portfolio-editorial relative min-h-screen text-pearl">
       <ScrollProgress />
-      <GalaxyBackground />
-      <SpotlightReveal />
       <Header content={content.header} />
       <HeroSection content={content.hero} />
       <AboutSection content={content.about} />

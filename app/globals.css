@@ -3,22 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --background: #000000;
-  --background-deep: #000000;
-  --panel: #08080a;
-  --panel-soft: #0c0c10;
-  --panel-glass: rgba(10, 10, 12, 0.7);
-  --ink: #e8ecf3;
-  --ink-soft: #b8c0d0;
-  --ink-mute: #7a8294;
-  --aurora-1: #8b5cf6;
-  --aurora-2: #6366f1;
-  --aurora-3: #22d3ee;
-  --aurora-4: #38bdf8;
-  --champagne: #d8c79a;
-  --pearl: #f5f3ee;
-  --line: rgba(255, 255, 255, 0.07);
-  --line-strong: rgba(255, 255, 255, 0.14);
+  --background: #f2f0e9;
+  --background-deep: #ebe8df;
+  --panel: #ffffff;
+  --panel-soft: #e7e5dd;
+  --panel-glass: rgba(255, 255, 255, 0.78);
+  --ink: #14242b;
+  --ink-soft: #4d5d63;
+  --ink-mute: #78858a;
+  --aurora-1: #234dff;
+  --aurora-2: #153bc9;
+  --aurora-3: #147d8a;
+  --aurora-4: #2b7180;
+  --champagne: #234dff;
+  --pearl: #14242b;
+  --line: rgba(20, 36, 43, 0.11);
+  --line-strong: rgba(20, 36, 43, 0.2);
   --spot-x: 50%;
   --spot-y: 50%;
 }
@@ -35,7 +35,7 @@ html {
 body {
   min-height: 100vh;
   overflow-x: hidden;
-  background: #000000;
+  background: var(--background);
   color: var(--ink);
   font-family: var(--font-body), Sora, sans-serif;
   letter-spacing: -0.012em;
@@ -613,5 +613,339 @@ button {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Editorial systems theme -------------------------------------------------- */
+.portfolio-editorial {
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, transparent calc(50% - 0.5px), rgba(20, 36, 43, 0.045) 50%, transparent calc(50% + 0.5px)),
+    radial-gradient(circle at 88% 8%, rgba(35, 77, 255, 0.09), transparent 26rem),
+    var(--background);
+}
+
+.portfolio-editorial::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.26;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E");
+}
+
+.portfolio-editorial .text-white,
+.portfolio-editorial .text-pearl,
+.portfolio-editorial [class*="text-pearl/"] {
+  color: var(--ink) !important;
+}
+
+.portfolio-editorial .text-inkSoft {
+  color: var(--ink-soft) !important;
+}
+
+.portfolio-editorial .text-inkMute {
+  color: var(--ink-mute) !important;
+}
+
+.portfolio-editorial .text-champagne,
+.portfolio-editorial [class*="text-champagne/"] {
+  color: var(--champagne) !important;
+}
+
+.portfolio-editorial [class*="border-white"] {
+  border-color: rgba(20, 36, 43, 0.13) !important;
+}
+
+.portfolio-editorial .text-aurora,
+.portfolio-editorial .text-aurora-cool {
+  color: var(--ink);
+  background: none;
+  filter: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.portfolio-editorial .section-eyebrow {
+  border-radius: 0;
+  border: 0;
+  border-left: 3px solid var(--champagne);
+  padding: 0.3rem 0 0.3rem 0.8rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+.portfolio-editorial .section-eyebrow::before {
+  display: none;
+}
+
+.portfolio-editorial .glass-surface {
+  border: 1px solid rgba(20, 36, 43, 0.12);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 18px 55px rgba(38, 48, 52, 0.07), inset 0 1px 0 #fff;
+  backdrop-filter: blur(16px);
+}
+
+.portfolio-editorial .glass-pill {
+  border-color: rgba(20, 36, 43, 0.14);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 8px 24px rgba(36, 45, 49, 0.06), inset 0 1px 0 #fff;
+}
+
+.portfolio-editorial .premium-border::before {
+  background: linear-gradient(135deg, rgba(35, 77, 255, 0.42), rgba(20, 36, 43, 0.08) 50%, transparent);
+  opacity: 0.45;
+}
+
+.portfolio-editorial .aurora-divider {
+  background: linear-gradient(90deg, transparent, rgba(35, 77, 255, 0.62), transparent);
+}
+
+/* Header */
+.portfolio-editorial header a,
+.portfolio-editorial header button,
+.portfolio-editorial header nav {
+  border-color: rgba(20, 36, 43, 0.14) !important;
+  background-color: rgba(247, 245, 239, 0.86) !important;
+  box-shadow: 0 12px 40px rgba(24, 34, 38, 0.08) !important;
+}
+
+.portfolio-editorial header nav a {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.portfolio-editorial .brand-mark {
+  border-color: rgba(20, 36, 43, 0.16);
+  background: #fff;
+  box-shadow: none;
+}
+
+.portfolio-editorial .brand-mark::before {
+  background: linear-gradient(135deg, #234dff, #16a0aa);
+}
+
+.portfolio-editorial .brand-mark::after {
+  background: #f7f5ef;
+}
+
+.portfolio-editorial .brand-mark-core {
+  background: #234dff;
+  box-shadow: 0 0 0 3px rgba(35, 77, 255, 0.13);
+}
+
+/* Hero: an architectural plan, not outer space */
+.hero-editorial {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(20, 36, 43, 0.11);
+}
+
+.hero-editorial::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.34;
+  background-image:
+    linear-gradient(rgba(20, 36, 43, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 36, 43, 0.08) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(90deg, transparent 0, #000 45%, #000 100%);
+}
+
+.hero-editorial h1 {
+  text-wrap: balance;
+}
+
+.hero-blueprint {
+  position: absolute;
+  inset: 6rem max(1.25rem, calc((100vw - 80rem) / 2)) 3rem 55%;
+  pointer-events: none;
+  opacity: 0.82;
+}
+
+.blueprint-label {
+  position: absolute;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(20, 36, 43, 0.42);
+}
+
+.blueprint-label-a { right: 0; top: 8%; }
+.blueprint-label-b { right: 18%; top: 46%; }
+.blueprint-label-c { right: 2%; bottom: 8%; }
+
+.blueprint-path {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(35, 77, 255, 0.27);
+  border-left: 0;
+}
+
+.blueprint-path-a { left: 12%; right: 8%; top: 24%; height: 28%; }
+.blueprint-path-b { left: 28%; right: 22%; top: 52%; height: 27%; border-right: 0; border-left: 1px solid rgba(35, 77, 255, 0.27); }
+
+.blueprint-block {
+  position: absolute;
+  display: grid;
+  width: 5.5rem;
+  height: 3.2rem;
+  place-items: center;
+  border: 1px solid rgba(20, 36, 43, 0.22);
+  background: rgba(255, 255, 255, 0.78);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #234dff;
+  box-shadow: 8px 8px 0 rgba(20, 36, 43, 0.055);
+}
+
+.blueprint-block-a { right: 7%; top: 25%; }
+.blueprint-block-b { left: 21%; top: 48%; }
+.blueprint-block-c { right: 24%; bottom: 13%; }
+
+.hero-editorial .button-shine[href="#work"] {
+  background: #183fdb !important;
+  color: #fff !important;
+  box-shadow: 0 12px 30px rgba(35, 77, 255, 0.2) !important;
+}
+
+.hero-editorial .button-shine[href="#about"] {
+  background: rgba(255, 255, 255, 0.7) !important;
+  color: var(--ink) !important;
+  border-color: rgba(20, 36, 43, 0.2) !important;
+}
+
+/* Cards and sections */
+.portfolio-editorial #about,
+.portfolio-editorial #learning,
+.portfolio-editorial #technologies {
+  border-bottom: 1px solid rgba(20, 36, 43, 0.1);
+}
+
+.portfolio-editorial #about [class*="bg-white"],
+.portfolio-editorial #work > div > div.mt-6 article,
+.portfolio-editorial #technologies [class*="bg-white"],
+.portfolio-editorial #services [class*="bg-white"] {
+  background-color: rgba(255, 255, 255, 0.52) !important;
+}
+
+.portfolio-editorial #work > div > div.mt-6 article {
+  border-color: rgba(20, 36, 43, 0.12) !important;
+  box-shadow: 0 16px 42px rgba(33, 44, 48, 0.055);
+}
+
+.portfolio-editorial #work > div > div.mt-6 article:hover {
+  border-color: rgba(35, 77, 255, 0.32) !important;
+  transform: translateY(-2px);
+}
+
+.portfolio-editorial #work > div > div.mt-6 [class*="bg-black"] {
+  background: rgba(255, 255, 255, 0.55) !important;
+}
+
+.portfolio-editorial #services .glass-surface:hover {
+  border-color: rgba(35, 77, 255, 0.32);
+  box-shadow: 0 22px 60px rgba(35, 77, 255, 0.09);
+}
+
+/* The flagship remains the single cinematic contrast moment. */
+.portfolio-editorial .flagship-card {
+  border-color: rgba(28, 74, 103, 0.25) !important;
+  background: #13242d !important;
+  box-shadow: 0 34px 100px -44px rgba(16, 36, 45, 0.48);
+}
+
+.portfolio-editorial .flagship-card .text-white,
+.portfolio-editorial .flagship-card .text-pearl,
+.portfolio-editorial .flagship-card [class*="text-pearl/"] {
+  color: #f7f5ef !important;
+}
+
+.portfolio-editorial .flagship-card .text-inkSoft {
+  color: #b8c7cb !important;
+}
+
+.portfolio-editorial .flagship-card .text-inkMute {
+  color: #80969d !important;
+}
+
+.portfolio-editorial .flagship-card .text-champagne,
+.portfolio-editorial .flagship-card [class*="text-champagne/"] {
+  color: #82a6ff !important;
+}
+
+.portfolio-editorial .flagship-card [class*="border-white"] {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.portfolio-editorial .flagship-card [class*="bg-black"] {
+  background-color: rgba(7, 17, 22, 0.55) !important;
+}
+
+.portfolio-editorial .flagship-card [class*="bg-white"] {
+  background-color: rgba(255, 255, 255, 0.045) !important;
+}
+
+.portfolio-editorial .flagship-grid {
+  opacity: 0.045;
+}
+
+/* Contact becomes a crisp editorial closing card. */
+.portfolio-editorial #contact > div > div:first-child {
+  border-color: rgba(20, 36, 43, 0.13) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  box-shadow: 0 28px 90px rgba(36, 46, 50, 0.08) !important;
+}
+
+.portfolio-editorial #contact [class*="bg-violet"],
+.portfolio-editorial #contact [class*="bg-cyan"],
+.portfolio-editorial #contact [class*="bg-champagne"] {
+  opacity: 0.1 !important;
+}
+
+.portfolio-editorial #contact .button-shine[href^="https://wa.me"] {
+  background: #183fdb !important;
+  color: #fff !important;
+}
+
+/* Command palette keeps a focused, professional navy workspace. */
+.portfolio-editorial > button.fixed {
+  border-color: rgba(20, 36, 43, 0.16) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
+  box-shadow: 0 12px 36px rgba(25, 35, 40, 0.1);
+}
+
+@media (max-width: 1023px) {
+  .hero-blueprint {
+    opacity: 0.26;
+    inset: 7rem 1rem 3rem 25%;
+  }
+
+  .hero-editorial::before {
+    mask-image: linear-gradient(to bottom, #000, transparent 88%);
+  }
+}
+
+@media (max-width: 640px) {
+  .portfolio-editorial {
+    background: var(--background);
+  }
+
+  .hero-blueprint {
+    inset: 6rem -2rem 5rem 36%;
+    opacity: 0.2;
+  }
+
+  .blueprint-block {
+    width: 4.2rem;
+    height: 2.7rem;
+  }
+
+  .hero-editorial h1 {
+    max-width: 22rem;
   }
 }

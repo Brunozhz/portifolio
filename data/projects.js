@@ -16,21 +16,6 @@ export const commercialFlows = {
 
 export const automationFlow = ["FORM", "WEBHOOK", "N8N", "BUSINESS LOGIC", "CRM", "DATABASE", "WHATSAPP / SALES TEAM"];
 
-export const careerData = [
-  {
-    id: "technology",
-    type: "CURRENT · TECHNOLOGY",
-    title: "Technology, systems and commercial operations",
-    summary: "Development and evolution of CRM, AI agents, automation, integrations and software used in real sales operations."
-  },
-  {
-    id: "industry",
-    type: "EARLIER EXPERIENCE · INDUSTRIAL",
-    title: "FRISAJO AGRO PECUARIA INDUSTRIAL S.A.",
-    summary: "Administrative support, production, traceability, system records, weighing, documentation, operational support and training—with increasing responsibility."
-  }
-];
-
 export const stackUsage = {
   "n8n": ["CRM automation", "Lead routing", "Customer integrations", "AI flows"],
   "Make": ["Business workflows", "External integrations"],

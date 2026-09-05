@@ -10,7 +10,6 @@ import HeroSection from "@/components/HeroSection";
 import SelectedWorkSection from "@/components/SelectedWorkSection";
 import LearningTimeline from "@/components/LearningTimeline";
 import CommandPalette from "@/components/CommandPalette";
-import ExperienceSection from "@/components/ExperienceSection";
 import PersonalSection from "@/components/PersonalSection";
 import DebugMode from "@/components/DebugMode";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -43,7 +42,6 @@ export default function PortfolioPage() {
       <HeroSection content={content.hero} />
       <PersonalSection content={content.personal} ageSuffix={content.hero.ageSuffix} />
       <SelectedWorkSection content={showcase.work} />
-      <ExperienceSection content={content.experience} />
       <LearningTimeline content={content.learning} />
       <TechStackSection content={content.technologies} />
       <ContactSection content={content.contact} />

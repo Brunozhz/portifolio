@@ -11,7 +11,7 @@ export default function StorySection({ content }) {
         <SectionReveal className="grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(18rem,0.75fr)] lg:items-end">
           <div>
             <span className="section-eyebrow">{content.eyebrow}</span>
-            <h2 className="mt-5 max-w-5xl font-display text-5xl font-bold leading-[0.98] tracking-[-0.05em] text-white sm:text-7xl lg:text-[5.7rem]">
+            <h2 className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.03] tracking-[-0.04em] text-white sm:text-5xl lg:text-[4.45rem]">
               {content.title}
             </h2>
           </div>
@@ -36,7 +36,7 @@ export default function StorySection({ content }) {
               <div className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-champagne">
                 {String(index + 1).padStart(2, "0")} / {chapter.marker}
               </div>
-              <h3 className="font-display text-2xl font-bold leading-tight tracking-[-0.03em] text-white sm:text-3xl">
+              <h3 className="font-display text-2xl font-semibold leading-tight tracking-[-0.025em] text-white sm:text-[1.75rem]">
                 {chapter.title}
               </h3>
               <p className="max-w-2xl text-[15px] leading-8 text-inkSoft sm:text-base">{chapter.text}</p>
@@ -47,7 +47,7 @@ export default function StorySection({ content }) {
         <SectionReveal className="story-ending mt-20 grid gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)] lg:gap-20">
           <div>
             <span aria-hidden="true" className="font-display text-7xl leading-none text-champagne/30">“</span>
-            <blockquote className="-mt-6 max-w-4xl font-display text-3xl font-bold leading-[1.12] tracking-[-0.035em] text-white sm:text-5xl">
+            <blockquote className="-mt-6 max-w-4xl font-display text-3xl font-semibold leading-[1.16] tracking-[-0.03em] text-white sm:text-4xl">
               {content.quote}
             </blockquote>
             <p className="mt-8 max-w-2xl text-base leading-8 text-inkSoft">{content.closing}</p>

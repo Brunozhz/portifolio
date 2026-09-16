@@ -1321,7 +1321,7 @@ button {
 
 .portfolio-engineering .story-chapter:hover {
   border-color: rgba(114, 215, 183, .34);
-  background: linear-gradient(90deg, rgba(114, 215, 183, .028), transparent 72%);
+  background: rgba(114, 215, 183, .012);
 }
 
 .portfolio-engineering .story-ending blockquote {
@@ -1338,10 +1338,7 @@ button {
   position: absolute;
   inset: 8% 4%;
   z-index: -2;
-  background:
-    radial-gradient(circle at 28% 28%, rgba(114, 215, 183, .18), transparent 38%),
-    linear-gradient(145deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .015));
-  filter: blur(20px);
+  background: rgba(255, 255, 255, .025);
 }
 
 .portfolio-engineering .klumify-preview-mist {
@@ -1349,15 +1346,15 @@ button {
   inset: 10%;
   z-index: -1;
   border: 1px solid rgba(226, 244, 238, .1);
-  background: rgba(226, 244, 238, .045);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 30px 80px rgba(0, 0, 0, .18);
-  backdrop-filter: blur(18px) saturate(.7);
-  -webkit-backdrop-filter: blur(18px) saturate(.7);
+  background: rgba(226, 244, 238, .035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .055);
+  backdrop-filter: blur(10px) saturate(.65);
+  -webkit-backdrop-filter: blur(10px) saturate(.65);
 }
 
 .portfolio-engineering .klumify-coming-soon {
   color: rgba(237, 244, 241, .82) !important;
-  text-shadow: 0 0 34px rgba(237, 244, 241, .12);
+  text-wrap: balance;
 }
 
 .portfolio-engineering .hero-editorial .button-shine[href="#story"] {
@@ -1376,5 +1373,76 @@ button {
   .portfolio-engineering .klumify-preview {
     border-left: 0;
     border-top: 1px solid var(--line);
+  }
+}
+
+/* Restrained editorial scale and reliable anchor positioning. */
+.portfolio-engineering {
+  overflow-x: clip;
+}
+
+.portfolio-engineering #story,
+.portfolio-engineering #work,
+.portfolio-engineering #technologies,
+.portfolio-engineering #contact {
+  scroll-margin-top: 8.5rem;
+}
+
+.portfolio-engineering h1,
+.portfolio-engineering h2,
+.portfolio-engineering h3,
+.portfolio-engineering h4 {
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.portfolio-engineering .section-eyebrow {
+  font-family: inherit;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: none;
+}
+
+.portfolio-engineering .button-shine {
+  border-radius: 3px !important;
+}
+
+/* One calm navigation rail instead of a collection of floating glass pills. */
+.portfolio-engineering header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 6.6rem;
+  border-bottom: 1px solid rgba(205, 234, 225, .08);
+  background: rgba(5, 13, 16, .92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.portfolio-engineering header nav,
+.portfolio-engineering header > div > a,
+.portfolio-engineering header a[href="#contact"],
+.portfolio-engineering header button {
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
+.portfolio-engineering header nav {
+  border-width: 0 !important;
+}
+
+.portfolio-engineering header a[href="#contact"] {
+  border-left: 1px solid rgba(205, 234, 225, .12) !important;
+  border-radius: 0 !important;
+}
+
+@media (max-width: 1023px) {
+  .portfolio-engineering header a[href="#contact"] {
+    border-left: 0 !important;
+  }
+
+  .portfolio-engineering header::before {
+    height: 5.9rem;
   }
 }

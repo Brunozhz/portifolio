@@ -8,11 +8,10 @@ import SplitText from "@/components/SplitText";
 import LiveAge from "@/components/LiveAge";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 14, filter: "blur(3px)" },
+  hidden: { opacity: 0, y: 14 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.48, ease: [0.22, 1, 0.36, 1] }
   }
 };
@@ -43,14 +42,14 @@ export default function HeroSection({ content }) {
         className="relative z-10 mx-auto w-full max-w-7xl text-left"
       >
         <motion.div variants={fadeUp} className="mb-8 inline-flex items-center gap-3">
-          <span className="text-[11px] font-bold uppercase tracking-[0.32em] text-champagne">
+          <span className="text-xs font-semibold tracking-[0.08em] text-champagne">
             {content.name} · {content.role}
           </span>
         </motion.div>
 
         <motion.h1
           variants={fadeUp}
-          className="max-w-5xl break-words font-display text-[2.65rem] font-bold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl md:text-7xl lg:text-[5.4rem]"
+          className="max-w-4xl break-words font-display text-[2.45rem] font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-5xl md:text-6xl lg:text-[4.7rem]"
         >
           <SplitText
             text={content.headline}
@@ -58,12 +57,11 @@ export default function HeroSection({ content }) {
             staggerWords={0.025}
             delay={0.08}
             startY={24}
-            startBlur={3}
           />
         </motion.h1>
 
         {content.manifesto ? (
-          <motion.p variants={fadeUp} className="mt-7 max-w-2xl font-display text-sm font-bold uppercase tracking-[0.18em] text-champagne/80 sm:text-base">
+          <motion.p variants={fadeUp} className="mt-7 max-w-2xl font-display text-base font-medium leading-7 tracking-[-0.01em] text-champagne/80 sm:text-lg">
             {content.manifesto}
           </motion.p>
         ) : null}
@@ -82,8 +80,7 @@ export default function HeroSection({ content }) {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.62 + i * 0.045, duration: 0.35 }}
-              whileHover={{ y: -2, scale: 1.04 }}
-              className="glass-pill rounded-full px-4 py-2 text-xs font-bold tracking-tight text-pearl"
+              className="glass-pill rounded-sm px-3.5 py-2 text-xs font-semibold tracking-tight text-pearl"
             >
               {i === 0 ? <LiveAge suffix={content.ageSuffix} /> : badge}
             </motion.span>

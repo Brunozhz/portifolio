@@ -9,8 +9,6 @@ import ContactSection from "@/components/ContactSection";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import SelectedWorkSection from "@/components/SelectedWorkSection";
-import CommandPalette from "@/components/CommandPalette";
-import DebugMode from "@/components/DebugMode";
 import ScrollProgress from "@/components/ScrollProgress";
 import StorySection from "@/components/StorySection";
 import TechStackSection from "@/components/TechStackSection";
@@ -45,8 +43,6 @@ export default function PortfolioPage() {
       <SelectedWorkSection content={showcase.work} />
       <TechStackSection content={content.technologies} />
       <ContactSection content={content.contact} />
-      <CommandPalette content={showcase.command} />
-      <DebugMode />
     </main>
   );
 }

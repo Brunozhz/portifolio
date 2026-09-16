@@ -1,23 +1,18 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Bot, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Bot } from "lucide-react";
 import { useEffect, useState } from "react";
 import SectionReveal from "@/components/SectionReveal";
 import { automationFlow, commercialFlows, crmResponsibilities, prospectingFlow } from "@/data/projects";
 
-function Flow({ nodes, compact = false, interactive = true }) {
-  const [activeNode, setActiveNode] = useState(null);
+function Flow({ nodes, compact = false }) {
   return (
-    <div className={`flex ${compact ? "flex-wrap" : "overflow-x-auto"} items-center gap-2`}>
+    <div className={`flex ${compact ? "flex-wrap" : "overflow-x-auto"} items-center gap-x-2 gap-y-1.5`}>
       {nodes.map((node, index) => (
         <div key={node} className="flex shrink-0 items-center gap-2">
-          {interactive ? (
-            <button type="button" aria-pressed={activeNode === index} onClick={() => setActiveNode(activeNode === index ? null : index)} className={`${compact ? "px-2.5 py-1.5 text-[9px]" : "px-4 py-2.5 text-[10px]"} rounded-lg border bg-black/40 font-bold uppercase tracking-[0.16em] transition ${activeNode === index ? "border-champagne bg-champagne/10 text-champagne" : "border-white/10 text-pearl hover:border-champagne/35"}`}>
-              {node}
-            </button>
-          ) : <span className={`${compact ? "px-2.5 py-1.5 text-[9px]" : "px-4 py-2.5 text-[10px]"} rounded-lg border border-white/10 bg-black/40 font-bold uppercase tracking-[0.16em] text-pearl`}>{node}</span>}
-          {index < nodes.length - 1 ? <ChevronRight className="h-3 w-3 text-champagne/60" /> : null}
+          <span className={`${compact ? "text-[10px]" : "text-xs"} font-medium tracking-[0.04em] text-inkSoft`}>{node}</span>
+          {index < nodes.length - 1 ? <span aria-hidden="true" className="text-champagne/45">/</span> : null}
         </div>
       ))}
     </div>
@@ -38,7 +33,7 @@ export default function SelectedWorkSection({ content }) {
         <SectionReveal className="mb-14 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <span className="section-eyebrow">{content.eyebrow}</span>
-            <h2 className="mt-2 max-w-4xl font-display text-5xl font-bold leading-[0.95] tracking-[-0.05em] text-white sm:text-7xl lg:text-[6rem]">
+            <h2 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-[1.02] tracking-[-0.04em] text-white sm:text-5xl lg:text-[4.75rem]">
               {content.title}
             </h2>
           </div>
@@ -52,17 +47,17 @@ export default function SelectedWorkSection({ content }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flagship-card relative overflow-hidden rounded-[2rem] border border-champagne/25 bg-[#070706] p-6 sm:p-9 lg:p-14"
+          className="flagship-card relative overflow-hidden rounded-[2rem] border border-champagne/25 bg-[#070706] p-6 sm:p-9 lg:p-12"
         >
           <div className="flagship-grid" aria-hidden="true" />
           <div className="relative grid min-w-0 gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch">
             <div className="min-w-0 self-center">
-              <div className="flex flex-wrap items-center gap-3 text-[10px] font-bold uppercase tracking-[0.26em] text-champagne">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium tracking-[0.06em] text-champagne">
                 <span>{content.flagship}</span>
                 <span>{content.status}</span>
               </div>
-              <p className="mt-14 font-display text-sm font-bold uppercase tracking-[0.35em] text-inkMute">{content.projectLabel}</p>
-              <h3 className="mt-3 font-display text-6xl font-bold tracking-[-0.06em] text-white sm:text-8xl lg:text-[7.5rem]">Klumify</h3>
+              <p className="mt-12 font-display text-xs font-semibold uppercase tracking-[0.2em] text-inkMute">{content.projectLabel}</p>
+              <h3 className="mt-3 font-display text-5xl font-semibold tracking-[-0.05em] text-white sm:text-6xl lg:text-[5.8rem]">Klumify</h3>
               <p className="mt-6 max-w-xl text-xl font-medium leading-8 text-pearl sm:text-2xl sm:leading-9">
                 {content.klumify}
               </p>
@@ -74,10 +69,10 @@ export default function SelectedWorkSection({ content }) {
             <div className="klumify-preview relative flex min-h-[25rem] min-w-0 items-center justify-center overflow-hidden border-l border-white/10 px-3 py-12 sm:px-8">
               <div className="klumify-preview-mist" aria-hidden="true" />
               <div className="relative text-center">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-champagne">{content.accessRestricted}</p>
-                <h4 className="klumify-coming-soon mt-6 font-display text-6xl font-bold uppercase tracking-[-0.065em] text-white sm:text-7xl lg:text-[5.7rem]">{content.comingSoon}</h4>
+                <p className="text-xs font-medium tracking-[0.08em] text-champagne">{content.accessRestricted}</p>
+                <h4 className="klumify-coming-soon mt-6 font-display text-5xl font-semibold tracking-[-0.045em] text-white sm:text-6xl lg:text-[4.6rem]">{content.comingSoon}</h4>
                 <p className="mx-auto mt-7 max-w-sm text-sm leading-7 text-inkSoft">{content.sealedText}</p>
-                <p className="mt-10 font-mono text-[9px] font-bold uppercase tracking-[0.22em] text-inkMute">{content.activeBuild}</p>
+                <p className="mt-10 text-[11px] font-medium tracking-[0.06em] text-inkMute">{content.activeBuild}</p>
               </div>
             </div>
           </div>
@@ -97,7 +92,7 @@ export default function SelectedWorkSection({ content }) {
                     <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition ${isOpen ? "rotate-45 border-champagne/40 bg-champagne/10 text-champagne" : "border-white/10 text-inkSoft group-hover:border-champagne/30 group-hover:text-champagne"}`}><ArrowUpRight className="h-4 w-4" /></span>
                   </div>
                   <p className="mt-5 max-w-xl leading-7 text-inkSoft">{project.description}</p>
-                  <div className="mt-7"><Flow nodes={project.flow} compact interactive={false} /></div>
+                  <div className="mt-7"><Flow nodes={project.flow} compact /></div>
                 </button>
                 <AnimatePresence>
                   {isOpen ? (

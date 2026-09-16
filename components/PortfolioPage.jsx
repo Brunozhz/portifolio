@@ -2,23 +2,24 @@
 
 import { getPortfolioContent } from "@/lib/content";
 import { getShowcaseContent } from "@/lib/showcaseI18n";
+import { getStoryContent } from "@/lib/storyI18n";
 import { languageOptions } from "@/lib/portfolioI18n";
 import { useEffect, useMemo, useState } from "react";
 import ContactSection from "@/components/ContactSection";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import SelectedWorkSection from "@/components/SelectedWorkSection";
-import LearningTimeline from "@/components/LearningTimeline";
 import CommandPalette from "@/components/CommandPalette";
-import PersonalSection from "@/components/PersonalSection";
 import DebugMode from "@/components/DebugMode";
 import ScrollProgress from "@/components/ScrollProgress";
+import StorySection from "@/components/StorySection";
 import TechStackSection from "@/components/TechStackSection";
 
 export default function PortfolioPage() {
   const [language, setLanguage] = useState("en");
   const content = useMemo(() => getPortfolioContent(language), [language]);
   const showcase = useMemo(() => getShowcaseContent(language), [language]);
+  const story = useMemo(() => getStoryContent(language), [language]);
 
   useEffect(() => {
     try {
@@ -40,9 +41,8 @@ export default function PortfolioPage() {
       <ScrollProgress />
       <Header content={content.header} language={language} onLanguageChange={setLanguage} />
       <HeroSection content={content.hero} />
-      <PersonalSection content={content.personal} ageSuffix={content.hero.ageSuffix} />
+      <StorySection content={story} />
       <SelectedWorkSection content={showcase.work} />
-      <LearningTimeline content={content.learning} />
       <TechStackSection content={content.technologies} />
       <ContactSection content={content.contact} />
       <CommandPalette content={showcase.command} />

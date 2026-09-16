@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Bot, ChevronRight, LockKeyhole } from "lucide-react";
+import { ArrowUpRight, Bot, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import SectionReveal from "@/components/SectionReveal";
 import { automationFlow, commercialFlows, crmResponsibilities, prospectingFlow } from "@/data/projects";
@@ -52,17 +52,16 @@ export default function SelectedWorkSection({ content }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flagship-card relative overflow-hidden rounded-[2rem] border border-champagne/25 bg-[#070706] p-5 sm:p-8 lg:p-12"
+          className="flagship-card relative overflow-hidden rounded-[2rem] border border-champagne/25 bg-[#070706] p-6 sm:p-9 lg:p-14"
         >
           <div className="flagship-grid" aria-hidden="true" />
-          <div className="relative grid min-w-0 gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
-            <div className="flex min-w-0 flex-col justify-between">
-              <div>
+          <div className="relative grid min-w-0 gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch">
+            <div className="min-w-0 self-center">
               <div className="flex flex-wrap items-center gap-3 text-[10px] font-bold uppercase tracking-[0.26em] text-champagne">
-                <span className="rounded-full border border-champagne/30 bg-champagne/10 px-3 py-2">{content.flagship}</span>
+                <span>{content.flagship}</span>
                 <span>{content.status}</span>
               </div>
-              <p className="mt-12 font-display text-sm font-bold uppercase tracking-[0.35em] text-inkMute">{content.projectLabel}</p>
+              <p className="mt-14 font-display text-sm font-bold uppercase tracking-[0.35em] text-inkMute">{content.projectLabel}</p>
               <h3 className="mt-3 font-display text-6xl font-bold tracking-[-0.06em] text-white sm:text-8xl lg:text-[7.5rem]">Klumify</h3>
               <p className="mt-6 max-w-xl text-xl font-medium leading-8 text-pearl sm:text-2xl sm:leading-9">
                 {content.klumify}
@@ -70,30 +69,18 @@ export default function SelectedWorkSection({ content }) {
               <p className="mt-6 max-w-xl leading-7 text-inkSoft">
                 {content.suspense}
               </p>
-              </div>
-              <div className="mt-10 flex flex-wrap gap-2">
-                {content.teaserTags.map((tag) => (
-                  <span key={tag} className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-inkSoft">{tag}</span>
-                ))}
-              </div>
             </div>
 
-            <div className="klumify-sealed relative flex min-h-[29rem] min-w-0 flex-col overflow-hidden rounded-3xl border border-white/10 bg-black/55 p-6 sm:p-8">
-              <div className="klumify-scan" aria-hidden="true" />
-              <div className="relative flex items-center justify-between border-b border-white/10 pb-5 font-mono text-[9px] uppercase tracking-[0.22em] text-inkMute">
-                <span>KLUMIFY / PRIVATE BUILD</span><LockKeyhole className="h-4 w-4 text-champagne" aria-hidden="true" />
+            <div className="klumify-preview relative flex min-h-[25rem] min-w-0 items-center justify-center overflow-hidden border-l border-white/10 px-3 py-12 sm:px-8">
+              <div className="klumify-preview-mist" aria-hidden="true" />
+              <div className="relative text-center">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-champagne">{content.accessRestricted}</p>
+                <h4 className="klumify-coming-soon mt-6 font-display text-6xl font-bold uppercase tracking-[-0.065em] text-white sm:text-7xl lg:text-[5.7rem]">{content.comingSoon}</h4>
+                <p className="mx-auto mt-7 max-w-sm text-sm leading-7 text-inkSoft">{content.sealedText}</p>
+                <p className="mt-10 font-mono text-[9px] font-bold uppercase tracking-[0.22em] text-inkMute">{content.activeBuild}</p>
               </div>
-              <div className="relative my-auto py-12 text-center">
-                <div className="mx-auto grid h-20 w-20 place-items-center rounded-full border border-champagne/30 bg-champagne/[0.06]"><LockKeyhole className="h-7 w-7 text-champagne" aria-hidden="true" /></div>
-                <p className="mt-8 font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-champagne">{content.accessRestricted}</p>
-                <h4 className="mt-4 font-display text-5xl font-bold tracking-[-0.055em] text-white sm:text-6xl">{content.comingSoon}</h4>
-                <p className="mx-auto mt-5 max-w-sm text-sm leading-6 text-inkSoft">{content.sealedText}</p>
-              </div>
-              <div className="relative flex items-center justify-between border-t border-white/10 pt-5 font-mono text-[9px] uppercase tracking-[0.2em] text-inkMute"><span>{content.activeBuild}</span><span className="flex items-center gap-2"><i className="h-1.5 w-1.5 animate-pulse rounded-full bg-champagne" />2026</span></div>
             </div>
           </div>
-
-          <div className="relative mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 font-mono text-[10px] leading-5 text-inkMute sm:flex-row sm:items-center sm:justify-between"><p>🔒 {content.privateNote}</p><p>{content.launchNote}</p></div>
         </motion.article>
 
         <div className="mt-10">

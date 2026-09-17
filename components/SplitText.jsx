@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 /**
  * Word-by-word reveal with restrained vertical motion.
@@ -16,6 +16,7 @@ export default function SplitText({
   ariaLabel
 }) {
   const words = text.split(" ");
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <span aria-label={ariaLabel ?? text}>
@@ -27,12 +28,13 @@ export default function SplitText({
         >
           <motion.span
             className={`inline-block will-change-transform ${className}`}
-            initial={{ opacity: 0, y: startY }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: startY }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: delay + i * staggerWords,
+              delay: shouldReduceMotion ? 0 : delay + i * staggerWords,
+              type: "spring",
               duration: 0.42,
-              ease: [0.22, 1, 0.36, 1]
+              bounce: 0
             }}
           >
             {word}

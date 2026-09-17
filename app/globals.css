@@ -966,6 +966,50 @@ button {
   }
 }
 
+/* Functional loading states for lazy sections. */
+.section-skeleton {
+  min-height: 28rem;
+  border-top: 1px solid var(--line);
+  background: #071014;
+}
+
+.skeleton-line {
+  display: block;
+  border-radius: 2px;
+  background: linear-gradient(100deg, rgba(237, 244, 241, .055) 20%, rgba(114, 215, 183, .13) 42%, rgba(237, 244, 241, .055) 64%);
+  background-size: 220% 100%;
+  animation: skeleton-shimmer 1.4s cubic-bezier(.22, 1, .36, 1) infinite;
+}
+
+.skeleton-line-short {
+  width: 8rem;
+  height: .75rem;
+}
+
+.skeleton-line-title {
+  width: min(42rem, 82vw);
+  height: clamp(2.8rem, 7vw, 5rem);
+  margin-top: 1.5rem;
+}
+
+.skeleton-line-copy {
+  width: min(34rem, 72vw);
+  height: 1rem;
+  margin-top: 2rem;
+}
+
+@keyframes skeleton-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -120% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-line {
+    animation: none;
+    background-position: 0 0;
+  }
+}
+
 @media (max-width: 640px) {
   .portfolio-editorial {
     background: var(--background);

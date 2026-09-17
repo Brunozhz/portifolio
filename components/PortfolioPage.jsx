@@ -4,14 +4,26 @@ import { getPortfolioContent } from "@/lib/content";
 import { getShowcaseContent } from "@/lib/showcaseI18n";
 import { getStoryContent } from "@/lib/storyI18n";
 import { languageOptions } from "@/lib/portfolioI18n";
+import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
-import ContactSection from "@/components/ContactSection";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import SelectedWorkSection from "@/components/SelectedWorkSection";
 import ScrollProgress from "@/components/ScrollProgress";
-import StorySection from "@/components/StorySection";
-import TechStackSection from "@/components/TechStackSection";
+import SectionSkeleton from "@/components/SectionSkeleton";
+import WebVitals from "@/components/WebVitals";
+
+const StorySection = dynamic(() => import("@/components/StorySection"), {
+  loading: () => <SectionSkeleton id="story" label="Loading Bruno's story" />
+});
+const SelectedWorkSection = dynamic(() => import("@/components/SelectedWorkSection"), {
+  loading: () => <SectionSkeleton id="work" label="Loading selected projects" />
+});
+const TechStackSection = dynamic(() => import("@/components/TechStackSection"), {
+  loading: () => <SectionSkeleton id="technologies" label="Loading technologies" />
+});
+const ContactSection = dynamic(() => import("@/components/ContactSection"), {
+  loading: () => <SectionSkeleton id="contact" label="Loading contact details" />
+});
 
 export default function PortfolioPage() {
   const [language, setLanguage] = useState("en");
@@ -36,6 +48,7 @@ export default function PortfolioPage() {
 
   return (
     <main className="portfolio-engineering relative min-h-screen text-pearl">
+      <WebVitals />
       <ScrollProgress />
       <Header content={content.header} language={language} onLanguageChange={setLanguage} />
       <HeroSection content={content.hero} />

@@ -1,0 +1,35 @@
+name: Tarefa do portfólio
+description: Correção, melhoria ou nova funcionalidade
+title: "[Portfolio] "
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexto
+      description: O que precisa mudar e por quê?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Escopo
+      description: Liste o que deve e o que não deve ser alterado.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critérios de aceite
+      description: Como saberemos que a tarefa está pronta?
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Tipo
+      options:
+        - Correção
+        - Melhoria
+        - Nova funcionalidade
+    validations:
+      required: true

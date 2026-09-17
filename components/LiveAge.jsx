@@ -1,20 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { calculateAge } from "@/lib/age";
 
-const BIRTH_DATE = { year: 2004, month: 7, day: 13 };
-
-function calculateAge(now = new Date()) {
-  let age = now.getFullYear() - BIRTH_DATE.year;
-  const birthdayHasPassed =
-    now.getMonth() + 1 > BIRTH_DATE.month ||
-    (now.getMonth() + 1 === BIRTH_DATE.month && now.getDate() >= BIRTH_DATE.day);
-
-  if (!birthdayHasPassed) age -= 1;
-  return age;
-}
-
-export default function LiveAge({ suffix = " years old" }) {
+export default function LiveAge({ suffix = "years old" }) {
   const [age, setAge] = useState(() => calculateAge());
 
   useEffect(() => {
@@ -31,5 +20,11 @@ export default function LiveAge({ suffix = " years old" }) {
     };
   }, []);
 
-  return <span suppressHydrationWarning>{age}{suffix}</span>;
+  return (
+    <span suppressHydrationWarning>
+      {age}
+      {" "}
+      {suffix.trim()}
+    </span>
+  );
 }

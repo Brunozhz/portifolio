@@ -1,12 +1,13 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check, ChevronDown, Globe2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { languageOptions } from "@/lib/content";
 
 export default function LanguageSwitcher({ language, onChange, align = "right", ariaLabel = "Select language" }) {
   const [isOpen, setIsOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
   const wrapperRef = useRef(null);
   const currentLanguage = languageOptions.find((item) => item.code === language) ?? languageOptions[0];
 
@@ -38,10 +39,10 @@ export default function LanguageSwitcher({ language, onChange, align = "right", 
       <AnimatePresence>
         {isOpen ? (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 8, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.98 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
+            exit={shouldReduceMotion ? undefined : { opacity: 0, y: -4, filter: "blur(3px)" }}
+            transition={{ type: "spring", duration: 0.26, bounce: 0 }}
             className={`absolute top-[3.25rem] z-50 w-52 rounded-2xl border border-white/10 bg-night/95 p-2 shadow-card backdrop-blur-2xl ${
               align === "left" ? "left-0" : "right-0"
             }`}

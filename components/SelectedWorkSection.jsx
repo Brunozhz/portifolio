@@ -96,7 +96,7 @@ export default function SelectedWorkSection({ content }) {
                 </button>
                 <AnimatePresence>
                   {isOpen ? (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ type: "spring", duration: 0.3, bounce: 0 }} className="overflow-hidden">
                       <div className="mx-6 mb-6 border-t border-white/10 pt-6 sm:mx-8 sm:mb-8">
                         {index === 0 ? (
                           <div className="space-y-5">

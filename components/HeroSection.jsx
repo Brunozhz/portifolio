@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import GlowButton from "@/components/GlowButton";
 import Magnetic from "@/components/Magnetic";
@@ -23,10 +23,10 @@ const container = {
 
 export default function HeroSection({ content }) {
   const ref = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -32]);
+  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.65]);
 
   return (
     <section
@@ -35,9 +35,9 @@ export default function HeroSection({ content }) {
       className="hero-editorial relative flex min-h-[100svh] items-center px-5 pb-16 pt-32 sm:px-6 lg:px-8"
     >
       <motion.div
-        style={{ y, opacity, scale }}
+        style={shouldReduceMotion ? undefined : { y, opacity }}
         variants={container}
-        initial="hidden"
+        initial={shouldReduceMotion ? false : "hidden"}
         animate="visible"
         className="relative z-10 mx-auto w-full max-w-7xl text-left"
       >
@@ -77,9 +77,9 @@ export default function HeroSection({ content }) {
           {content.badges.map((badge, i) => (
             <motion.span
               key={badge}
-              initial={{ opacity: 0, y: 14 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.62 + i * 0.045, duration: 0.35 }}
+              transition={{ delay: shouldReduceMotion ? 0 : 0.5 + i * 0.035, type: "spring", duration: 0.36, bounce: 0 }}
               className="glass-pill rounded-sm px-3.5 py-2 text-xs font-semibold tracking-tight text-pearl"
             >
               {i === 0 ? <LiveAge suffix={content.ageSuffix} /> : badge}
@@ -98,9 +98,9 @@ export default function HeroSection({ content }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.85, duration: 0.4 }}
+          transition={{ delay: shouldReduceMotion ? 0 : 0.72, duration: 0.32 }}
           className="mt-14 flex flex-row items-center gap-4 text-[10px] font-bold uppercase tracking-[0.36em] text-inkMute"
         >
           <span>{content.scroll ?? "scroll"}</span>

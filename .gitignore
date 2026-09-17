@@ -10,3 +10,7 @@ yarn-error.log*
 pnpm-debug.log*
 *.tsbuildinfo
 .next-dev*.log
+coverage
+reports
+playwright-report
+test-results

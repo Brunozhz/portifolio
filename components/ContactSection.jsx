@@ -12,7 +12,7 @@ export default function ContactSection({ content }) {
         <SectionReveal className="contact-editorial grid gap-14 border-y border-white/10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:py-20">
           <div>
             <span className="section-eyebrow">{content.eyebrow}</span>
-            <h2 className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.04] tracking-[-0.038em] text-white sm:text-5xl lg:text-[3.5rem]">{content.title}</h2>
+            <h2 className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.02] tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">{content.title}</h2>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-inkSoft">{content.text}</p>
             <p className="mt-9 font-mono text-[10px] uppercase tracking-[0.24em] text-champagne">{content.signature}</p>
           </div>

@@ -15,7 +15,7 @@ export default function TechStackSection({ content }) {
       <div className="mx-auto max-w-7xl">
         <SectionReveal className="mx-auto max-w-3xl text-center">
           <span className="section-eyebrow">{content.eyebrow}</span>
-          <h2 className="mt-3 font-display text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-white sm:text-5xl md:text-[3.45rem]">
+          <h2 className="mt-3 font-display text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-white sm:text-5xl md:text-6xl">
             <SplitText text={content.title} className="text-aurora" staggerWords={0.06} startY={28} />
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-8 text-inkSoft">

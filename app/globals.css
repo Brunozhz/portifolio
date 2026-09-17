@@ -966,6 +966,120 @@ button {
   }
 }
 
+/* Photographic editorial system: real materials, strong type and measured motion. */
+.portfolio-engineering .hero-photograph {
+  opacity: .88;
+  filter: saturate(.78) contrast(1.06) brightness(.76);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .12) 9%, #000 38%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .12) 9%, #000 38%);
+}
+
+.portfolio-engineering .hero-photograph::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #071014 0%, rgba(7, 16, 20, .93) 15%, rgba(7, 16, 20, .35) 48%, rgba(7, 16, 20, .05) 100%),
+    linear-gradient(0deg, #071014 0%, transparent 22%, transparent 76%, rgba(7, 16, 20, .68) 100%);
+}
+
+.portfolio-engineering .hero-editorial h1 {
+  max-width: 17ch;
+}
+
+.portfolio-engineering .story-section {
+  background: #0b1718;
+}
+
+.portfolio-engineering .story-photograph {
+  min-height: clamp(22rem, 48vw, 38rem);
+  border-top: 1px solid rgba(205, 234, 225, .18);
+  border-bottom: 1px solid rgba(205, 234, 225, .18);
+  background: #0b1517;
+}
+
+.portfolio-engineering .story-photograph::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(4, 10, 11, .9) 100%);
+  pointer-events: none;
+}
+
+.portfolio-engineering .story-photograph img {
+  filter: saturate(.78) contrast(1.04) brightness(.82);
+}
+
+/* A light editorial chapter keeps the portfolio from becoming one long dark surface. */
+.portfolio-engineering #technologies {
+  background: #dce5e0;
+  color: #0a1714;
+}
+
+.portfolio-engineering #technologies .text-white,
+.portfolio-engineering #technologies .text-pearl,
+.portfolio-engineering #technologies [class*="text-pearl/"],
+.portfolio-engineering #technologies .text-aurora,
+.portfolio-engineering #technologies .text-aurora-cool {
+  color: #0a1714 !important;
+}
+
+.portfolio-engineering #technologies .text-inkSoft {
+  color: #42534e !important;
+}
+
+.portfolio-engineering #technologies .text-inkMute {
+  color: #697873 !important;
+}
+
+.portfolio-engineering #technologies .text-champagne,
+.portfolio-engineering #technologies [class*="text-champagne/"] {
+  color: #176e57 !important;
+}
+
+.portfolio-engineering #technologies .section-eyebrow {
+  border-color: #176e57;
+  color: #176e57 !important;
+}
+
+.portfolio-engineering #technologies button,
+.portfolio-engineering #technologies .tech-sheet,
+.portfolio-engineering #technologies .tech-context,
+.portfolio-engineering #technologies .glass-pill {
+  border-color: rgba(10, 23, 20, .16) !important;
+}
+
+.portfolio-engineering #technologies button:hover,
+.portfolio-engineering #technologies .glass-pill:hover,
+.portfolio-engineering #technologies .glass-pill.is-selected {
+  border-color: rgba(23, 110, 87, .58) !important;
+  background: rgba(23, 110, 87, .07) !important;
+}
+
+.portfolio-engineering #technologies .tech-context {
+  background: rgba(255, 255, 255, .28) !important;
+}
+
+@media (max-width: 1023px) {
+  .portfolio-engineering .hero-photograph {
+    width: 100%;
+    opacity: .48;
+    mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+  }
+
+  .portfolio-engineering .hero-photograph::after {
+    background: linear-gradient(90deg, rgba(7, 16, 20, .96) 0%, rgba(7, 16, 20, .72) 64%, rgba(7, 16, 20, .45) 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-engineering .hero-photograph,
+  .portfolio-engineering .story-photograph > div {
+    transform: none !important;
+  }
+}
+
 @media (max-width: 640px) {
   .portfolio-editorial {
     background: var(--background);
@@ -1312,7 +1426,7 @@ button {
 
 /* Bruno's story is a continuous editorial record, not a collection of cards. */
 .portfolio-engineering .story-section {
-  background: linear-gradient(180deg, rgba(114, 215, 183, .018), transparent 28%);
+  background: #0b1718;
 }
 
 .portfolio-engineering .story-chapter {

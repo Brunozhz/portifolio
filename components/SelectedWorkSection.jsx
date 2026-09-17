@@ -33,7 +33,7 @@ export default function SelectedWorkSection({ content }) {
         <SectionReveal className="mb-14 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <span className="section-eyebrow">{content.eyebrow}</span>
-            <h2 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-[1.02] tracking-[-0.04em] text-white sm:text-5xl lg:text-[4.75rem]">
+            <h2 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-[1.04] tracking-[-0.038em] text-white sm:text-5xl lg:text-[3.65rem]">
               {content.title}
             </h2>
           </div>
@@ -57,7 +57,7 @@ export default function SelectedWorkSection({ content }) {
                 <span>{content.status}</span>
               </div>
               <p className="mt-12 font-display text-xs font-semibold uppercase tracking-[0.2em] text-inkMute">{content.projectLabel}</p>
-              <h3 className="mt-3 font-display text-5xl font-semibold tracking-[-0.05em] text-white sm:text-6xl lg:text-[5.8rem]">Klumify</h3>
+              <h3 className="mt-3 font-display text-5xl font-semibold tracking-[-0.045em] text-white sm:text-6xl lg:text-[4.6rem]">Klumify</h3>
               <p className="mt-6 max-w-xl text-xl font-medium leading-8 text-pearl sm:text-2xl sm:leading-9">
                 {content.klumify}
               </p>
@@ -70,7 +70,7 @@ export default function SelectedWorkSection({ content }) {
               <div className="klumify-preview-mist" aria-hidden="true" />
               <div className="relative text-center">
                 <p className="text-xs font-medium tracking-[0.08em] text-champagne">{content.accessRestricted}</p>
-                <h4 className="klumify-coming-soon mt-6 font-display text-5xl font-semibold tracking-[-0.045em] text-white sm:text-6xl lg:text-[4.6rem]">{content.comingSoon}</h4>
+                <h4 className="klumify-coming-soon mt-6 font-display text-5xl font-semibold tracking-[-0.04em] text-white sm:text-6xl lg:text-[3.9rem]">{content.comingSoon}</h4>
                 <p className="mx-auto mt-7 max-w-sm text-sm leading-7 text-inkSoft">{content.sealedText}</p>
                 <p className="mt-10 text-[11px] font-medium tracking-[0.06em] text-inkMute">{content.activeBuild}</p>
               </div>

@@ -1,17 +1,23 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
+import { useRef } from "react";
 import LiveAge from "@/components/LiveAge";
 import SectionReveal from "@/components/SectionReveal";
 
 export default function StorySection({ content }) {
+  const imageRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: imageRef, offset: ["start end", "end start"] });
+  const imageY = useTransform(scrollYProgress, [0, 1], [-34, 34]);
+
   return (
     <section id="story" className="story-section relative px-5 py-28 sm:px-6 lg:px-8 lg:py-36">
       <div className="mx-auto max-w-7xl">
         <SectionReveal className="grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(18rem,0.75fr)] lg:items-end">
           <div>
             <span className="section-eyebrow">{content.eyebrow}</span>
-            <h2 className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.03] tracking-[-0.04em] text-white sm:text-5xl lg:text-[4.45rem]">
+            <h2 className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.04] tracking-[-0.038em] text-white sm:text-5xl lg:text-[3.55rem]">
               {content.title}
             </h2>
           </div>
@@ -21,6 +27,23 @@ export default function StorySection({ content }) {
               {content.ageLabel} · <LiveAge suffix={content.ageSuffix} />
             </p>
           </div>
+        </SectionReveal>
+
+        <SectionReveal className="mt-16">
+          <figure ref={imageRef} className="story-photograph relative overflow-hidden">
+            <motion.div style={{ y: imageY }} className="absolute -inset-y-10 inset-x-0">
+              <Image
+                src="/images/learning-workbench.webp"
+                alt={content.imageAlt}
+                fill
+                sizes="(max-width: 1280px) 100vw, 1280px"
+                className="object-cover object-center"
+              />
+            </motion.div>
+            <figcaption className="absolute bottom-0 left-0 z-10 max-w-xl p-5 text-sm leading-6 text-pearl/85 sm:p-7">
+              {content.imageCaption}
+            </figcaption>
+          </figure>
         </SectionReveal>
 
         <div className="mt-20 border-b border-white/10">

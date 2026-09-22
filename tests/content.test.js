@@ -16,7 +16,6 @@ describe("portfolio content", () => {
     const story = getStoryContent(locale);
 
     expect(core.hero.headline).toBeTruthy();
-    expect(core.systemMap.steps).toHaveLength(4);
     expect(core.header.navLinks).toHaveLength(4);
     expect(story.chapters).toHaveLength(6);
     expect(showcase.work.projects).toHaveLength(6);

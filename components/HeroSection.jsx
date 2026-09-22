@@ -6,6 +6,7 @@ import GlowButton from "@/components/GlowButton";
 import Magnetic from "@/components/Magnetic";
 import SplitText from "@/components/SplitText";
 import LiveAge from "@/components/LiveAge";
+import VisualBackdrop from "@/components/VisualBackdrop";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 14 },
@@ -34,6 +35,7 @@ export default function HeroSection({ content }) {
       id="home"
       className="hero-editorial relative flex min-h-[100svh] items-center px-5 pb-16 pt-32 sm:px-6 lg:px-8"
     >
+      <VisualBackdrop />
       <motion.div
         style={shouldReduceMotion ? undefined : { y, opacity }}
         variants={container}

@@ -18,10 +18,9 @@ test("presents Bruno's work without narrowing his positioning", async ({ page })
 test("keeps the main sections accessible and prevents horizontal overflow", async ({ page }) => {
   await page.goto("/");
 
-  for (const id of ["system-map", "story", "work", "technologies", "contact"]) {
+  for (const id of ["story", "work", "technologies", "contact"]) {
     await expect(page.locator(`#${id}`)).toBeAttached();
   }
-  await expect(page.getByText("A system opens one layer at a time.")).toBeVisible();
 
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);

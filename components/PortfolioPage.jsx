@@ -24,6 +24,9 @@ const TechStackSection = dynamic(() => import("@/components/TechStackSection"), 
 const ContactSection = dynamic(() => import("@/components/ContactSection"), {
   loading: () => <SectionSkeleton id="contact" label="Loading contact details" />
 });
+const SystemScrollSection = dynamic(() => import("@/components/SystemScrollSection"), {
+  loading: () => <SectionSkeleton id="system-map" label="Loading system map" />
+});
 
 export default function PortfolioPage() {
   const [language, setLanguage] = useState("en");
@@ -52,6 +55,7 @@ export default function PortfolioPage() {
       <ScrollProgress />
       <Header content={content.header} language={language} onLanguageChange={setLanguage} />
       <HeroSection content={content.hero} />
+      <SystemScrollSection content={content.systemMap} />
       <StorySection content={story} />
       <SelectedWorkSection content={showcase.work} />
       <TechStackSection content={content.technologies} />

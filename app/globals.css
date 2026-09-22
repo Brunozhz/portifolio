@@ -1463,6 +1463,11 @@ button {
   pointer-events: none;
 }
 
+.hero-visual-backdrop *,
+.atmosphere-band * {
+  pointer-events: none;
+}
+
 .hero-visual-image {
   position: absolute;
   inset: -3% -2% -3% -2%;
@@ -1588,4 +1593,319 @@ button {
   .portfolio-engineering header::before {
     height: 5.9rem;
   }
+}
+
+/* Editorial black / white / blue system. The page is a composition, not a dashboard. */
+.portfolio-engineering {
+  --background: #050608;
+  --background-deep: #020306;
+  --panel: #0a0c10;
+  --panel-soft: #10141c;
+  --panel-glass: rgba(7, 9, 13, .84);
+  --ink: #f4f5f7;
+  --ink-soft: #adb5c2;
+  --ink-mute: #687281;
+  --champagne: #6f98ff;
+  --pearl: #f4f5f7;
+  --line: rgba(244, 245, 247, .14);
+  --line-strong: rgba(244, 245, 247, .28);
+  --electric-blue: #5f8dff;
+  --soft-blue: #a7c0ff;
+  background: #050608;
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+}
+
+.portfolio-engineering::before {
+  background:
+    radial-gradient(ellipse at 82% 6%, rgba(65, 107, 255, .17), transparent 25%),
+    radial-gradient(ellipse at 12% 46%, rgba(38, 67, 137, .12), transparent 28%);
+  opacity: .8;
+}
+
+.portfolio-engineering section:not(#home) {
+  border-top-color: rgba(244, 245, 247, .12);
+}
+
+.portfolio-engineering h1,
+.portfolio-engineering h2,
+.portfolio-engineering h3,
+.portfolio-engineering h4 {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -.045em;
+}
+
+.portfolio-engineering .section-eyebrow,
+.portfolio-engineering .font-mono,
+.portfolio-engineering [class*="tracking-[0.2em]"],
+.portfolio-engineering [class*="tracking-[0.22em]"],
+.portfolio-engineering [class*="tracking-[0.24em]"] {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+.portfolio-engineering .section-eyebrow {
+  color: var(--electric-blue) !important;
+  border-left-color: var(--electric-blue) !important;
+  letter-spacing: .14em;
+}
+
+.portfolio-engineering .text-champagne,
+.portfolio-engineering [class*="text-champagne/"] {
+  color: var(--electric-blue) !important;
+}
+
+.portfolio-engineering .text-aurora,
+.portfolio-engineering .text-aurora-cool {
+  color: var(--ink);
+  background: linear-gradient(110deg, #ffffff 5%, #f3f5fb 58%, #8aa9ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.portfolio-engineering .hero-editorial {
+  min-height: min(100svh, 62rem);
+  border-bottom: 1px solid rgba(244, 245, 247, .14);
+  background: #050608;
+}
+
+.portfolio-engineering .hero-editorial::before,
+.portfolio-engineering .hero-blueprint {
+  display: none;
+}
+
+.portfolio-engineering .hero-visual-wash {
+  background:
+    linear-gradient(90deg, #050608 0%, rgba(5, 6, 8, .98) 25%, rgba(5, 6, 8, .72) 49%, rgba(5, 6, 8, .1) 84%),
+    linear-gradient(180deg, rgba(2, 3, 6, .86), transparent 36%, rgba(2, 3, 6, .94) 100%);
+}
+
+.portfolio-engineering .hero-visual-grain {
+  opacity: .45;
+  background: radial-gradient(circle at 72% 38%, rgba(95, 141, 255, .26), transparent 22%), linear-gradient(120deg, transparent 42%, rgba(255, 255, 255, .035));
+}
+
+.portfolio-engineering header::before {
+  height: 5.8rem;
+  border-bottom-color: rgba(244, 245, 247, .12);
+  background: rgba(3, 4, 7, .76);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+}
+
+.portfolio-engineering header nav a:hover,
+.portfolio-engineering header a[href="#contact"]:hover,
+.portfolio-engineering header button:hover {
+  color: var(--electric-blue) !important;
+}
+
+.portfolio-engineering .brand-mark { border-color: rgba(95, 141, 255, .48); background: #080a10; }
+.portfolio-engineering .brand-mark::before,
+.portfolio-engineering .brand-mark-core { background: var(--electric-blue); }
+.portfolio-engineering .brand-mark-core { box-shadow: 0 0 0 3px rgba(95,141,255,.18), 0 0 22px rgba(95,141,255,.8); }
+.portfolio-engineering .brand-mark::after { background: #050608; }
+
+.portfolio-engineering .hero-editorial .button-shine[href="#work"],
+.portfolio-engineering .hero-editorial .button-shine[href="#story"] {
+  background: #f4f5f7 !important;
+  color: #050608 !important;
+  box-shadow: 0 14px 45px rgba(95, 141, 255, .22) !important;
+}
+
+.portfolio-engineering .hero-editorial .button-shine[href="#about"] {
+  border-color: rgba(244, 245, 247, .3) !important;
+  background: rgba(244, 245, 247, .04) !important;
+  color: var(--ink) !important;
+}
+
+.portfolio-engineering .story-section,
+.portfolio-engineering #work,
+.portfolio-engineering #technologies,
+.portfolio-engineering #contact {
+  background: transparent;
+}
+
+.portfolio-engineering .story-section::after,
+.portfolio-engineering #technologies::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 12%;
+  width: min(38vw, 36rem);
+  height: 70%;
+  pointer-events: none;
+  background: radial-gradient(ellipse, rgba(50, 88, 190, .16), transparent 68%);
+  filter: blur(18px);
+  opacity: .7;
+}
+
+.portfolio-engineering .story-chapter {
+  border-top-color: rgba(244, 245, 247, .14);
+  transition: border-color .3s ease, transform .3s ease, background-color .3s ease;
+}
+
+.portfolio-engineering .story-chapter:hover {
+  border-top-color: rgba(95, 141, 255, .72);
+  background: linear-gradient(90deg, rgba(95, 141, 255, .08), transparent 72%);
+  transform: translateX(8px);
+}
+
+.portfolio-engineering .story-ending aside {
+  border-top-color: rgba(95, 141, 255, .62);
+}
+
+.portfolio-engineering #work::before {
+  content: "";
+  position: absolute;
+  right: -10vw;
+  top: 14rem;
+  width: min(74vw, 64rem);
+  height: 32rem;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(95, 141, 255, .1)), url("/images/ai-sculpture-blue-v1.png") center / cover no-repeat;
+  opacity: .2;
+  filter: saturate(.9) contrast(1.08);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 25%, #000 76%, transparent 100%);
+}
+
+.portfolio-engineering .flagship-card {
+  border: 0 !important;
+  border-top: 1px solid rgba(244, 245, 247, .24) !important;
+  border-bottom: 1px solid rgba(244, 245, 247, .14) !important;
+  border-radius: 0 !important;
+  background: #07090e !important;
+  box-shadow: 0 34px 100px -44px rgba(0, 0, 0, .75) !important;
+}
+
+.portfolio-engineering .flagship-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 44%;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #07090e 0%, rgba(7, 9, 14, .45) 24%, transparent 65%), url("/images/ai-sculpture-blue-v1.png") center / cover no-repeat;
+  opacity: .44;
+  mix-blend-mode: screen;
+}
+
+.portfolio-engineering .flagship-card::after,
+.portfolio-engineering .flagship-grid { display: none; }
+.portfolio-engineering .flagship-card > * { position: relative; z-index: 1; }
+
+.portfolio-engineering .klumify-preview {
+  border-left-color: rgba(244, 245, 247, .18) !important;
+  background: linear-gradient(135deg, rgba(95, 141, 255, .1), transparent 62%);
+}
+
+.portfolio-engineering .klumify-preview-mist {
+  inset: 14%;
+  border-color: rgba(95, 141, 255, .35);
+  background: rgba(95, 141, 255, .06);
+  box-shadow: 0 0 70px rgba(95, 141, 255, .12), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.portfolio-engineering .project-entry {
+  border-top-color: rgba(244, 245, 247, .16);
+  border-radius: 0 !important;
+  background: transparent !important;
+  transition: border-color .3s ease, padding-left .3s ease;
+}
+
+.portfolio-engineering .project-entry:hover {
+  border-top-color: rgba(95, 141, 255, .7);
+}
+
+.portfolio-engineering .project-entry button > div > span {
+  border-radius: 0 !important;
+  border-color: rgba(244, 245, 247, .2) !important;
+}
+
+.portfolio-engineering .tech-sheet {
+  border-color: rgba(244, 245, 247, .16);
+  background: linear-gradient(135deg, rgba(95, 141, 255, .05), transparent 62%);
+}
+
+.portfolio-engineering #technologies button,
+.portfolio-engineering #technologies .glass-pill,
+.portfolio-engineering #technologies .tech-context,
+.portfolio-engineering #work .rounded-xl,
+.portfolio-engineering #work .rounded-2xl,
+.portfolio-engineering #work .rounded-full {
+  border-radius: 0 !important;
+}
+
+.portfolio-engineering #technologies .glass-pill {
+  border-color: rgba(244, 245, 247, .16);
+  background: rgba(244, 245, 247, .025);
+  transition: transform .3s cubic-bezier(.22,1,.36,1), border-color .3s ease, background-color .3s ease;
+}
+
+.portfolio-engineering #technologies .glass-pill:hover,
+.portfolio-engineering #technologies .glass-pill.is-selected {
+  border-color: rgba(95, 141, 255, .82);
+  background: rgba(95, 141, 255, .12);
+}
+
+.portfolio-engineering .contact-editorial {
+  border-color: rgba(244, 245, 247, .2);
+}
+
+.portfolio-engineering .contact-link:hover {
+  color: var(--electric-blue) !important;
+  padding-left: .75rem;
+}
+
+.portfolio-engineering .scroll-progress {
+  background: linear-gradient(90deg, #ffffff, var(--electric-blue));
+  box-shadow: 0 0 18px rgba(95, 141, 255, .68);
+}
+
+.atmosphere-band {
+  position: relative;
+  min-height: min(54vw, 34rem);
+  margin: 1rem 0 2rem;
+  overflow: hidden;
+  isolation: isolate;
+  clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%);
+  background: #050608;
+}
+
+.atmosphere-band-image {
+  position: absolute;
+  inset: -8% -2%;
+  transform-origin: 50% 50%;
+}
+
+.atmosphere-band-image img { object-fit: cover; object-position: center; }
+
+.atmosphere-band-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(5, 6, 8, .92), rgba(5, 6, 8, .08) 54%, rgba(5, 6, 8, .78)), linear-gradient(180deg, rgba(5,6,8,.35), rgba(5,6,8,.12) 50%, rgba(5,6,8,.85));
+}
+
+.atmosphere-band-line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(95, 141, 255, .9), transparent);
+  opacity: .82;
+}
+
+.atmosphere-band-line-a { left: 8%; right: 32%; top: 22%; transform: rotate(-3deg); }
+.atmosphere-band-line-b { left: 42%; right: 8%; bottom: 18%; transform: rotate(4deg); opacity: .55; }
+
+@media (max-width: 700px) {
+  .portfolio-engineering .hero-editorial { min-height: 100svh; }
+  .portfolio-engineering .hero-visual-wash { background: linear-gradient(90deg, #050608 0%, rgba(5,6,8,.96) 52%, rgba(5,6,8,.32) 100%), linear-gradient(180deg, rgba(2,3,6,.88), rgba(2,3,6,.92)); }
+  .portfolio-engineering .flagship-card::before { inset: 42% 0 0; opacity: .3; }
+  .portfolio-engineering .klumify-preview { border-left: 0 !important; border-top: 1px solid rgba(244,245,247,.18) !important; }
+  .atmosphere-band { min-height: 58vw; margin-inline: -1.25rem; clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%); }
+  .atmosphere-band-image { inset: -10% -28%; }
+  .portfolio-engineering .story-chapter:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere-band-image { transform: none !important; }
+  .portfolio-engineering .story-chapter:hover,
+  .portfolio-engineering .contact-link:hover { transform: none; }
 }

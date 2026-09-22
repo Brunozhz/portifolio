@@ -11,6 +11,7 @@ import HeroSection from "@/components/HeroSection";
 import ScrollProgress from "@/components/ScrollProgress";
 import SectionSkeleton from "@/components/SectionSkeleton";
 import WebVitals from "@/components/WebVitals";
+import AtmosphereBand from "@/components/AtmosphereBand";
 
 const StorySection = dynamic(() => import("@/components/StorySection"), {
   loading: () => <SectionSkeleton id="story" label="Loading Bruno's story" />
@@ -53,6 +54,7 @@ export default function PortfolioPage() {
       <Header content={content.header} language={language} onLanguageChange={setLanguage} />
       <HeroSection content={content.hero} />
       <StorySection content={story} />
+      <AtmosphereBand />
       <SelectedWorkSection content={showcase.work} />
       <TechStackSection content={content.technologies} />
       <ContactSection content={content.contact} />

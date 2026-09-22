@@ -1,10 +1,17 @@
-import { Manrope, Syne } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 
-const display = Syne({
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-display",
+  display: "swap"
+});
+
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-mono",
   display: "swap"
 });
 
@@ -54,7 +61,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   const structuredData = { "@context": "https://schema.org", "@type": "Person", name: "Bruno Steiger", url: "https://portifolio-bruno-36.vercel.app", homeLocation: { "@type": "Place", name: "Navegantes, Santa Catarina, Brazil" }, knowsAbout: ["Artificial intelligence", "Automation", "CRM", "APIs", "Payment infrastructure", "Software development"] };
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />{children}</body>
     </html>
   );
